@@ -19,19 +19,19 @@
              <button open-type='getUserInfo' bindgetuserinfo="login"></button>
           </view>
           <view class="game-related">
-              <view class="game-start" bindtap='navigateToStart'>
+              <view animation="{{gameStart_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="0" bindtouchcancel='end' class="game-start"  bindtap='navigateToStart'>
                   <image src="../../assets/images/game-start.png"></image>
                   <view class="game-challenge-times">当前共有 10 次挑战</view>
               </view>
-              <view class="game-excite">
-                  <image src='../../assets/images/game-rank.png' bindtap='navigateToRank'></image>
-                  <view class="game-prize" bindtap='navigateToPrize'>
+              <view class="game-excite" >
+                  <image src='../../assets/images/game-rank.png' bindtap='navigateToRank' animation="{{rank_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="1" bindtouchcancel='end'></image>
+                  <view animation="{{prize_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="2" bindtouchcancel='end' class="game-prize" bindtap='navigateToPrize'>
                        <image src='../../assets/images/game-prize.png'></image>
                        <view class="game-prize-text">免费换娃娃</view>
                   </view>
               </view>
           </view>
-          <view class="invite">
+          <view class="invite" animation="{{invateFriend_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="3" bindtouchcancel='end'>
              <image src='../../assets/images/invite-friend.png'></image>
              <view class="invite-text">分享给朋友一起来挑战</view>
              <button open-type='share'></button>

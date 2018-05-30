@@ -24,6 +24,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 600rpx;
+  font-size: 330rpx;
+}
+
+.time-num > view {
+    text-align: center;
+    width: 100%;
 }
 

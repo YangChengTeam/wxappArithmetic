@@ -63,41 +63,50 @@ Page({
       timingFunction: 'ease',
     })
     this.animation0 = animation0
-    animation0.scale(0.2, 0.2).step()
+    animation0.scale(0.5, 0.5).step()
     animation0.opacity(0).step()
 
-  
-    co(function*(){
-      yield kkpromise.setData(thiz, {
+    setTimeout(() => {
+      thiz.setData({
         currentNumber: 3
+      }, () => {
+        thiz.setData({
+          animationData3: thiz.animation3.export()
+        })
       })
+    }, 500)
 
-      yield kkpromise.setData(thiz, {
-        animationData3: thiz.animation3.export()
-      })
-
-      yield kkpromise.sleep(1500)
-      yield kkpromise.setData(thiz, {
+    setTimeout(()=>{
+      thiz.setData({
         currentNumber: 2
+      }, () => {
+        thiz.setData({
+          animationData2: thiz.animation2.export()
+        })
       })
-      yield kkpromise.setData(thiz, {
-        animationData2: thiz.animation2.export()
-      })
-      yield kkpromise.sleep(1500)
-      yield kkpromise.setData(thiz, {
+    }, 1800)
+
+    setTimeout(() => {
+      thiz.setData({
         currentNumber: 1
+      }, () => {
+        thiz.setData({
+          animationData1: thiz.animation1.export()
+        })
       })
-      yield kkpromise.setData(thiz, {
-        animationData1: thiz.animation1.export()
-      })
-      yield kkpromise.sleep(1500)
-      yield kkpromise.setData(thiz, {
-          currentNumber: 0
-      })
-      yield kkpromise.setData(thiz, {
+    }, 3130)
+
+    setTimeout(() => {
+      thiz.setData({
+        currentNumber: 0
+      }, () => {
+        thiz.setData({
           animationStart: thiz.animation0.export()
+        })
       })
-    })
+    }, 3700)
+  
+    
   },
 
   /**
