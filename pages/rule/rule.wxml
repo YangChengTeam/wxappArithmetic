@@ -1,0 +1,34 @@
+<!--pages/rule/rule.wxml-->
+<view class="container">
+     <image class="main-bg" src='../../assets/images/main-bg.jpg' ></image>
+     <view class="main-content">
+         <view class="rule-list">
+             <view class="rule-list-item">
+                <view class="rule-num">1</view>
+                <view class="rule-desp">由于微信版本更新，可能会导致小程序的某些
+功能出现异常，请退出微信后重新打开</view>
+             </view>
+              <view class="rule-list-item">
+                <view class="rule-num">2</view>
+                <view class="rule-desp">由于微信版本更新，可能会导致小程序的某些
+功能出现异常，请退出微信后重新打开</view>
+             </view>
+              <view class="rule-list-item">
+                <view class="rule-num">3</view>
+                <view class="rule-desp">由于微信版本更新，可能会导致小程序的某些
+功能出现异常，请退出微信后重新打开</view>
+             </view>
+              <view class="rule-list-item">
+                <view class="rule-num">4</view>
+                <view class="rule-desp">由于微信版本更新，可能会导致小程序的某些
+功能出现异常，请退出微信后重新打开</view>
+             </view>
+              <view class="rule-list-item">
+                <view class="rule-num">5</view>
+                <view class="rule-desp">由于微信版本更新，可能会导致小程序的某些
+功能出现异常，请退出微信后重新打开</view>
+             </view>
+         </view>
+         <button class="contact" open-type="contact">联系客服</button>
+     </view>
+</view>

@@ -1,0 +1,114 @@
+/* pages/prize/prize.wxss */
+.swiper-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.tab {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #29128a;
+  width: 660rpx;
+  height: 100rpx;
+  border-radius: 50rpx;
+}
+
+.tab-item {
+   font-size: 30rpx;
+   width: 320rpx;
+   height: 80rpx;
+   line-height: 80rpx;
+   text-align: center;
+}
+
+.tab-item-current {
+  background-color: #ff5686;
+  border-radius: 40rpx;
+  font-weight: bold;
+}
+
+.swiper-content > swiper {
+  width: 100%;
+  height: 91.6%;
+}
+
+.prize-list {
+   width: 100%;
+}
+
+.prize-list-item {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   width: 660rpx;
+   height: 360rpx;
+   background-color: #8271c8;
+   border-radius: 20rpx;
+   margin-left: 45rpx;
+   margin-top: 30rpx;
+}
+
+.prize-list-item:last-child {
+   margin-bottom: 30rpx;
+}
+
+.prize-list-item:first-child {
+   margin-top: 20rpx;
+}
+
+.prize-info {
+    display: flex;
+    flex-direction: column;
+    width: 640rpx;
+    height: 340rpx;
+    border-radius: 15rpx;
+    background-color: #ffffff;
+}
+
+.prize-info > image {
+   width: 100%;
+   height: 260rpx;
+   background-color: #000;
+   border-top-left-radius: 15rpx;
+   border-top-right-radius: 15rpx;
+}
+
+.prize-desp {
+   width: 100%;
+   height: 80rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: space-around;
+}
+
+.prize-name {
+   color: #000;
+   font-size: 32rpx;
+   margin-left: 30rpx;
+   width: 430rpx;
+}
+
+
+
+.prize-desp > button {
+   height: 60rpx;
+   width: 150rpx;
+   border-radius: 30rpx;
+   background-color: #fa5283;
+   font-size: 30rpx;
+   color: #fff;
+   line-height: 60rpx;
+}
+
+
+
+.scroll-views {
+   height: 100%;
+}

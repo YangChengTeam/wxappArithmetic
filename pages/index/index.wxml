@@ -1,0 +1,44 @@
+<!--index.wxml-->
+<view class="container">
+     <image class="main-bg" src='../../assets/images/main-bg.jpg'></image>
+     <view class="main-content">
+          <view class="user-related">
+               <image src="../../assets/images/userinfo-bg.png"></image>
+               <view class="user-info-wrap">
+               <view class="user-info">
+                  <image class="user-head" src="../../assets/images/avatar.png"></image>
+                  <view class="user-desp">
+                      <view class="username">请登录</view>
+                      <view class="user-game-info">
+                          <view class="user-challenge-times">挑战次数: 0次</view>
+                          <view class="user-score">挑战币: 0枚</view>
+                      </view>
+                  </view>    
+               </view>
+             </view>
+             <button open-type='getUserInfo' bindgetuserinfo="login"></button>
+          </view>
+          <view class="game-related">
+              <view class="game-start" bindtap='navigateToStart'>
+                  <image src="../../assets/images/game-start.png"></image>
+                  <view class="game-challenge-times">当前共有 10 次挑战</view>
+              </view>
+              <view class="game-excite">
+                  <image src='../../assets/images/game-rank.png' bindtap='navigateToRank'></image>
+                  <view class="game-prize" bindtap='navigateToPrize'>
+                       <image src='../../assets/images/game-prize.png'></image>
+                       <view class="game-prize-text">免费换娃娃</view>
+                  </view>
+              </view>
+          </view>
+          <view class="invite">
+             <image src='../../assets/images/invite-friend.png'></image>
+             <view class="invite-text">分享给朋友一起来挑战</view>
+             <button open-type='share'></button>
+          </view>
+          <view class="more" >
+             <image src='../../assets/images/more.png' bindtap='navigateToMore'></image>
+             <image src='../../assets/images/game-rule.png' bindtap='navigateToRule'></image>
+          </view>
+     </view>
+</view>

@@ -1,0 +1,41 @@
+/* pages/rule/rule.wxss */
+.rule-list {
+   width: 100%;
+   margin-bottom: 100rpx;
+}
+.rule-list-item {
+   display: flex;
+   flex-direction: row;
+   width: 100%;
+   align-items: center;
+   justify-content: flex-start;
+   margin-top: 90rpx;
+}
+
+.rule-list-item:first-child {
+   margin-top: 20rpx;
+}
+
+.rule-num {
+   width: 116rpx;
+   height: 70rpx;
+   border-radius: 50%;
+   background-color: white;
+   color: #382198;
+   font-size: 30rpx;
+   text-align: center;
+   line-height: 70rpx;
+}
+
+.rule-desp {
+   font-size: 24rpx;
+   margin-left: 50rpx;
+}
+
+.contact {
+   width: 220rpx;
+   height: 70rpx;
+   border-radius: 35rpx;
+   font-size: 30rpx;
+   color: #382198;
+}

@@ -1,0 +1,169 @@
+/* pages/user_center/user_center.wxss */
+.user-related {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+   height: 330rpx;
+   position: relative;
+}
+
+.user-related > button {
+   width: 660rpx;
+   height: 330rpx;
+   left: 0;
+   top: 0;
+   position: absolute;
+   opacity: 0;
+}
+
+.user-related > image {
+   position: absolute;
+   left: 0;
+   top:0;
+   width: 100%;
+   height: 100%;
+}
+
+.user-info-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top:0;
+}
+
+.user-info {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   height: 100%;
+}
+
+.user-head {
+   width: 120rpx;
+   height: 120rpx;
+   border-radius: 50%;
+   border: solid 6rpx #f9adc8;
+}
+
+.username {
+   font-size: 30rpx;
+   margin-top: 5rpx;
+}
+
+
+.user-game-info {
+   display: flex;
+   width: 100%;
+   flex-direction: row;
+   font-size: 24rpx;
+   margin-top: 10rpx;
+}
+
+.user-game-info-item {
+   width: 33.3%;
+   text-align: center;
+}
+
+.user-game-info-item > view {
+   font-size: 24rpx;
+}
+
+.user-game-info-item > .num {
+   margin-bottom: 5rpx;
+   font-size: 32rpx;
+}
+
+.more-header {
+  display: flex;
+  width: 100%;
+  height: 40rpx;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.more-header > .line {
+   width: 140rpx;
+   height: 2rpx;
+   background-color: #fff;
+}
+
+.more-header > .title {
+   font-size: 36rpx;
+   margin-left: 30rpx;
+   margin-right: 30rpx;
+}
+
+.more-list-item {
+   display: flex;
+   flex-direction: row;
+   width: 100%;
+   height: 180rpx;
+   border-radius: 15rpx;
+   background-color: #fff;
+   align-items: center;
+   justify-content: center;
+   margin-bottom: 30rpx;
+}
+
+.wxapp-head {
+   width: 120rpx;
+   height: 120rpx;
+   border-radius: 50%;
+   margin-left: 25rpx;
+}
+
+.wxapp-info {
+   display: flex;
+   flex-direction: column;
+   width: 320rpx;
+   margin-left: 20rpx;
+}
+
+.wxapp-info > .wxapp-name {
+   font-size: 30rpx;
+   color: #000;
+   
+}
+
+.wxapp-info > .wxapp-desp {
+   font-size: 18rpx;
+   color: #999;
+}
+
+
+.more-list-item > button {
+   height: 70rpx;
+   width: 134rpx;
+   border-radius: 35rpx;
+   background-color: #fa5283;
+   font-size: 24rpx;
+   color: #fff;
+   line-height: 70rpx;
+}
+
+.report {
+   display: flex;
+   flex-direction: row;
+   width: 100%;
+   height: 40rpx;
+   align-items: center;
+   justify-content: center;
+   margin-top: 80rpx;
+   font-size: 30rpx;
+}
+
+.report > image {
+   width: 31rpx;
+   height: 37rpx;
+   margin-right: 10rpx;
+}

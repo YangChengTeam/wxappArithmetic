@@ -1,0 +1,21 @@
+<!--pages/start/start.wxml-->
+<view class="container">
+      <image class="main-bg" src='../../assets/images/main-bg.jpg' ></image>
+      <view class="main-content">
+          <view class="time-content">
+               <image src="../../assets/images/start-foot-bg.png"></image>
+               <view class="time-num" wx:if="{{currentNumber == 3}}">
+                  <view animation="{{animationData3}}">3</view>
+               </view>
+               <view class="time-num" wx:if="{{currentNumber == 2}}">
+                  <view animation="{{animationData2}}">2</view>
+               </view>
+               <view class="time-num" wx:if="{{currentNumber == 1}}">
+                  <view animation="{{animationData1}}">1</view>
+               </view>
+               <view class="time-num" wx:if="{{currentNumber == 0}}">
+                  <view animation="{{animationStart}}">开始</view>
+               </view>
+          </view>
+      </view>
+</view>

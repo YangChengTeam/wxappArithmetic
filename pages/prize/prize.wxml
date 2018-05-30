@@ -1,0 +1,97 @@
+<!--pages/prize/prize.wxml-->
+<view class="container">
+     <image class="main-bg" src='../../assets/images/main-bg.jpg' ></image>
+     <view class="swiper-content">
+          <view class="tab">
+              <view bindtap='tabPage' class='tab-item {{currentNumber == 0 ? "tab-item-current" : ""}}' data-index='0'>挑战领奖</view>
+              <view bindtap='tabPage' class='tab-item {{currentNumber == 1 ? "tab-item-current" : ""}}' data-index='1'>领奖记录</view>
+          </view>
+          <swiper current='{{currentIndex}}' bindchange="switchPage">
+              <swiper-item>
+                 <scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>
+                  <view class="prize-list">
+                       <view class="prize-list-item">
+                            <view class="prize-info">
+                                <image src=""></image>
+                                <view class="prize-desp">
+                                   <view class="prize-name">
+                                   娃娃
+                                   </view>
+                                   <button>兑换</button>
+                                </view>
+                            </view>
+                           
+                       </view>
+                       <view class="prize-list-item">
+                            <view class="prize-info">
+                                <image src=""></image>
+                                <view class="prize-desp">
+                                   <view class="prize-name">
+                                   娃娃
+                                   </view>
+                                   <button>兑换</button>
+                                </view>
+                            </view>
+                           
+                       </view>
+                       <view class="prize-list-item">
+                            <view class="prize-info">
+                                <image src=""></image>
+                                <view class="prize-desp">
+                                   <view class="prize-name">
+                                   娃娃
+                                   </view>
+                                   <button>兑换</button>
+                                </view>
+                            </view>
+                           
+                       </view>
+                  </view>
+                  </scroll-view>
+              </swiper-item>
+              <swiper-item>
+                 <scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>
+                  <view class="prize-list">
+                       <view class="prize-list-item">
+                            <view class="prize-info">
+                                <image src=""></image>
+                                <view class="prize-desp">
+                                   <view class="prize-name">
+                                   娃娃
+                                   </view>
+                                   <button>兑换</button>
+                                </view>
+                            </view>
+                           
+                       </view>
+                       <view class="prize-list-item">
+                            <view class="prize-info">
+                                <image src=""></image>
+                                <view class="prize-desp">
+                                   <view class="prize-name">
+                                   娃娃
+                                   </view>
+                                   <button>兑换</button>
+                                </view>
+                            </view>
+                           
+                       </view>
+                       <view class="prize-list-item">
+                            <view class="prize-info">
+                                <image src=""></image>
+                                <view class="prize-desp">
+                                   <view class="prize-name">
+                                   娃娃
+                                   </view>
+                                   <button>兑换</button>
+                                </view>
+                            </view>
+                           
+                       </view>
+                  </view>
+                  </scroll-view>
+              </swiper-item>   
+          </swiper>
+     </view>
+</view>
+

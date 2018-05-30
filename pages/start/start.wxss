@@ -1,0 +1,29 @@
+/* pages/start/start.wxss */
+.time-content {
+   background-color: #775ee0;
+   width: 100%;
+   height: 810rpx;
+   position: relative;
+   border-radius: 25rpx;
+}
+
+.time-content > image {
+   width: 100%;
+   height: 37rpx;
+   position: absolute;
+   bottom: 0rpx;
+   left: 0;
+}
+
+.time-num {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top:0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 600rpx;
+}
+
