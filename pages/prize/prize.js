@@ -82,8 +82,18 @@ Page({
         success(res){ 
            if(res.confirm){
              thiz.data.changeInfo.id = id
-             thiz.data.changeInfo.money = money
-             thiz.toogleContact(1)
+             thiz.data.changeInfo.money = money 
+             wx.chooseAddress({
+               success(res) {
+                 thiz.data.changeInfo.name = res.userName
+                 thiz.data.changeInfo.contact = res.telNumber
+                 thiz.data.changeInfo.address = `${res.provinceName}${res.cityName}${res.countyName}${res.detailInfo}   邮编:${res.postalCode}`
+                 thiz.submit()
+               },
+               fail(){
+                 thiz.toogleContact(1)
+               }
+             })
            }
         }
       })
@@ -135,6 +145,7 @@ Page({
         title: '正在提交...',
         mask: true
       })
+      
       let changeData = yield kkservice.changeGift(thiz.data.changeInfo)
       wx.hideLoading()
       if (changeData && changeData.data && changeData.data.code == 1) {
@@ -149,6 +160,9 @@ Page({
           complete(){
             thiz.toogleContact(0)
             thiz.loadPrizeRecordList();
+            wx.navigateTo({
+              url: '/pages/rule/rule',
+            })
           }
         })
 
