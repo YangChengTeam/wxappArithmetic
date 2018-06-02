@@ -50,7 +50,6 @@ Page({
    */
   onReady: function () {
     questions = kkgen.genQuestionInfos(this.data.count)
-    console.log(questions)
     this.setData({
         questionInfo: questions[0]
     })
@@ -61,11 +60,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (this.musicStatus == "off"){
+    if (this.data.musicStatus == "off"){
+      this.data.musicStatus = "on"
       this.backgroundMusicPlay()
     }
-    this.musicStatus = "on"
-   
   },
   playMuisc(){
     if (this.innerAudioContext) {
@@ -83,7 +81,7 @@ Page({
     }
   },
   playMusic(src, loop = false){
-      if (this.musicStatus != "on"){
+      if (this.data.musicStatus != "on"){
           this.stopMusic()
           return
       }
@@ -219,7 +217,7 @@ Page({
     }, 5500)
   },
   inVisiable(){
-    this.musicStatus = "off"
+    this.data.musicStatus = "off"
     this.stopMusic();
     if (this.loopInnerAudioContext) {
       this.loopInnerAudioContext.stop()
