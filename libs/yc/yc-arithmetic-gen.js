@@ -76,7 +76,7 @@ function ramdomQuestion(base, n){
    if(i == 0){
       let result = a + b
       getQuestionStr(question, j, result, a, b, c, d)
-   } else{
+   } else {
       let result = a - b;
       d = "-"
       getQuestionStr(question, j, result, a, b, c, d)
