@@ -10,88 +10,61 @@
               <swiper-item>
                  <scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>
                   <view class="prize-list">
-                       <view class="prize-list-item">
+                       <view class="prize-list-item" wx:for="{{prizeList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
                             <view class="prize-info">
-                                <image src=""></image>
+                                <image src="{{item.img}}"></image>
                                 <view class="prize-desp">
                                    <view class="prize-name">
-                                   娃娃
+                                   {{item.name}}
                                    </view>
-                                   <button>兑换</button>
-                                </view>
-                            </view>
-                           
-                       </view>
-                       <view class="prize-list-item">
-                            <view class="prize-info">
-                                <image src=""></image>
-                                <view class="prize-desp">
-                                   <view class="prize-name">
-                                   娃娃
+                                   <view class="prize-money">
+                                   {{item.money}}枚挑战币
                                    </view>
-                                   <button>兑换</button>
-                                </view>
-                            </view>
-                           
-                       </view>
-                       <view class="prize-list-item">
-                            <view class="prize-info">
-                                <image src=""></image>
-                                <view class="prize-desp">
-                                   <view class="prize-name">
-                                   娃娃
-                                   </view>
-                                   <button>兑换</button>
+                                   <button open-type='getUserInfo' bindgetuserinfo="excahngePrize"  data-id='{{item.id}}' data-money='{{item.money}}'>兑换</button>
                                 </view>
                             </view>
                            
                        </view>
                   </view>
+                  <view class="prize-footer"></view>
                   </scroll-view>
               </swiper-item>
               <swiper-item>
                  <scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>
                   <view class="prize-list">
-                       <view class="prize-list-item">
+                       <view class="prize-list-item" wx:for="{{prizeRecordList}}" wx:for-index="index" wx:for-item="item" wx:key="gift_id">
                             <view class="prize-info">
-                                <image src=""></image>
+                                <image src="{{item.gift_img}}"></image>
                                 <view class="prize-desp">
                                    <view class="prize-name">
-                                   娃娃
+                                   {{item.gift_name}}
                                    </view>
-                                   <button>兑换</button>
-                                </view>
-                            </view>
-                           
-                       </view>
-                       <view class="prize-list-item">
-                            <view class="prize-info">
-                                <image src=""></image>
-                                <view class="prize-desp">
-                                   <view class="prize-name">
-                                   娃娃
+                                   <view class="prize-money">
+                                  
                                    </view>
-                                   <button>兑换</button>
-                                </view>
-                            </view>
-                           
-                       </view>
-                       <view class="prize-list-item">
-                            <view class="prize-info">
-                                <image src=""></image>
-                                <view class="prize-desp">
-                                   <view class="prize-name">
-                                   娃娃
-                                   </view>
-                                   <button>兑换</button>
+                                   <view class="status">{{ item.status == 1 ? '待发货' : (status==2 ? '已发货' : '已收货') }}</view> 
                                 </view>
                             </view>
                            
                        </view>
                   </view>
+                  <view class="prize-footer"></view>
                   </scroll-view>
-              </swiper-item>   
+              </swiper-item> 
           </swiper>
      </view>
+      <view class="mask" animation="{{animationDataMaskContact}}">
+          <view class="mask-content-wrap" animation="{{animationDataContact}}">
+               <view class="mask-content">
+                   <view class="title">请填写收货信息</view>
+                   <input class="name" placeholder='请输入收货人姓名' bindinput='inputName'></input>
+                   <input class="contact" placeholder='请输入收货人联系方式' bindinput='inputContact'></input>
+                   <input class="address" placeholder='请输入收货地址' bindinput='inputAddress'></input>
+                   <view class="submit" bindtap='submit'>确定</view>
+               </view>
+               <image class="close" src='../../assets/images/close.png' bindtap='closeContact'></image>
+          </view>
+      </view>
+
 </view>
 

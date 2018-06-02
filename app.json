@@ -5,7 +5,8 @@
     "pages/rank/rank",
     "pages/prize/prize",
     "pages/rule/rule",
-    "pages/user_center/user_center"
+    "pages/user_center/user_center",
+    "pages/complain/complain"
   ],
   "window": {
     "backgroundTextStyle": "light",

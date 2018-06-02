@@ -41,7 +41,7 @@ function login(){
             if (typeof userInfo.rawData === 'string') {
                 userInfo.rawData = JSON.parse(userInfo.rawData)
             }
-            kkconfig.global.userInfo = userInfo
+            kkconfig.global.userInfo = userInfo.rawData
          }
 
          let loginData = yield kknet.post(kkconfig.loginUrl, {
@@ -49,7 +49,7 @@ function login(){
             code: res.code,
             iv: userInfo.iv
          })
-         if (loginData.data.code == "1" && loginData.data.data && loginData.data.data.info) {
+         if (loginData.data.code == 1 ) {
              kkconfig.global.token = loginData.data.data.token.token || ''
              return true
          }
@@ -57,7 +57,79 @@ function login(){
     })()
 }
 
+function getUserInfo(){
+  return co.wrap(function*(){
+     return  yield kknet.post(kkconfig.getUserInfoUrl)
+  })()
+}
+
+function getTopList(order, p, num){
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.topListUrl, {
+      order: order,
+      p: p,
+      num: num
+    })
+  })()
+}
+
+function getPrizeList() {
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.prizeListUrl)
+  })()
+}
+
+function getPrizeRecordList() {
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.prizeRecordListUrl)
+  })()
+}
+
+function getAppInfo() {
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.appInfoUrl)
+  })()
+}
+
+function postScore(score, is_succ) {
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.postScoreUrl, {
+        score: score,
+        is_succ: is_succ
+    })
+  })()
+}
+
+function changeGift(chageInfo) {
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.changeGiftUrl, {
+      gift_id: chageInfo.id,
+      name: chageInfo.name,
+      phone: chageInfo.contact,
+      addr: chageInfo.address,
+    })
+  })()
+}
+
+function complain(title) {
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.complainUrl, {
+      title: title
+    })
+  })()
+}
+
+
 module.exports = {
+    authPermission: authPermission,
     login: login,
-    reLogin: reLogin
+    reLogin: reLogin,
+    getUserInfo: getUserInfo,
+    getTopList: getTopList,
+    getPrizeList: getPrizeList,
+    getPrizeRecordList: getPrizeRecordList,
+    getAppInfo: getAppInfo,
+    postScore: postScore,
+    changeGift: changeGift,
+    complain: complain
 }

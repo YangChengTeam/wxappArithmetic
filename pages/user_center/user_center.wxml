@@ -2,16 +2,16 @@
 <view class="container">
       <image class="main-bg" src='../../assets/images/main-bg.jpg' ></image>
       <view class='main-content'>
-      <view class="user-related">
+      <!-- <view class="user-related">
                <image src="../../assets/images/user-center-bg.png"></image>
                <view class="user-info-wrap">
                <view class="user-info">
-                  <image class="user-head" src="../../assets/images/avatar.png"></image>
-                  <view class="username">请登录</view>
+                  <image class="user-head" src="{{ isLogin ? userInfo.face : '../../assets/images/avatar.png' }}"></image>
+                  <view class="username">{{userInfo.nick_name}}</view>
                   <view class="user-game-info">  
-                       <view class="user-game-info-item"><view class="num">0次</view><view>挑战次数</view> </view>
-                       <view class="user-game-info-item"><view class="num">0次</view><view>挑战成功</view></view>
-                       <view class="user-game-info-item"><view class="num">0枚</view><view>挑战币</view></view>
+                       <view class="user-game-info-item"><view class="num">{{userInfo.played_num}}次</view><view>挑战次数</view> </view>
+                       <view class="user-game-info-item"><view class="num">{{userInfo.succ_num}}次</view><view>挑战成功</view></view>
+                       <view class="user-game-info-item"><view class="num">{{userInfo.playable_num}}枚</view><view>挑战币</view></view>
                   </view>    
                </view>
              </view>
@@ -21,32 +21,18 @@
         <view class="line"></view>
         <view class="title">更多智力挑战</view>
         <view class="line"></view>
-     </view>
+     </view> -->
 
      <view class="more-list">
-                     <view class="more-list-item">
-                          <image class="wxapp-head" src="../../assets/images/avatar.png"></image>
+           <view class="more-list-item"  wx:for="{{moreList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+                          <image class="wxapp-head" src="{{item.img}}"></image>
                           <view class="wxapp-info">
-                              <view class="wxapp-name">GIF在线制作</view>
-                              <view class="wxapp-desp">由于微信版本更新，可能会导致小程序
-的某些功能出现异常，请退出微信后</view>
+                              <view class="wxapp-name">{{item.name}}</view>
+                              <view class="wxapp-desp">{{item.desc}}
                           </view>
-                          <button>去挑战</button>
-                     </view>
-                      <view class="more-list-item">
-                          <image class="wxapp-head" src="../../assets/images/avatar.png"></image>
-                          <view class="wxapp-info">
-                              <view class="wxapp-name">GIF在线制作</view>
-                              <view class="wxapp-desp">由于微信版本更新，可能会导致小程序
-的某些功能出现异常，请退出微信后</view>
                           </view>
-                          <button>去挑战</button>
-                     </view>
-                     
-     </view>
-     <view class="report">
-       <image src="../../assets/images/report.png"></image>
-       <view>投诉</view>
+                          <button bindtap='open' data-appid='{{item.url}}'>{{item.button_name}}</button>
+            </view>
      </view>
   </view>
 </view>

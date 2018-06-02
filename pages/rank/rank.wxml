@@ -8,77 +8,38 @@
           </view>
           <swiper current='{{currentIndex}}' bindchange="switchPage">
               <swiper-item>
+                <scroll-view scroll-x="false" scroll-y="true" class='scroll-views' bindscrolltolower="lower">
                   <view class="rank-list">
-                     <view class="rank-list-item">
+                     <view class="rank-list-item" wx:for="{{aList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
                           <view class="rank-num">
-                              <image src="../../assets/images/rank-num-1.png"></image>
+                              <image wx:if="{{ index < 3 }}" src="../../assets/images/rank-num-{{index+1}}.png"></image>
+                              <view wx:if="{{ index >= 3 }}">{{ index >= 9 ? (index+1) : '0' + (index + 1)}}</view>
                           </view>
-                          <image class="user-head" src="../../assets/images/avatar.png"></image>
-                          <view class="user-name">跟彩虹说午安</view>
-                          <view class="user-challenge-success-times"><rich-text></rich-text><i style='font-size: 36rpx;color: #f95759;font-style:italic;'>24</i> 个</view>
-                     </view>
-                     <view class="rank-list-item">
-                          <view class="rank-num">
-                              <image src="../../assets/images/rank-num-2.png"></image>
-                          </view>
-                          <image class="user-head" src="../../assets/images/avatar.png"></image>
-                          <view class="user-name">跟彩虹说午安</view>
-                          <view class="user-challenge-success-times"><rich-text></rich-text><i style='font-size: 36rpx;color: #f95759;font-style:italic;'>20</i> 个</view>
-                     </view>
-                     <view class="rank-list-item">
-                          <view class="rank-num">
-                              <image src="../../assets/images/rank-num-3.png"></image>
-                          </view>
-                          <image class="user-head" src="../../assets/images/avatar.png"></image>
-                          <view class="user-name">跟彩虹说午安</view>
-                          <view class="user-challenge-success-times"><rich-text></rich-text><i style='font-size: 36rpx;color: #f95759;font-style:italic;'>19</i> 个</view>
-                     </view>
-                     <view class="rank-list-item">
-                          <view class="rank-num">
-                              <view>04</view>
-                          </view>
-                          <image class="user-head" src="../../assets/images/avatar.png"></image>
-                          <view class="user-name">跟彩虹说午安</view>
-                          <view class="user-challenge-success-times"><rich-text></rich-text><i style='font-size: 36rpx;color: #f95759;font-style:italic;'>17</i> 个</view>
-                     </view>
+                          
+                          <image class="user-head" src="{{ item.face }}"></image>
+                          <view class="user-name">{{ item.nick_name }}</view>
+                          <view class="user-challenge-success-times"><rich-text>获得<i style='font-size: 36rpx;color: #f95759;font-style:italic;'>{{ item.succ_num }}</i> 个娃娃</rich-text></view>
+                     </view>  
                   </view>
+                  <view class="rank-footer"></view>
+                </scroll-view>
               </swiper-item>
-
               <swiper-item>
+                <scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>
                   <view class="rank-list">
-                     <view class="rank-list-item">
+                     <view class="rank-list-item" wx:for="{{bList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
                           <view class="rank-num">
-                              <image src="../../assets/images/rank-num-1.png"></image>
+                              <image wx:if="{{ index < 3 }}" src="../../assets/images/rank-num-{{index+1}}.png"></image>
+                              <view wx:if="{{ index >= 3 }}">{{ index >= 9 ? (index+1) : '0' + (index + 1)}}</view>
                           </view>
-                          <image class="user-head" src="../../assets/images/avatar.png"></image>
-                          <view class="user-name">跟彩虹说午安</view>
-                          <view class="user-challenge-success-times"><rich-text></rich-text><i style='font-size: 36rpx;color: #f95759;font-style:italic;'>24</i> 个</view>
-                     </view>
-                     <view class="rank-list-item">
-                          <view class="rank-num">
-                              <image src="../../assets/images/rank-num-2.png"></image>
-                          </view>
-                          <image class="user-head" src="../../assets/images/avatar.png"></image>
-                          <view class="user-name">跟彩虹说午安</view>
-                          <view class="user-challenge-success-times"><rich-text></rich-text><i style='font-size: 36rpx;color: #f95759;font-style:italic;'>20</i> 个</view>
-                     </view>
-                     <view class="rank-list-item">
-                          <view class="rank-num">
-                              <image src="../../assets/images/rank-num-3.png"></image>
-                          </view>
-                          <image class="user-head" src="../../assets/images/avatar.png"></image>
-                          <view class="user-name">跟彩虹说午安</view>
-                          <view class="user-challenge-success-times"><rich-text></rich-text><i style='font-size: 36rpx;color: #f95759;font-style:italic;'>19</i> 个</view>
-                     </view>
-                     <view class="rank-list-item">
-                          <view class="rank-num">
-                              <view>04</view>
-                          </view>
-                          <image class="user-head" src="../../assets/images/avatar.png"></image>
-                          <view class="user-name">跟彩虹说午安</view>
-                          <view class="user-challenge-success-times"><rich-text></rich-text><i style='font-size: 36rpx;color: #f95759;font-style:italic;'>17</i> 个</view>
-                     </view>
+                          
+                          <image class="user-head" src="{{ item.face }}"></image>
+                          <view class="user-name">{{ item.nick_name }}</view>
+                          <view class="user-challenge-success-times"><rich-text>挑战<i style='font-size: 36rpx;color: #f95759;font-style:italic;'>{{ item.played_num }}</i> 次</rich-text></view>
+                     </view>  
                   </view>
+                  <view class="rank-footer"></view>
+                </scroll-view>
               </swiper-item>
           </swiper>
      </view>

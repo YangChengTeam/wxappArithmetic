@@ -1,4 +1,4 @@
-// pages/rule/rule.js
+// pages/complain/complain.js
 
 //获取应用实例
 const app = getApp()
@@ -13,34 +13,50 @@ Page({
    * 页面的初始数据
    */
   data: {
-    ruleList: []
+     title: ''
   },
-
+  check(e){
+    this.data.title = e.detail.value
+  },
+  complain(res){
+     let thiz = this
+     if(app.index.data.isLogin){ 
+        if (thiz.data.title == '') {
+          wx.showModal({
+            title: '',
+            content: '请选择一项投诉内容',
+            showCancel: false
+          })
+          return
+        }
+        co(function* () {
+          wx.showLoading({
+            title: '正在提交',
+            mask: true
+          })
+          yield kkservice.complain(thiz.data.title)
+          wx.showModal({
+            title: '',
+            content: '投诉成功',
+            showCancel: false,
+            complete(){
+                wx.navigateBack({})
+            }
+          })
+          wx.hideLoading()
+          
+        })
+     }
+     app.index.login(undefined, ()=>{
+        thiz.complain(res)
+     })
+     
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var thiz = this
-    co(function* () {
-      wx.showLoading({
-        title: '正在加载...',
-      })
-      var appInfo = yield kkservice.getAppInfo()
-      var ruleList = (appInfo.data.data.app_desc.split('\n'))
-      ruleList.forEach((v, k)=>{
-        ruleList[k] = v.replace(`${k+1}.`, '')
-      })
-      thiz.setData({
-        ruleList: ruleList
-      })
-      wx.hideLoading()
-    })
-  },
-
-  navigateToComplain(){
-     wx.navigateTo({
-       url: '/pages/complain/complain',
-     })  
+  
   },
 
   /**

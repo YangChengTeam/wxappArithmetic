@@ -1,7 +1,7 @@
 const debug = false
 const host = {
-  dev: "https://mi.bshu.com",  //测试服务器
-  pro: "https://mi.bshu.com"   //正式服务器
+  dev: "https://wx1.bshu.com/",  //测试服务器
+  pro: "https://wx1.bshu.com"   //正式服务器
 }
 
 function getBaseUrl() {
@@ -30,7 +30,7 @@ const status = {
 const net = {
   defaultParams: {
     app_type: 'wx',
-    app_id: 5
+    app_id: 1
   }
 }
 
@@ -39,5 +39,13 @@ module.exports = {
    status: status,
    net: net,
 
-   loginUrl: getUrl("/v1.user/login")
+   loginUrl: getUrl("/v1.user/login"),
+   getUserInfoUrl: getUrl("/v1.game/getUserInfo"),
+   topListUrl: getUrl("/v1.game/topList"),
+   prizeListUrl: getUrl("/v1.gift/getGiftList"),
+   prizeRecordListUrl: getUrl("/v1.gift/myGiftList"),
+   appInfoUrl: getUrl("/v1.game/getAppInfo"),
+   postScoreUrl: getUrl("/v1.game/postScore"),
+   changeGiftUrl: getUrl("/v1.gift/changeGift"),
+   complainUrl: getUrl("/v1.game/tousu"),
 }

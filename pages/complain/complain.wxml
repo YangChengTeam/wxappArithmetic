@@ -1,0 +1,32 @@
+<!--pages/complain/complain.wxml-->
+<view class="container">
+<view class="complain-content">
+  <radio-group bindchange="check">
+    <view class="item">
+      <radio value='色情'>色情</radio>
+    </view>
+    <view class="item">
+      <radio value='骚扰'>骚扰</radio>
+    </view>
+    <view class="item">
+      <radio value='欺诈'>欺诈</radio>
+    </view>
+    <view class="item">
+      <radio value='传播'>传播</radio>
+    </view>
+    <view class="item">
+      <radio value='诱导'>诱导</radio>
+    </view>
+    <view class="item">
+      <radio value='内容不符'>内容不符</radio>
+    </view>
+    <view class="item">
+      <radio value='恶意收集信息'>恶意收集信息</radio>
+    </view>
+      <view class="item">
+      <radio value='侵权'>侵权</radio>
+    </view>
+    </radio-group>
+    <button value='投诉'open-type='getUserInfo' bindgetuserinfo="complain">投诉</button>
+</view>
+</view>
