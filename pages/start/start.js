@@ -384,9 +384,7 @@ Page({
   },
   closeSucc(e) {
     this.toogleFail(0)
-    wx.navigateBack({
-
-    })
+    wx.navigateBack({})
   },
   navagateToPrizee(){
     wx.redirectTo({

@@ -22,6 +22,7 @@ function get(url, data){
     var defaultParams = kkconfig.net.defaultParams
     data = {...data,
             ...defaultParams
+            ,t: new Date().getTime()
             }
     return kkpromise.request({
         url: url,
@@ -36,6 +37,7 @@ function post(url, data){
     data = {
       ...data,
       ...defaultParams
+      , t: new Date().getTime()
     }
     return kkpromise.request({
       url: url,
