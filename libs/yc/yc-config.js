@@ -1,3 +1,5 @@
+// Author: 张凯
+
 const debug = false
 const host = {
   dev: "https://wx1.bshu.com/",  //测试服务器
@@ -48,4 +50,5 @@ module.exports = {
    postScoreUrl: getUrl("/v1.game/postScore"),
    changeGiftUrl: getUrl("/v1.gift/changeGift"),
    complainUrl: getUrl("/v1.game/tousu"),
+   shareUrl: getUrl("/v1.game/share")
 }

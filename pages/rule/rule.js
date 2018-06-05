@@ -20,12 +20,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.hideShareMenu({})
     var thiz = this
     co(function* () {
       wx.showLoading({
         title: '正在加载...',
       })
-      var appInfo = yield kkservice.getAppInfo()
+      var appInfo = app.index.appInfo
       var ruleList = (appInfo.data.data.app_desc.split('\n'))
       ruleList.forEach((v, k)=>{
         ruleList[k] = v.replace(`${k+1}.`, '')
@@ -90,6 +91,7 @@ Page({
    */
   onShareAppMessage: function () {
     return {
+      title: app.index.shareTitle,
       path: "pages/index/index"
     }
   }

@@ -1,3 +1,5 @@
+// Author: 张凯
+
 const kkpromise = require('yc-promise')
 const kkcommon = require('yc-common')
 const kkconfig = require('yc-config')

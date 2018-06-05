@@ -1,3 +1,5 @@
+// Author: 张凯
+
 const regeneratorRuntime = global.regeneratorRuntime = require('../../libs/runtime')
 const co = require('../../libs/co')
 const kkconfig = require('yc-config')
@@ -119,6 +121,14 @@ function complain(title) {
   })()
 }
 
+function share(title) {
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.shareUrl, {
+      title: title
+    })
+  })()
+}
+
 
 module.exports = {
     authPermission: authPermission,
@@ -131,5 +141,6 @@ module.exports = {
     getAppInfo: getAppInfo,
     postScore: postScore,
     changeGift: changeGift,
-    complain: complain
+    complain: complain,
+    share: share
 }

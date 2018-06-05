@@ -25,7 +25,7 @@
                 </scroll-view>
               </swiper-item>
               <swiper-item>
-                <scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>
+                <scroll-view scroll-x="false" scroll-y="true" class='scroll-views' bindscrolltolower="lower">
                   <view class="rank-list">
                      <view class="rank-list-item" wx:for="{{bList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
                           <view class="rank-num">

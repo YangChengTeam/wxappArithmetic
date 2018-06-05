@@ -2,8 +2,7 @@
 
 App({
   onLaunch: function () {
-      wx.authorize({
-        scope: 'scope.userInfo',
-      })
+     
   }
+
 })

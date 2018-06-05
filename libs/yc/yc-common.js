@@ -1,3 +1,5 @@
+// Author: 张凯
+
 const md5 = require('../md5/md5.js')
 const sha256 = require('../sha256/lib/sha256.js')
 
@@ -12,6 +14,8 @@ function encrypt(data){
     }
     return md5(sha256(result))
 }
+
+ 
 
 module.exports = {
     encrypt: encrypt

@@ -47,16 +47,29 @@ Page({
           
         })
      }
-     app.index.login(undefined, ()=>{
-        thiz.complain(res)
+
+     co(function* () {
+       var status = yield kkservice.authPermission("scope.userInfo")
+       if (status == kkconfig.status.authStatus.authOK) {
+         app.index.login(undefined, () => {
+           thiz.complain(res)
+         })
+       } else{
+          wx.showModal({
+            title: '',
+            content: '未授权【获得你的公开信息(昵称、头像等)】不能投诉',
+            showCancel: false
+          })
+       }
      })
+   
      
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    wx.hideShareMenu({})
   },
 
   /**
@@ -106,6 +119,7 @@ Page({
    */
   onShareAppMessage: function () {
     return {
+      title: app.index.shareTitle,
       path: "pages/index/index"
     }
   }

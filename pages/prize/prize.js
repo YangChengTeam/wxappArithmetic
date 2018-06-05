@@ -99,10 +99,21 @@ Page({
       })
       return
     }
-    app.index.login(undefined, ()=>{
-       thiz.excahngePrize(e)
+
+    co(function*(){
+      var status= yield kkservice.authPermission("scope.userInfo")
+      if (status == kkconfig.status.authStatus.authOK) {
+        app.index.login(undefined, () => {
+          thiz.excahngePrize(e)
+        })
+      } else {
+        wx.showModal({
+          title: '',
+          content: '未授权【获得你的公开信息(昵称、头像等)】不能兑换奖品',
+          showCancel: false
+        })
+      }
     })
-   
   },
   inputName(e){
     this.data.changeInfo.name = e.detail.value
@@ -246,7 +257,9 @@ Page({
    */
   onShareAppMessage: function () {
     return {
+      title: app.index.shareTitle,
       path: "pages/index/index"
     }
   }
 })
+

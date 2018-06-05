@@ -31,10 +31,13 @@ Page({
     animationDataMaskSucc: {},
     animationDataMaskFail: {},
     animationDataProcess: {},
+
     musicStatus: "on",
+
     questionInfo: {},
     currentIndex: 0,
     rightNumber: 0,
+
     isOver: false
   },
 
@@ -42,7 +45,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-      
+      wx.hideShareMenu({})
   },
 
   /**
@@ -85,7 +88,6 @@ Page({
           this.stopMusic()
           return
       }
-      this.stopMusic();
       const innerAudioContext = wx.createInnerAudioContext()
       if(loop){
         this.loopInnerAudioContext = innerAudioContext
@@ -216,7 +218,7 @@ Page({
       this.backgroundMusicPlay()
     }, 5500)
   },
-  inVisiable(){
+  invisiable(){
     this.data.musicStatus = "off"
     this.stopMusic();
     if (this.loopInnerAudioContext) {
@@ -227,14 +229,14 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-      this.inVisiable()
+      this.invisiable()
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-      this.inVisiable()
+      this.invisiable()
   },
   action(e, s) {
     var index = e.currentTarget.dataset.index
@@ -282,6 +284,7 @@ Page({
     }
   },
   fail(){
+    this.isfail= true
     let thiz = this
     this.data.isOver = true    
     this.resetCountDown()
@@ -304,6 +307,7 @@ Page({
     this.resetCountDown()
     this.rightMusicPlay()
     if (this.data.currentIndex == this.data.count - 1){
+        this.issucc = true
         this.data.isOver = true
         co(function *(){
           let postData = yield kkservice.postScore(thiz.data.rightNumber, 1)
@@ -422,7 +426,12 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+      let title = '天啦噜，就差一关就能免费领娃娃，你也来试试...'
+      if(this.issucc){
+        title = '我在「加减挑战赛」闯关成功，免费换了娃娃，你也来试试...'
+      }
       return {
+        title: title,
         path: "pages/index/index"
       }
   }

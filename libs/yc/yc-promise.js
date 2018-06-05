@@ -1,3 +1,5 @@
+// Author: 张凯
+
 const wrap = function (fn, options){
     if (options == undefined) options = {}
     var promise = new Promise((resolve, reject) => {
@@ -44,9 +46,7 @@ const setData = function(thiz, data){
     var promise = new Promise((resolve, reject) => {
         thiz.setData({
             ...data
-        }, ()=>{
-          resolve()
-        })
+        }, resolve)
     })
     promise.catch(new Function)
     return promise

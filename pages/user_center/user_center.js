@@ -19,12 +19,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.hideShareMenu({})
     var thiz = this
     co(function* () {
       wx.showLoading({
         title: '正在加载...',
       })
-      var appInfo = yield kkservice.getAppInfo()
+      var appInfo = app.index.appInfo
       thiz.setData({
           moreList: appInfo.data.data.more_app_info
       })
@@ -33,7 +34,6 @@ Page({
   },
   open(e){
      let appid = e.currentTarget.dataset.appid
-     console.log(appid)
      wx.navigateToMiniProgram({
        appId: appid,
      })
@@ -85,6 +85,7 @@ Page({
    */
   onShareAppMessage: function () {
     return {
+      title: '我在参加加减挑战赛，竟然免费领娃娃！？',
       path: "pages/index/index"
     }
   }

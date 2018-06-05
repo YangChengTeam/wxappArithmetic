@@ -1,3 +1,5 @@
+// Author: 张凯
+
 //题目信息
 function questionInfo(){
     this.isRight = true     // 答案是对还是错
@@ -96,5 +98,5 @@ function genQuestionInfos(count){
 
 
 module.exports = {
-  genQuestionInfos: genQuestionInfos
+    genQuestionInfos: genQuestionInfos
 }

@@ -16,18 +16,20 @@ Page({
     rule_animationData: {},
     userInfo: {
       money: 0,
-      played_num: 0 ,
+      played_num: 0,
       total_num: 0 },
     isLogin: false
   },
   onLoad: function () {  
      let thiz = this
      app.index = this
+     this.shareTitle = '我正在参加「加减挑战赛」，这里竟然可以免费领娃娃！？'
      co(function*(){
-          var status = yield kkservice.authPermission("scope.userInfo")
+        var [status, appInfo] = yield [kkservice.authPermission("scope.userInfo"), yield kkservice.getAppInfo()]
           if (status == kkconfig.status.authStatus.authOK){
               thiz.login()
           }
+          thiz.appInfo = appInfo
      })
   },
   
@@ -137,5 +139,10 @@ Page({
   },
   end(e){
      this.action(e, 1.0)
+  },
+  onShareAppMessage(){
+     return {
+       title: this.shareTitle,
+     }
   }
 })

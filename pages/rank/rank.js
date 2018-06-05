@@ -58,10 +58,10 @@ Page({
         title: '正在加载...',
       })
       thiz.data.isBLoading = true
-      var bListData = yield kkservice.getTopList(1, thiz.data.aPage, pagesize)
+      var bListData = yield kkservice.getTopList(1, thiz.data.bPage, pagesize)
       thiz.data.bTotalPage = bListData.data.data.total_page
       thiz.setData({
-        bList: bListData.data.data.list,
+        bList: [...thiz.data.bList, ...bListData.data.data.list],
       })
       thiz.data.isBLoading = false
       wx.hideLoading()
@@ -94,7 +94,6 @@ Page({
        if (this.data.bPage <= this.data.bTotalPage) {
            this.loadbData()
        }
-       console.log(this.data.bPage <= this.data.bTotalPage)
      }
   },
 
@@ -144,6 +143,7 @@ Page({
    */
   onShareAppMessage: function () {
     return {
+      title: app.index.shareTitle,
       path: "pages/index/index"
     }
   }
