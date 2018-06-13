@@ -6,12 +6,10 @@ const regeneratorRuntime = global.regeneratorRuntime = require('../../libs/runti
 const co = require('../../libs/co')
 const kkgen = require('../../libs/yc/yc-arithmetic-gen.js')
 const kkservice = require("../../libs/yc/yc-service.js")
-const kkconfig = require("../../libs/yc/yc-config.js")
 const kkcommon = require("../../libs/yc/yc-common.js")
 
 var questions = []
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -45,6 +43,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+      app.index.isStart = false
       wx.showShareMenu({
           withShareTicket: true
       }) 
@@ -77,10 +76,10 @@ Page({
        })
     }
     let thiz = this
-    co(function*(){
-       thiz.setData({
-          isShowContent: true
-       })
+    thiz.setData({
+      isShowContent: true
+    })
+    co(function*(){  
        let res = yield kkservice.getQuestionList(thiz.data.count)    
        let t = 16
        if(res.data && res.data.code == 1){
@@ -154,12 +153,13 @@ Page({
     co(function* () {
         let postData = yield kkservice.postScore(thiz.data.rightNumber, 0, app.formId, thiz.lp)
         if (postData.data.code == 1) {
-          kkconfig.global.userInfo.played_num = postData.data.data.played_num
-          kkconfig.global.userInfo.playable_num = postData.data.data.playable_num
-          kkconfig.global.userInfo.money = postData.data.data.money
-          kkconfig.global.userInfo.total_num += 1
+          app.index.data.userInfo.played_num = postData.data.data.played_num
+          app.index.data.userInfo.playable_num = postData.data.data.playable_num
+          app.index.data.userInfo.money = postData.data.data.money
+          app.index.data.userInfo.total_num += 1
           app.index.setData({
-            userInfo: kkconfig.global.userInfo
+            userInfo: app.index.data.userInfo
+
           })
         }
     })
@@ -174,12 +174,12 @@ succ(){
     co(function* () {
       let postData = yield kkservice.postScore(thiz.data.rightNumber, 1, app.formId, thiz.lp)
       if (postData.data.code == 1) {
-        kkconfig.global.userInfo.played_num = postData.data.data.played_num
-        kkconfig.global.userInfo.playable_num = postData.data.data.playable_num
-        kkconfig.global.userInfo.money = postData.data.data.money
-        kkconfig.global.userInfo.total_num += 1
+        app.index.data.userInfo.played_num = postData.data.data.played_num
+        app.index.data.userInfo.playable_num = postData.data.data.playable_num
+        app.index.data.userInfo.money = postData.data.data.money
+        app.index.data.userInfo.total_num += 1
         app.index.setData({
-          userInfo: kkconfig.global.userInfo
+          userInfo: app.index.data.userInfo
         })
         thiz.setData({ rightNumber: ++thiz.data.rightNumber })
         thiz.toogleSucc(1)

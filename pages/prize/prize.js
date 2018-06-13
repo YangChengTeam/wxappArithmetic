@@ -70,7 +70,7 @@ Page({
     let id = e.currentTarget.dataset.id
     let money = e.currentTarget.dataset.money
     if (app.index.data.isLogin) {
-      if (kkconfig.global.userInfo.money < money) {
+      if (app.index.data.userInfo.money < money) {
         wx.showModal({
           title: '',
           content: '金币不足',
@@ -162,9 +162,9 @@ Page({
       let changeData = yield kkservice.changeGift(thiz.data.changeInfo)
       wx.hideLoading()
       if (changeData && changeData.data && changeData.data.code == 1) {
-        kkconfig.global.userInfo.money -= thiz.data.changeInfo.money
+        app.index.data.userInfo.money -= thiz.data.changeInfo.money
         app.index.setData({
-          userInfo: kkconfig.global.userInfo
+          userInfo: app.index.data.userInfo
         })
         wx.showModal({
           title: '',

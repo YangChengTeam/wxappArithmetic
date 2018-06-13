@@ -49,7 +49,7 @@
                 </view>
                 <view class="game-select animated{{questionInfo.animate}}" animation="{{animationDataSelect}}">
                 <block wx:for="{{questionInfo.options}}" wx:for-index="index" wx:for-item="item" wx:key="id">
-                    <view animation="{{item.animate }}" class="option animated{{item.style}}" bindtouchstart='start' bindtouchend='end' bindtouchcancel='end' bindtap='answer' data-index='{{index}}'>
+                    <view wx:if="{{ item.name != 'null' && item.name.length > 0 }}" animation="{{item.animate }}" class="option animated{{item.style}}" bindtouchstart='start' bindtouchend='end' bindtouchcancel='end' bindtap='answer' data-index='{{index}}'>
                         <view class="option2 {{item.style2}}">{{item.name}}</view>
                     </view>
                    </block>
@@ -58,9 +58,7 @@
             </view>
           </view>
       </view>
-
-     
-       <view class="mask mask-succ"  animation="{{animationDataMaskSucc}}">
+      <view class="mask mask-succ"  animation="{{animationDataMaskSucc}}">
 
           <view class="mask-content succ"  animation="{{animationDataSucc}}">
                                        <image class="succ-header" src='../../assets/images/succ.png'></image>
@@ -74,13 +72,11 @@
                 <image class="close" src='../../assets/images/close.png' bindtap='closeSucc'></image>
           </view>
       </view>
-
-
       <view class="mask mask-fail" animation="{{animationDataMaskFail}}">
           <view class="mask-content fail" animation="{{animationDataFail}}">
-                <image class="fail" src='../../assets/images/fail.png'></image>
+                <image class="fail" src="{{isHelp ? '../../assets/images/fail2.png' : '../../assets/images/fail.png'}}"></image>
                 <view class="mask-main-content">
-                    <view class="title">哎呀，差一点就成为真球迷了，快来重新挑战，相信你可以的！</view>
+                    <view class="title">{{isHelp ? '不要放弃，继续挑战，相信你是可以的！' : '分享到群求助好友，接着挑战！'}}</view>
                     <button class="continue" wx:if="{{isHelp}}" bindtap='continuePlay'>继续挑战</button>
                     <button class="continue" wx:if="{{!isHelp}}" open-type='share'>求助好友</button>
                     <button class="invate-friend" bindtap='closeFail'>点击跳过</button>

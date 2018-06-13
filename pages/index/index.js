@@ -132,10 +132,12 @@ Page({
   doLogin(res){
      let thiz = this
      if(res.detail && res.detail.userInfo){
-       thiz.login('/pages/user_center/user_center')
+        thiz.login('/pages/user_center/user_center')
      }
   },
   loginToStart(res){
+    if (this.isStart) return
+    this.isStart = true
     let thiz = this
     if (thiz.data.isLogin && thiz.data.userInfo.playable_num <= 0){
       wx.showModal({
@@ -254,12 +256,17 @@ Page({
           mask:true
         })
         let res =yield kkservice.userSignIn()
+        console.log(res)
         wx.hideLoading()
         if(res.data && res.data.code == 1){
            kkcommon.storageToday('sign', ()=>{
               thiz.signInfo.sign_count = res.data.data.sign_count
               thiz.signInfo.signed = true
-              thiz.data.userInfo.playable_num = res.data.data.playable_num
+              if (res.data.data.user_info.name == 'playable_num'){
+                  thiz.data.userInfo.playable_num = res.data.data.user_info.value
+              } else if (res.data.data.user_info.name == 'money') {
+                  thiz.data.userInfo.money = res.data.data.user_info.value
+              }
               thiz.setData({
                   signInfo: thiz.signInfo,
                   userInfo: thiz.data.userInfo
