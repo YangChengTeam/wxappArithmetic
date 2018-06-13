@@ -1,17 +1,48 @@
 /**index.wxss**/
+.sign {
+  position: fixed;
+  width: 200rpx;
+  height: 120rpx;
+  z-index: 1000;
+  left: 0;
+  top:180rpx;
+}
+
+.contact {
+  position: fixed;
+  width: 146rpx;
+  height: 146rpx;
+  z-index: 1000;
+  right: 0;
+  top:650rpx;
+}
+
+.contact > image {
+  position: absolute;
+  width: 146rpx;
+  height: 146rpx;
+}
+
+.contact > form, .contact button {
+  position: absolute;
+  width: 146rpx;
+  height: 146rpx;
+  opacity: 0;
+}
 
 .user-related {
    display: flex;
    justify-content: center;
    align-items: center;
    width: 100%;
-   height: 200rpx;
+   height: 250rpx;
    position: relative;
 }
 
+
 .user-related > button {
    width: 660rpx;
-   height: 200rpx;
+   height: 250rpx;
    left: 0;
    top: 0;
    position: absolute;
@@ -39,33 +70,37 @@
 
 .user-info {
    display: flex;
-   flex-direction: row;
+   flex-direction: column;
    align-items: center;
+   justify-content: center;
    width: 100%;
-   height: 120rpx;
-   margin-left: 30rpx;
+   height: 100%;
+}
+
+image.help {
+   position: absolute;
+   width: 40rpx;
+   height: 40rpx;
+   left: 600rpx;
+   top: 15rpx;
 }
 
 .user-head {
-   width: 120rpx;
-   height: 120rpx;
-   background-color: white;
+   width: 100rpx;
+   height: 100rpx;
    border-radius: 50%;
-   border: solid 6rpx #f9adc8;
+   border: solid 6rpx #d0e2ef;
 }
 
 .username {
    font-size: 30rpx;
-}
-
-.user-desp {
-   margin-left: 30rpx;
+   margin-top: 10rpx;
 }
 
 .user-game-info {
    display: flex;
    flex-direction: row;
-   font-size: 24rpx;
+   font-size: 22rpx;
    margin-top: 10rpx;
 }
 
@@ -77,19 +112,18 @@
    display: flex;
    flex-direction: row;
    width: 100%;
-   height: 390rpx;
-   margin-top: 26rpx;
+   height: 392rpx;
+   margin-top: 22rpx;
    justify-content: space-between;
-
 }
 
 .game-start {
-   width: 317rpx;
+   width: 319rpx;
    height: 100%;
    position: relative;
 }
 
-.game-start > button {
+.game-start  form, .game-start  button {
    width: 100%;
    height: 100%;
    position: absolute;
@@ -115,37 +149,18 @@
    display: flex;
    flex-direction: column;
    justify-content: space-between;
-   width: 317rpx;
+   width: 319rpx;
 }
 
 .game-excite > image {
     width: 100%;
-    height: 182rpx;
-}
-
-.game-prize {
-    width: 100%;
-    height: 182rpx;
-    position: relative;
-}
-
-.game-prize > image {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-}
-
-.game-prize-text {
-   position: absolute;
-   left:22rpx;
-   top:80rpx;
-   font-size: 24rpx;
+    height: 392rpx;
 }
 
 .invite {
    width: 100%;
-   height: 210rpx;
-   margin-top: 26rpx;
+   height: 212rpx;
+   margin-top: 22rpx;
    position: relative;
 }
 
@@ -157,7 +172,7 @@
 
 .invite-text {
   position: absolute;
-  left: 22rpx;
+  left: 30rpx;
   top: 90rpx;
   font-size: 24rpx;
 }
@@ -172,13 +187,155 @@
 .more {
    display: flex;
    flex-direction: row;
-   margin-top: 26rpx;
+   margin-top: 22rpx;
    width: 100%;
-   height: 182rpx;
+   height: 184rpx;
    justify-content: space-between;
 }
 
-.more > image {
-   width: 317rpx;
-   height: 100%;
+.more image {
+   width: 319rpx;
+   height: 184rpx;
 }
+
+.more-usercenter {
+    position: relative;
+    width: 319rpx;
+    height: 184rpx;
+}
+
+.more-usercenter > image , .more-usercenter > button {
+   width: 319rpx;
+   height: 184rpx;
+   position: absolute;
+   left: 0;
+   top: 0;
+}
+
+.more-usercenter > button {
+   opacity: 0;
+}
+
+.mask {
+   position: fixed;
+   width: 100%;
+   height: 100%;
+   background: rgba(0,0,0,0.7);
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   top: -100%;
+   left: 0;
+   opacity: 0;
+   z-index: 10000;
+}
+
+.mask-content {
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+   height: 100%;
+   align-items: center;
+   top: -100%;
+   left: 0;
+   opacity: 0;
+   position: relative;
+   
+}
+
+.mask-content > .close {
+   width: 48rpx;
+   height: 48rpx;
+   margin-top: 60rpx;
+   position: relative;
+}
+
+.mask-sign {
+   position: absolute;
+   width: 604rpx;
+   height: 258rpx;
+   top: 40rpx;
+   left: 72rpx;
+   z-index: 1000;
+}
+
+.mask-sign-list-wrap {
+   width: 540rpx;
+   height: 540rpx;
+   border-radius: 10rpx;
+   background: #fff;
+   margin-top: 280rpx;
+}
+
+.mask-sign-list {
+   width: 100%;
+   display: flex;
+   flex-direction: row;
+   justify-content: flex-start;
+   flex-wrap: wrap;
+   margin-top: 60rpx;
+}
+
+.mask-sign-item {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   background: #8d1b1b;
+   width: 105rpx;
+   height: 150rpx;
+   border-radius: 10rpx;
+   font-size: 24rpx;
+   margin-right: 20rpx;
+   box-shadow: 2px 2px 5px #eecbcb;
+}
+
+.mask-sign-item-current {
+  background: #ff6666;
+  box-shadow: 2px 2px 5px #ecc2c2;
+}
+
+.mask-sign-item:first-child {
+  margin-left: 30rpx;
+}
+
+.mask-sign-item:nth-child(5){
+  margin-left: 30rpx;
+}
+
+.mask-sign-item:nth-child(5) , .mask-sign-item:nth-child(6), .mask-sign-item:nth-child(7){
+  margin-top: 20rpx;
+}
+
+.mask-sign-item:nth-child(7){
+   width: 230rpx;
+}
+
+.mask-sign-item > image{
+  width: 52rpx;
+  height: 52rpx;
+  margin-top: 10rpx;
+}
+
+.mask-sign-item > .day {
+  margin-top: 10rpx;
+}
+
+.mask-sign-item > .num {
+  margin-top: 5rpx;
+}
+
+.mask-sign-list-wrap > button {
+   width: 375rpx;
+   height: 90rpx;
+   border-radius: 45rpx;
+   background: linear-gradient(#f56a24, #ee5b5d, #de6683); 
+   color: #fff;
+   font-size: 30rpx;
+   margin-top: 30rpx;
+   line-height: 90rpx;
+}
+
+button.signed {
+   background: #a9a9a9;
+}
+

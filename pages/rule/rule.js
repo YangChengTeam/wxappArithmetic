@@ -13,7 +13,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    ruleList: []
+    ruleList: [],
+    isShowContent: false
   },
 
   /**
@@ -22,10 +23,7 @@ Page({
   onLoad: function (options) {
     wx.hideShareMenu({})
     var thiz = this
-    co(function* () {
-      wx.showLoading({
-        title: '正在加载...',
-      })
+    co(function* () {  
       var appInfo = app.index.appInfo
       var ruleList = (appInfo.data.data.app_desc.split('\n'))
       ruleList.forEach((v, k)=>{
@@ -34,7 +32,9 @@ Page({
       thiz.setData({
         ruleList: ruleList
       })
-      wx.hideLoading()
+      thiz.setData({
+        isShowContent: true
+      })
     })
   },
 

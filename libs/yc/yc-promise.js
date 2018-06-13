@@ -22,6 +22,10 @@ const login = function (options) {
     return wrap(wx.login, options)
 }
 
+const checkSession = function (options) {
+  return wrap(wx.checkSession, options)
+}
+
 const request = function(options){
     return wrap(wx.request, options)
 }
@@ -68,5 +72,6 @@ module.exports = {
    openSetting: openSetting,
    authorize: authorize,
    setData: setData,
-   sleep: sleep
+   sleep: sleep,
+   checkSession: checkSession
 }

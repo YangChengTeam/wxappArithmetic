@@ -23,6 +23,7 @@ Page({
      bPage: 1,
      isALoading: false,
      isBLoading: false,
+     isShowContent: false
   },
 
   /**
@@ -31,32 +32,44 @@ Page({
   onLoad: function (options) {
       this.loadaData()
       this.loadbData()
+      
   },
 
   loadaData(){
+    wx.hideShareMenu({})
     var thiz = this
     co(function* () {
-      wx.showLoading({
-        title: '正在加载...',
-      })
+      if(thiz.data.aPage != 1){
+        wx.showLoading({
+          title: '正在加载...',
+        })
+      } 
       thiz.data.isALoading = true
       var aListData= yield kkservice.getTopList(2, thiz.data.aPage, pagesize)
-      console.log(aListData)
       thiz.data.aTotalPage = aListData.data.data.total_page
       thiz.setData({
         aList: [...thiz.data.aList,...aListData.data.data.list],
       })
+      setTimeout(() => {
+        thiz.setData({
+          isShowContent: true
+        })
+      }, 1000)
       thiz.data.isALoading = false
-      wx.hideLoading()
+      if (thiz.data.aPage != 1) {
+        wx.hideLoading()
+      }
     })
   },
 
   loadbData() {
     var thiz = this
     co(function* () {
-      wx.showLoading({
-        title: '正在加载...',
-      })
+      if (thiz.data.bPage != 1) {
+        wx.showLoading({
+          title: '正在加载...',
+        })
+      }
       thiz.data.isBLoading = true
       var bListData = yield kkservice.getTopList(1, thiz.data.bPage, pagesize)
       thiz.data.bTotalPage = bListData.data.data.total_page
@@ -64,7 +77,9 @@ Page({
         bList: [...thiz.data.bList, ...bListData.data.data.list],
       })
       thiz.data.isBLoading = false
-      wx.hideLoading()
+      if (thiz.data.bPage != 1) {
+        wx.hideLoading()
+      }
     })
   },
 

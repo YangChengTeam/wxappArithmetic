@@ -19,25 +19,27 @@ Page({
     prizeRecordList: [],
     animationDataMaskContact:{},
     animationDataContact: {},
-    changeInfo: {}
+    changeInfo: {},
+    isShowContent: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+      wx.hideShareMenu({})
       var thiz = this
       co(function* () {
-        wx.showLoading({
-          title: '正在加载...',
-        })
         var [prizeList, prizeRecordList] = yield [kkservice.getPrizeList(), kkservice.getPrizeRecordList()]
-        console.log(prizeList)
         thiz.setData({
           prizeList: prizeList.data.data,
-          prizeRecordList: prizeRecordList.data.data
+          prizeRecordList: prizeRecordList.data.data,   
         })
-        wx.hideLoading()
+        setTimeout(() => {
+          thiz.setData({
+            isShowContent: true
+          })
+        }, 1000)
       })
   },
   loadPrizeRecordList(){
@@ -71,7 +73,7 @@ Page({
       if (kkconfig.global.userInfo.money < money) {
         wx.showModal({
           title: '',
-          content: '挑战币不足',
+          content: '金币不足',
           showCancel: false
         })
         return

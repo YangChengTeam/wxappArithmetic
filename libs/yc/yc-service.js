@@ -53,6 +53,7 @@ function login(){
          })
          if (loginData.data.code == 1 ) {
              kkconfig.global.token = loginData.data.data.token.token || ''
+             kkconfig.global.session_key = loginData.data.data.session_key
              return true
          }
          return false
@@ -93,11 +94,16 @@ function getAppInfo() {
   })()
 }
 
-function postScore(score, is_succ) {
+function postScore(score, is_succ, form_id, lp = 0) {
+  if(!lp){
+     lp = 0
+  }
   return co.wrap(function* () {
     return yield kknet.post(kkconfig.postScoreUrl, {
         score: score,
-        is_succ: is_succ
+        is_succ: is_succ,
+        form_id: form_id,
+        is_help: lp
     })
   })()
 }
@@ -121,13 +127,40 @@ function complain(title) {
   })()
 }
 
-function share(title) {
+function share(iv, ed, sk, lp = 0) {
   return co.wrap(function* () {
     return yield kknet.post(kkconfig.shareUrl, {
-      title: title
+      iv: iv,
+      encryptedData: ed,
+      session_key: sk,
+      is_help: lp
     })
   })()
 }
+
+function getQuestionList(num) {
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.getQuestionListUrl, {
+      num: num
+    })
+  })()
+}
+
+function getuserSignInfo() {
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.userSignInfoUrl)
+  })()
+}
+
+function userSignIn() {
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.userSignInUrl)
+  })()
+}
+
+
+
+
 
 
 module.exports = {
@@ -142,5 +175,8 @@ module.exports = {
     postScore: postScore,
     changeGift: changeGift,
     complain: complain,
-    share: share
+    getQuestionList: getQuestionList,
+    share: share,
+    getuserSignInfo: getuserSignInfo,
+    userSignIn: userSignIn
 }

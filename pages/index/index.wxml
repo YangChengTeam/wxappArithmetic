@@ -1,35 +1,43 @@
 <!--index.wxml-->
 <view class="container">
      <image class="main-bg" src='../../assets/images/main-bg.jpg'></image>
-     <view class="main-content">
+     <image wx:if="{{isLogin}}"  class='sign' src='{{signImg}}' bindtap='openSign'></image>
+     <view class='contact' wx:if="{{isLogin}}">
+        <image src='{{contactImg}}'></image>
+        <button form-type='submit' open-type='contact'></button>
+     </view>
+
+     <view class="loading" hidden='{{isShowContent}}'>
+        <image src="../../assets/images/loading.jpg"></image>
+     </view>
+
+     <view class="main-content" hidden='{{!isShowContent}}'>
           <view class="user-related">
                <image src="../../assets/images/userinfo-bg.png"></image>
                <view class="user-info-wrap">
                <view class="user-info">
                   <image class="user-head" src="{{ isLogin ? userInfo.face : '../../assets/images/avatar.png' }}"></image>
-                  <view class="user-desp">
-                      <view class="username">{{ isLogin ? userInfo.nick_name: '请登录' }}</view>
-                      <view class="user-game-info">
-                          <view class="user-challenge-times">挑战次数: {{userInfo.played_num}}次</view>
-                          <view class="user-score">挑战币: {{ userInfo.money }}枚</view>
-                      </view>
-                  </view>    
+                  <view class="username">{{ isLogin ? userInfo.nick_name: '请登录' }}</view>
+
+                  <view class="user-game-info">
+                          <view class="user-challenge-times">剩余次数: {{userInfo.playable_num}} 次</view>
+                          <view class="user-score">金币: {{ userInfo.money }} 个</view>
+                  </view>  
                </view>
-             </view> 
+             </view>
              <button  open-type='getUserInfo' bindgetuserinfo="doLogin"></button>
+             <image bindtap='navigateToRule' class="help" src='../../assets/images/help.png'></image>
           </view>
           <view class="game-related">
               <view animation="{{gameStart_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="0" bindtouchcancel='end' class="game-start">
                   <image src="../../assets/images/game-start.png"></image>
                   <view class="game-challenge-times">当前共有 {{userInfo.total_num}} 次挑战</view>
-                  <button  open-type='getUserInfo' bindgetuserinfo="loginToStart"></button>
+                  <form bindsubmit='submit' report-submit>
+                      <button form-type='submit'  open-type='getUserInfo' bindgetuserinfo="loginToStart"></button>
+                  </form>
               </view>
               <view class="game-excite" >
                   <image src='../../assets/images/game-rank.png' bindtap='navigateToRank' animation="{{rank_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="1" bindtouchcancel='end'></image>
-                  <view animation="{{prize_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="2" bindtouchcancel='end' class="game-prize" bindtap='navigateToPrize'>
-                       <image src='../../assets/images/game-prize.png'></image>
-                       <view class="game-prize-text">免费换娃娃</view>
-                  </view>
               </view>
           </view>
           <view class="invite" animation="{{invateFriend_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="3" bindtouchcancel='end'>
@@ -38,8 +46,30 @@
              <button open-type='share'></button>
           </view>
           <view class="more" >
-             <image animation="{{more_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="4" bindtouchcancel='end' src='../../assets/images/more.png' bindtap='navigateToMore'></image>
-             <image animation="{{rule_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="5" bindtouchcancel='end' src='../../assets/images/game-rule.png' bindtap='navigateToRule'></image>
+            <view class="more-usercenter" animation="{{more_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="4" bindtouchcancel='end'>
+             <image  src='../../assets/images/more.png'></image>
+            <button  open-type='getUserInfo' bindgetuserinfo="loginToMore"></button>
+             </view>
+             <image animation="{{rule_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="5" bindtouchcancel='end' src='../../assets/images/game-prize.png' bindtap='navigateToPrize'></image>
           </view>
      </view>
+
+      <view class="mask" animation="{{animationDataMaskSign}}">
+
+          <view class="mask-content" animation="{{animationDataSign}}">
+                <image class="mask-sign" src='../../assets/images/dialog-sign.png'></image>
+
+                <view class="mask-sign-list-wrap">
+                <view class="mask-sign-list">
+                    <view  wx:for="{{signInfo.list}}" wx:for-index="index" wx:for-item="item" wx:key="id" class="mask-sign-item {{signInfo.sign_count > index  ? ' mask-sign-item-current' : ''}}">
+                       <view class="day">第{{index+1}}天</view>
+                       <image src="{{index == 6 ? '../../assets/images/prize-gold.png' : '../../assets/images/dialog-item-sign.png'}}"></image>
+                       <view class="num">{{index!=6 ? '+': ''}}{{item}}</view>
+                    </view>
+                </view>
+                <button bindtap='signIn' class="{{signInfo.signed ? 'signed' : ''}}">{{signInfo.signed ? '已领取' : '点击领取'}}</button>
+                </view>
+                <image class="close" src='../../assets/images/close.png' bindtap='closeSign'></image>
+          </view>
+      </view>
 </view>

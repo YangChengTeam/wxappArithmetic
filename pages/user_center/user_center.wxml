@@ -1,27 +1,47 @@
 <!--pages/user_center/user_center.wxml-->
 <view class="container">
-      <image class="main-bg" src='../../assets/images/main-bg.jpg' ></image>
-      <view class='main-content'>
-      <!-- <view class="user-related">
+      <image class="main-bg" src='../../assets/images/main-bg.jpg'></image>
+       <view class="loading" hidden='{{isShowContent}}'>
+        <image src="../../assets/images/loading.jpg"></image>
+      </view>
+      <view class='main-content' hidden='{{!isShowContent}}'>
+       <view class="user-related">
                <image src="../../assets/images/user-center-bg.png"></image>
                <view class="user-info-wrap">
                <view class="user-info">
                   <image class="user-head" src="{{ isLogin ? userInfo.face : '../../assets/images/avatar.png' }}"></image>
                   <view class="username">{{userInfo.nick_name}}</view>
                   <view class="user-game-info">  
-                       <view class="user-game-info-item"><view class="num">{{userInfo.played_num}}次</view><view>挑战次数</view> </view>
-                       <view class="user-game-info-item"><view class="num">{{userInfo.succ_num}}次</view><view>挑战成功</view></view>
-                       <view class="user-game-info-item"><view class="num">{{userInfo.playable_num}}枚</view><view>挑战币</view></view>
+                       <view class="user-game-info-item"><view>剩余次数</view><view class="num">{{userInfo.playable_num}}</view> </view>
+                       <view class="user-game-info-item"><view>挑战次数</view><view class="num">{{userInfo.played_num}}</view></view>
+                       <view class="user-game-info-item"><view>金币数量</view><view class="num gold">{{userInfo.money}}</view></view>
                   </view>    
                </view>
              </view>
-             <button open-type='getUserInfo' bindgetuserinfo="login"></button>
+             <!-- <button open-type='getUserInfo' bindgetuserinfo="login"></button> -->
+             <image bindtap='navigateToRule' class="help" src='../../assets/images/help.png'></image>
+     </view>
+     <view class="menu">
+        <view class="menu-item" bindtap='openSign'>
+            <image src="../../assets/images/menu-sign.png"></image>
+            <view>签到</view>
+        </view>
+        <view class="menu-item">
+            <image src="../../assets/images/menu-share.png"></image>
+            <view>分享{{status ? '增加挑战' : ''}}</view>
+            <button open-type='share'></button>
+        </view>
+        <view class="menu-item">
+            <image src="../../assets/images/menu-contact.png"></image>
+            <view>客服</view>
+            <button open-type='contact'></button>
+        </view>
      </view>
      <view class="more-header">
         <view class="line"></view>
         <view class="title">更多智力挑战</view>
         <view class="line"></view>
-     </view> -->
+     </view> 
 
      <view class="more-list">
            <view class="more-list-item"  wx:for="{{moreList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
@@ -31,8 +51,24 @@
                               <view class="wxapp-desp">{{item.desc}}
                           </view>
                           </view>
-                          <button bindtap='open' data-appid='{{item.url}}'>{{item.button_name}}</button>
+                          <navigator target="miniProgram" app-id='{{item.url}}'>{{item.button_name}}</navigator> 
             </view>
      </view>
   </view>
+
+   <view class="mask" animation="{{animationDataMaskSign}}">  
+          <view class="mask-content" animation="{{animationDataSign}}"> <image class="mask-sign" src='../../assets/images/dialog-sign.png'></image>
+                <view class="mask-sign-list-wrap">
+                <view class="mask-sign-list">
+                    <view  wx:for="{{signInfo.list}}" wx:for-index="index" wx:for-item="item" wx:key="id" class="mask-sign-item {{signInfo.sign_count > index  ? ' mask-sign-item-current' : ''}}">
+                       <view class="day">第{{index+1}}天</view>
+                       <image src="{{index == 6 ? '../../assets/images/prize-gold.png' : '../../assets/images/dialog-item-sign.png'}}"></image>
+                       <view class="num">{{item}}</view>
+                    </view>
+                </view>
+                <button bindtap='signIn' class="{{signInfo.signed ? 'signed' : ''}}">{{signInfo.signed ? '已领取' : '点击领取'}}</button>
+                </view>
+                <image class="close" src='../../assets/images/close.png' bindtap='closeSign'></image>
+          </view>
+      </view>
 </view>

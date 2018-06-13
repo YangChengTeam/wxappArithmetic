@@ -9,8 +9,8 @@
 }
 
 .user-related > button {
-   width: 660rpx;
-   height: 330rpx;
+   width: 662rpx;
+   height: 322rpx;
    left: 0;
    top: 0;
    position: absolute;
@@ -46,15 +46,15 @@
 }
 
 .user-head {
-   width: 120rpx;
-   height: 120rpx;
+   width: 100rpx;
+   height: 100rpx;
    border-radius: 50%;
-   border: solid 6rpx #f9adc8;
+   border: solid 6rpx #d0e2ef;
 }
 
 .username {
    font-size: 30rpx;
-   margin-top: 5rpx;
+   margin-top: 10rpx;
 }
 
 
@@ -77,7 +77,11 @@
 
 .user-game-info-item > .num {
    margin-bottom: 5rpx;
-   font-size: 32rpx;
+   font-size: 36rpx;
+}
+
+.gold {
+   color: #ffcc00;
 }
 
 .more-header {
@@ -89,6 +93,48 @@
   align-items: center;
   margin-top: 30rpx;
   margin-bottom: 30rpx;
+}
+
+.menu {
+   width: 100%;
+   height: 210rpx;
+   border-radius: 15rpx;
+   background-color: #fff;
+   margin-top: 30rpx;
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+}
+
+.menu-item {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   width: 220rpx;
+   height: 210rpx;
+   color: #000;
+   font-size: 30rpx;
+   position: relative;
+}
+
+.menu-item > button {
+   position: absolute;
+   opacity: 0;
+   width: 220rpx;
+   height: 210rpx;
+   left:0;
+   top:0;
+}
+
+.menu-item > image {
+   width: 83rpx;
+   height: 83rpx;
+}
+
+.menu-item > view {
+   margin-top: 5rpx;
 }
 
 .more-header > .line {
@@ -111,7 +157,6 @@
    border-radius: 15rpx;
    background-color: #fff;
    align-items: center;
-   justify-content: center;
    margin-bottom: 30rpx;
 }
 
@@ -141,14 +186,147 @@
    margin-top: 4rpx;
 }
 
-
-.more-list-item > button {
+.more-list-item > navigator {
    height: 60rpx;
    width: 134rpx;
    border-radius: 30rpx;
-   background-color: #fa5283;
+   background-color: #ff6666;
    font-size: 24rpx;
    color: #fff;
+   text-align: center;
    line-height: 60rpx;
+   margin-left: 20rpx;
+}
+
+image.help {
+   position: absolute;
+   width: 40rpx;
+   height: 40rpx;
+   left: 600rpx;
+   top: 15rpx;
+}
+
+
+.mask {
+   position: fixed;
+   width: 100%;
+   height: 100%;
+   background: rgba(0,0,0,0.7);
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   top: -100%;
+   left: 0;
+   opacity: 0;
+   z-index: 10000;
+}
+
+.mask-content {
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+   height: 100%;
+   align-items: center;
+   top: -100%;
+   left: 0;
+   opacity: 0;
+   position: relative;
+   
+}
+
+.mask-content > .close {
+   width: 48rpx;
+   height: 48rpx;
+   margin-top: 60rpx;
+   position: relative;
+}
+
+.mask-sign {
+   position: absolute;
+   width: 604rpx;
+   height: 258rpx;
+   left: 72rpx;
+   z-index: 1000;
+   top: 40rpx;
+}
+
+.mask-sign-list-wrap {
+   width: 540rpx;
+   height: 540rpx;
+   border-radius: 10rpx;
+   background: #fff;
+   margin-top: 280rpx;
+}
+
+.mask-sign-list {
+   width: 100%;
+   display: flex;
+   flex-direction: row;
+   justify-content: flex-start;
+   flex-wrap: wrap;
+   margin-top: 60rpx;
+}
+
+.mask-sign-item {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   background: #8d1b1b;
+   width: 105rpx;
+   height: 150rpx;
+   border-radius: 10rpx;
+   font-size: 24rpx;
+   margin-right: 20rpx;
+   box-shadow: 2px 2px 5px #eecbcb;
+}
+
+.mask-sign-item-current {
+  background: #ff6666;
+  box-shadow: 2px 2px 5px #ecc2c2;
+}
+
+.mask-sign-item:first-child {
+  margin-left: 30rpx;
+}
+
+.mask-sign-item:nth-child(5){
+  margin-left: 30rpx;
+}
+
+.mask-sign-item:nth-child(5) , .mask-sign-item:nth-child(6), .mask-sign-item:nth-child(7){
+  margin-top: 20rpx;
+}
+
+.mask-sign-item:nth-child(7){
+   width: 230rpx;
+}
+
+.mask-sign-item > image{
+  width: 52rpx;
+  height: 52rpx;
+  margin-top: 10rpx;
+}
+
+.mask-sign-item > .day {
+  margin-top: 10rpx;
+}
+
+.mask-sign-item > .num {
+  margin-top: 5rpx;
+}
+
+.mask-sign-list-wrap > button {
+   width: 375rpx;
+   height: 90rpx;
+   border-radius: 45rpx;
+   background: linear-gradient(#f56a24, #ee5b5d, #de6683); 
+   color: #fff;
+   font-size: 30rpx;
+   margin-top: 30rpx;
+   line-height: 90rpx;
+}
+
+button.signed {
+   background: #a9a9a9;
 }
 

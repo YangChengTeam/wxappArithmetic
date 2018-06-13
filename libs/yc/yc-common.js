@@ -15,8 +15,44 @@ function encrypt(data){
     return md5(sha256(result))
 }
 
- 
+// 是今天存储的吗
+function isStorageInToday(key){
+  let flag = false
+  try {
+    var value = wx.getStorageSync(key)
+    let date = new Date()
+    let currentDate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate()
+    flag = value && currentDate == value
+  } catch (e) {
+  }
+  return flag
+}
+
+// 存储今天
+function storageToday(key, callback){
+  try {
+    let date = new Date()
+    let currentDate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate()
+    var value = wx.setStorageSync(key, currentDate)
+    if(callback){
+       callback()
+    }
+  } catch (e) {
+  }
+}
+
+function share(shareTicket, callback, lp){
+  wx.getShareInfo({
+    shareTicket: shareTicket,
+    success(res) {
+        callback(res.iv, res.encryptedData, lp)
+    }
+  })
+}
 
 module.exports = {
-    encrypt: encrypt
+    encrypt: encrypt,
+    isStorageInToday: isStorageInToday,
+    storageToday: storageToday, 
+    share: share
 }

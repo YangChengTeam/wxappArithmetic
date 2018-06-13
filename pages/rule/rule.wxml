@@ -1,7 +1,10 @@
 <!--pages/rule/rule.wxml-->
 <view class="container">
      <image class="main-bg" src='../../assets/images/main-bg.jpg' ></image>
-     <view class="main-content">
+     <view class="loading" hidden='{{isShowContent}}'>
+        <image src="../../assets/images/loading.jpg"></image>
+     </view>
+     <view class="main-content" hidden='{{!isShowContent}}'>
          <view class="rule-list">
              <view class="rule-list-item" wx:for="{{ruleList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
                 <view class="rule-num">{{index+1}}</view>

@@ -7,15 +7,29 @@
   width: 100%;
   height: 100%;
 }
+
+
 .tab {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #29128a;
+  background-color: #1c8a24;
   width: 660rpx;
   height: 100rpx;
   border-radius: 50rpx;
+  left: 0;
+  top: 0;
+  position: relative;
+  
+}
+
+.tab > image {
+   width: 414rpx;
+   height: 54rpx;
+   position: absolute;
+   left: -1rpx;
+   top: -1rpx;
 }
 
 .tab-item {
@@ -24,12 +38,20 @@
    height: 80rpx;
    line-height: 80rpx;
    text-align: center;
+   position: absolute;
+   left: 10rpx;
+   top: 10rpx;
+}
+
+.tab-item2 {
+   left: 330rpx;
 }
 
 .tab-item-current {
-  background-color: #ff5686;
+  background-color: #ffde00;
   border-radius: 40rpx;
   font-weight: bold;
+  color: #000;
 }
 
 .swiper-content > swiper {
@@ -48,7 +70,7 @@
    justify-content: center;
    width: 660rpx;
    height: 360rpx;
-   background-color: #8271c8;
+   background-color: #13264C;
    border-radius: 20rpx;
    margin-left: 45rpx;
    margin-top: 30rpx;
@@ -78,7 +100,7 @@
    width: 640rpx;
    height: 340rpx;
    border-radius: 15rpx;
-   background-color: #8271c8;
+   background-color: #13264C;
    position: absolute;
    top: 0;
    left: 0;
@@ -103,15 +125,24 @@
    color: #000;
    font-size: 32rpx;
    margin-left: 30rpx;
-   width: 280rpx;
-}
-.prize-money {
-   color: #999;
-   font-size: 24rpx;
-   margin-left: 30rpx;
-   width: 110rpx;
+   width: 360rpx;
 }
 
+.prize-money {
+   color: #000;
+   font-size: 28rpx;
+   margin-left: 30rpx;
+   width: 180rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+}
+
+.prize-money > image {
+   width: 47rpx;
+   height: 47rpx;
+   margin-right: 10rpx;
+}
 
 
 .prize-desp > button {
@@ -208,7 +239,7 @@
    width: 440rpx;
    border-radius: 45rpx;
    line-height: 90rpx;
-   background-color: #382198;
+   background-color: #1c8a24;
    color: #fff;
    text-align: center;
    margin-top: 30rpx;

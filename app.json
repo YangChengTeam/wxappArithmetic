@@ -10,9 +10,9 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "backgroundColor": "#382198",
-    "navigationBarBackgroundColor": "#382198",
-    "navigationBarTitleText": "加减挑战赛",
+    "backgroundColor": "#13264c",
+    "navigationBarBackgroundColor": "#13264c",
+    "navigationBarTitleText": "世界杯有奖答题",
     "navigationBarTextStyle": "white"
   }
 }
