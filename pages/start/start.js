@@ -7,14 +7,14 @@ const co = require('../../libs/co')
 const kkgen = require('../../libs/yc/yc-arithmetic-gen.js')
 const kkservice = require("../../libs/yc/yc-service.js")
 const kkcommon = require("../../libs/yc/yc-common.js")
-
+const offset = 5
 var questions = []
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    count : 30,
+    count : 15,
     animationData3: {},
     animationData2: {},
     animationData1: {},
@@ -88,11 +88,9 @@ Page({
               v.t = t - parseInt(i / thiz.data.count)
            })
        }
-       for(let i = 0; i< questions[0].options.length;i++){
-         questions[0].options[i].name = String.fromCharCode(65 + i) + ". "+ questions[0].options[i].name
-       }
        thiz.setData({
-         questionInfo: questions[0]
+           questionInfo: questions[0],
+           count: questions.length
        })
        thiz.countdownAnimate()
     })    
@@ -139,7 +137,7 @@ Page({
   },
   fail(){
     let thiz = this
-    if (this.data.count - this.data.rightNumber <= 10 || app.index.data.userInfo.playable_num <= 0){
+    if (this.data.count - this.data.rightNumber <= offset || app.index.data.userInfo.playable_num <= 0){
        this.setData({
            isHelp: true
        })
@@ -196,9 +194,7 @@ succ(){
   setTimeout(() => {
     ++thiz.data.currentIndex
     questions[thiz.data.currentIndex].animate = ' flipInY'
-    for (let i = 0; i < questions[thiz.data.currentIndex].options.length; i++) {
-      questions[thiz.data.currentIndex].options[i].name = String.fromCharCode(65 + i) + ". " + questions[thiz.data.currentIndex].options[i].name
-    }
+
     thiz.setData({
       rightNumber: ++thiz.data.rightNumber,
       currentIndex: thiz.data.currentIndex,

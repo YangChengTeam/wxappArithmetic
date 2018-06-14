@@ -6,7 +6,7 @@ const regeneratorRuntime = global.regeneratorRuntime = require('../../libs/runti
 const co = require('../../libs/co')
 const kkservice = require("../../libs/yc/yc-service.js")
 const kkconfig = require("../../libs/yc/yc-config.js")
-const pagesize = 20
+const pagesize = 10
 Page({
 
   /**
@@ -98,18 +98,18 @@ Page({
   },
 
   lower(){
-    if (this.data.currentNumber == 0 && !this.data.isALoading ){
-       ++this.data.aPage
-       if (this.data.aPage <= this.data.aTotalPage){
-          this.loadaData()
-       }  
-    }
-    else if (this.data.currentNumber == 1 && !this.data.isBLoading) {
-       ++this.data.bPage
-       if (this.data.bPage <= this.data.bTotalPage) {
-           this.loadbData()
-       }
-     }
+    // if (this.data.currentNumber == 0 && !this.data.isALoading ){
+    //    ++this.data.aPage
+    //    if (this.data.aPage <= this.data.aTotalPage){
+    //       this.loadaData()
+    //    }  
+    // }
+    // else if (this.data.currentNumber == 1 && !this.data.isBLoading) {
+    //    ++this.data.bPage
+    //    if (this.data.bPage <= this.data.bTotalPage) {
+    //        this.loadbData()
+    //    }
+    //  }
   },
 
   /**
