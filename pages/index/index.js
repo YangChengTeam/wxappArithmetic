@@ -33,7 +33,6 @@ Page({
   onLoad: function () {   
      let thiz = this
      app.index = this
-     this.shareTitle = '我正在参加「世界杯有奖答题」，这里竟然可以免费领娃娃！？'
      co(function*(){
        var [status, appInfo] = yield [kkservice.authPermission("scope.userInfo"), yield kkservice.getAppInfo()] 
           if (status == kkconfig.status.authStatus.authOK){
@@ -42,12 +41,12 @@ Page({
             setTimeout(()=>{
               thiz.setData({
                 isShowContent: true
-              });
+              })
             }, 1000)
           } 
           thiz.appInfo = appInfo
           wx.showShareMenu({
-            withShareTicket: true
+              withShareTicket: true
           })
      })   
   },

@@ -1,7 +1,7 @@
 /**app.wxss**/
 page {
   width: 100%;
-  background-color: #13264c;
+  background-color: #91ccf0;
   color: white;
   height: 98.3%;
 }
@@ -35,9 +35,10 @@ button, button::after {
 
 .loading {
   position: fixed;
-  bottom: 0;
+  top: 80rpx;
   left: 0;
-  width: 750rpx;
-  height: 100%;
+  width: 584rpx;
+  height: 958rpx;
   z-index: -1;
+  margin-left: 83rpx;
 }

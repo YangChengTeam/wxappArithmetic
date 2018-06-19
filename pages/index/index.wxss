@@ -280,18 +280,18 @@ image.help {
    display: flex;
    flex-direction: column;
    align-items: center;
-   background: #8d1b1b;
+   background: #0389d2;
    width: 105rpx;
    height: 150rpx;
    border-radius: 10rpx;
    font-size: 24rpx;
    margin-right: 20rpx;
-   box-shadow: 2px 2px 5px #eecbcb;
+   box-shadow: 2px 2px 5px #bcd8e8;
 }
 
 .mask-sign-item-current {
-  background: #ff6666;
-  box-shadow: 2px 2px 5px #ecc2c2;
+  background: #01bdf5;
+  box-shadow: 2px 2px 5px #b1d3e5;
 }
 
 .mask-sign-item:first-child {
@@ -328,7 +328,7 @@ image.help {
    width: 375rpx;
    height: 90rpx;
    border-radius: 45rpx;
-   background: linear-gradient(#f56a24, #ee5b5d, #de6683); 
+   background: linear-gradient(#01bff6, #02aeee, #0497e3); 
    color: #fff;
    font-size: 30rpx;
    margin-top: 30rpx;

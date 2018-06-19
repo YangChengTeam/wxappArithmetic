@@ -24,6 +24,21 @@
   
 }
 
+.tab {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #00a7fe;
+  width: 660rpx;
+  height: 100rpx;
+  border-radius: 50rpx;
+  left: 0;
+  top: 0;
+  position: relative;
+  
+}
+
 .tab > image {
    width: 414rpx;
    height: 54rpx;
@@ -48,10 +63,10 @@
 }
 
 .tab-item-current {
-  background-color: #ffde00;
+  background-color: #ff7686;
   border-radius: 40rpx;
   font-weight: bold;
-  color: #000;
+  color: #fff;
 }
 
 .swiper-content > swiper {
@@ -70,7 +85,7 @@
    justify-content: center;
    width: 660rpx;
    height: 360rpx;
-   background-color: #13264C;
+   background-color: #d0e2ef;
    border-radius: 20rpx;
    margin-left: 45rpx;
    margin-top: 30rpx;

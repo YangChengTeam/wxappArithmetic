@@ -1,10 +1,9 @@
 <!--pages/prize/prize.wxml-->
 <view class="container">
-     <image class="main-bg" src='../../assets/images/main-bg.jpg' hidden='{{!isShowContent}}'></image>
-     <image src="../../assets/images/loading.jpg" class="loading" hidden='{{isShowContent}}'></image>
+     <image class="main-bg" src='../../assets/images/main-bg.png' hidden='{{!isShowContent}}'></image>
+     <image src="../../assets/images/loading.png" class="loading" hidden='{{isShowContent}}'></image>
      <view class="swiper-content" hidden='{{!isShowContent}}'>
           <view class="tab">
-              <image src='../../assets/images/tab-bg.png'></image>
               <view bindtap='tabPage' class='tab-item {{currentNumber == 0 ? "tab-item-current" : ""}}' data-index='0'>挑战奖品</view>
               <view bindtap='tabPage' class='tab-item tab-item2 {{currentNumber == 1 ? "tab-item-current" : ""}}' data-index='1'>兑奖记录</view>
           </view>

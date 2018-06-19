@@ -1,13 +1,13 @@
 <!--index.wxml-->
 <view class="container">
-     <image class="main-bg" src='../../assets/images/main-bg.jpg' hidden='{{!isShowContent}}'></image>
+     <image class="main-bg" src='../../assets/images/main-bg.png' hidden='{{!isShowContent}}'></image>
      <image wx:if="{{isLogin}}"  class='sign' src='{{signImg}}' bindtap='openSign'></image>
      <view class='contact' wx:if="{{isLogin}}">
         <image src='{{contactImg}}'></image>
         <button form-type='submit' open-type='contact'></button>
      </view>
 
-      <image src="../../assets/images/loading.jpg" class="loading" hidden='{{isShowContent}}'></image>
+      <image src="../../assets/images/loading.png" class="loading" hidden='{{isShowContent}}'></image>
 
      <view class="main-content" hidden='{{!isShowContent}}'>
           <view class="user-related">

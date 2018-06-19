@@ -12,7 +12,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #1c8a24;
+  background-color: #00a7fe;
   width: 660rpx;
   height: 100rpx;
   border-radius: 50rpx;
@@ -46,10 +46,10 @@
 }
 
 .tab-item-current {
-  background-color: #ffde00;
+  background-color: #ff7686;
   border-radius: 40rpx;
   font-weight: bold;
-  color: #000;
+  color: #fff;
 }
 
 .swiper-content > swiper {
@@ -66,60 +66,33 @@
    flex-direction: row;
    align-items: center;
    justify-content: center;
-   border: solid #13264C 2rpx;
+   border: solid #00a7fe 1rpx;
    border-radius: 10rpx;
    height: 140rpx;
    margin-top: 25rpx;
    margin-left: 45rpx;
    width: 660rpx;
-   background: rgba(255, 255, 255, 0.1)
 }
 
 .rank-list-item:first-child {
   margin-top: 28rpx;
 }
 
-.rank-num  {
-   position: relative;
-   width: 58rpx;
-   height: 58rpx;
-}
-
 .rank-num > image {
-  width: 58rpx;
-  height: 58rpx;
-  position: absolute;
+  width: 54rpx;
+  height: 44rpx;
 }
 
 .rank-num > view {
-   width: 42rpx;
-   height: 42rpx;
+   width: 50rpx;
+   height: 50rpx;
    border-radius: 50%;
    background-color: #dcaa63;
    font-size: 18rpx;
-   color: #000;
+   color: #382198;
    text-align: center;
-   line-height: 42rpx;
+   line-height: 50rpx;
    font-weight: bold;
-   position: absolute;
-   left: 8rpx;
-   top: 8rpx;
-}
-
-.rank-num > .bg0 {
-   background-color: #ffde00;
-}
-
-.rank-num > .bg1 {
-   background-color: #ffa800;
-}
-
-.rank-num > .bg2 {
-   background-color: #b8b8b8;
-}
-
-.rank-num > .bg {
-   background-color: #ffffff;
 }
 
 .user-head {

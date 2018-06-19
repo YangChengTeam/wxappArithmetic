@@ -1,8 +1,7 @@
 <!--pages/start/start.wxml-->
 <view class="container">
-      <image class="main-bg" src='../../assets/images/main-bg.jpg' hidden='{{!isShowContent}}'></image>
-      <image src="../../assets/images/loading.jpg" class="loading" hidden='{{isShowContent}}'></image>
-      <view class="main-content" hidden='{{!isShowContent}}'>
+      <image class="main-bg" src='../../assets/images/main-bg2.png' ></image>
+      <view class="main-content">
           <view class="start-time">
             <view class="start-content">
                <view class="time-content" animation="{{timeAnimationDataGameStart}}">
@@ -21,10 +20,10 @@
               </view>
               <view class="game-content" animation="{{gameAnimationDataGameStart}}">
                     <view class="game-content-wrap">
-                        <view class="process-info"> 
+                        <view class="process-info">
                            <view class='process-info-wrap'>
-                              <view animation="{{animationDataProcess}}" class="process" />
-                              <image class="bg" src='../../assets/images/rank-bg.png' />
+                              <image class="bg" src='../../assets/images/time-bg.png' />
+                              <view animation="{{animationDataProcess}}" class="process" src='../../assets/images/time-process.png'  />
                            </view>
                         </view>
                         <view class="question-in-all">已经连续答对 {{ rightNumber }}/{{count}}</view>
@@ -33,37 +32,42 @@
                              <rich-text class="title">第<em style='color:#ff3e3e; font-weight: bold;'>{{currentIndex+1}}</em>题</rich-text>
                              <view class="line"></view>
                         </view>
-                        <view class="question-info animated{{questionInfo.animate}}" >
-                            <view>{{questionInfo.name}}</view>
+                        <view class="question-info animated{{questionInfo.animate}}">
+                            <rich-text>{{questionInfo.name}}</rich-text>
                         </view>
                     </view>
               </view>
             </view>
             <view class="start-footer">
-                <view class="start-footer-wrap">
+                 <view class="start-footer-wrap">
                 <view class="start-desp" animation="{{animationDataStartDesp}}">
                   <view class="title">挑战规则</view>
                   <view class="desp">连续答对{{count}}道题既挑战成功</view>
                 </view>
-                <view class="game-select animated{{questionInfo.animate}}" animation="{{animationDataSelect}}">
-                <block wx:for="{{questionInfo.options}}" wx:for-index="index" wx:for-item="item" wx:key="id">
-                    <view wx:if="{{ item.name != 'null' && item.name.length > 0 }}" animation="{{item.animate }}" class="option animated{{item.style}}" bindtouchstart='start' bindtouchend='end' bindtouchcancel='end' bindtap='answer' data-index='{{index}}'>
-                        <view class="option2 {{item.style2}}">{{item.op}}. {{item.name}}</view>
+                <view class="game-select" animation="{{animationDataSelect}}">
+                    <view class="option animated{{questionInfo.animate}}" animation="{{animationDataRight}}" bindtouchstart='start' bindtouchend='end' data-index="{{questionInfo.options[0].is_answer}}" bindtouchcancel='end' bindtap='answer1'>
+                      <view class="option1">
+                        <view class="optionAnswer">A</view>
+                        <view>{{questionInfo.options[0].name}}</view>
+                      </view>
                     </view>
-                   </block>
+                    <view class="option animated{{questionInfo.animate}}" animation="{{animationDataError}}" bindtouchstart='start' bindtouchend='end' data-index="{{questionInfo.options[1].is_answer}}" bindtouchcancel='end' bindtap='answer2'>
+                      <view class="option2">
+                        <view class="optionAnswer">B</view>
+                        <view>{{questionInfo.options[1].name}}</view>
+                      </view>
+                    </view>
                 </view>
                 </view>
             </view>
           </view>
       </view>
-      <view class="mask mask-succ"  animation="{{animationDataMaskSucc}}">
-
+       <view class="mask mask-succ"  animation="{{animationDataMaskSucc}}">
           <view class="mask-content succ"  animation="{{animationDataSucc}}">
-                                       <image class="succ-header" src='../../assets/images/succ.png'></image>
-                 <image class="succ-title" src='../../assets/images/succ-title.png'></image>
+                <image class="succ-header" src='../../assets/images/succ.png'></image>
                 <view class="mask-main-content">
-                    <view class="title">恭喜您是百分百的真球迷一枚！特送
-一枚兑换金币，快去炫耀一下吧！</view>
+                    <view class="title">恭喜您获得一枚挑战币，
+快去兑换吧！</view>
                     <button class="continue" bindtap='navagateToPrizee'>兑换礼物</button>
                     <button class="invate-friend" open-type='share'>炫耀一下</button>
                 </view>
@@ -72,12 +76,11 @@
       </view>
       <view class="mask mask-fail" animation="{{animationDataMaskFail}}">
           <view class="mask-content fail" animation="{{animationDataFail}}">
-                <image class="fail" src="{{isHelp ? '../../assets/images/fail2.png' : '../../assets/images/fail.png'}}"></image>
+                <image class="fail" src='../../assets/images/fail.png'></image>
                 <view class="mask-main-content">
-                    <view class="title">{{isHelp ? '不要放弃，继续挑战，相信你是可以的！' : '分享到群求助好友，接着挑战！'}}</view>
-                    <button class="continue" wx:if="{{isHelp}}" bindtap='continuePlay'>继续挑战</button>
-                    <button class="continue" wx:if="{{!isHelp}}" open-type='share'>求助好友</button>
-                    <button class="invate-friend" bindtap='closeFail'>点击跳过</button>
+                    <view class="title">继续挑战，相信你可以的！</view>
+                    <button class="continue" bindtap='continuePlay'>继续挑战</button>
+                    <button class="invate-friend" open-type='share'>邀请好友一起玩</button>
                 </view>
                 <image class="close" src='../../assets/images/close.png' bindtap='closeFail'></image>
           </view>

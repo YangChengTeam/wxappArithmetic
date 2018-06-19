@@ -6,22 +6,22 @@ const regeneratorRuntime = global.regeneratorRuntime = require('../../libs/runti
 const co = require('../../libs/co')
 const kkgen = require('../../libs/yc/yc-arithmetic-gen.js')
 const kkservice = require("../../libs/yc/yc-service.js")
-const kkcommon = require("../../libs/yc/yc-common.js")
-const offset = 5
+
 var questions = []
 Page({
+
   /**
    * 页面的初始数据
    */
   data: {
-    count : 15,
+    count: 40,
     animationData3: {},
     animationData2: {},
     animationData1: {},
     animationDataStart: {},
     gameAnimationDataGameStart: {},
     timeAnimationDataGameStart: {},
-    animationDataStartDesp:{},
+    animationDataStartDesp: {},
     animationDataSelect: {},
     animationDataRight: {},
     animationDataError: {},
@@ -30,25 +30,68 @@ Page({
     animationDataMaskSucc: {},
     animationDataMaskFail: {},
     animationDataProcess: {},
+
     musicStatus: "on",
 
     questionInfo: {},
     currentIndex: 0,
     rightNumber: 0,
-    isHelp: false,
-    isOver: false,
-    isShowContent: false
+
+    isOver: false
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-      app.index.isStart = false
-      wx.showShareMenu({
-          withShareTicket: true
-      }) 
+    wx.hideShareMenu({})
+    app.index.isStart = false
   },
-  noPlayableNum(){
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+    if (this.noPlayableNum()) {
+      return
+    }
+    if (app.index.appInfo.data.data.status != 1) {
+      this.setData({
+        isHelp: true
+      })
+    }
+    let thiz = this
+    thiz.setData({
+      isShowContent: true
+    })
+    co(function*(){
+        let res = yield kkservice.getQuestionList(thiz.data.count)
+        let t = 4
+        if (res.data && res.data.code == 1) {
+          questions = res.data.data
+          questions.forEach((v, i) => {
+            v.t = t - parseInt((i) / 10)
+            console.log("时间" + v.t)
+          })
+        }
+        thiz.setData({
+          questionInfo: questions[0],
+          count: questions.length
+        })
+        thiz.countdownAnimate()
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    if (this.data.musicStatus == "off") {
+      this.data.musicStatus = "on"
+      this.backgroundMusicPlay()
+    }
+  },
+  noPlayableNum() {
     if (app.index.data.userInfo.playable_num <= 0) {
       wx.showModal({
         title: '',
@@ -63,213 +106,45 @@ Page({
       return true
     }
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    if (this.noPlayableNum()){
-       return 
-    }
-    if (app.index.appInfo.data.data.status != 1){
-       this.setData({
-          isHelp: true
-       })
-    }
-    let thiz = this
-    thiz.setData({
-      isShowContent: true
-    })
-    co(function*(){  
-       let res = yield kkservice.getQuestionList(thiz.data.count)    
-       let t = 16
-       if(res.data && res.data.code == 1){
-           questions = res.data.data
-           questions.forEach((v, i)=>{
-              v.t = t - parseInt(i / thiz.data.count)
-           })
-       }
-       thiz.setData({
-           questionInfo: questions[0],
-           count: questions.length
-       })
-       thiz.countdownAnimate()
-    })    
-  },
-  answer(e){
-     if(this.data.isOver) return
-     let thiz = this
-     let index = (e.currentTarget.dataset.index)
-     let option = this.data.questionInfo.options[index]
-     if (option.is_answer === 1 ){
-        option.style=' snake right'
-        option.style2 = ' right2'
-        setTimeout(()=>{
-          thiz.succ()
-        }, 500)
-     } else {
-        option.style = ' snake error'
-        option.style2 = ' error2'
-        for (let i = 0;  i < this.data.questionInfo.options.length; i++) {
-            if(i == index) continue
-            let tmp_option = this.data.questionInfo.options[i]
-            if (tmp_option.is_answer === 1){
-              tmp_option.style = ' snake right'
-              tmp_option.style2 = ' right2'
-              break
-            }
-        }
-        setTimeout(() => {
-          thiz.fail()
-        }, 500)
-     }
-     this.setData({
-       questionInfo: this.data.questionInfo
-     })
-  },
-
-  help(){
-     this.data.isOver = false
-     this.setData({
-        isHelp: true
-     })
-     this.lp = 1
-     this.succ() 
-  },
-  fail(){
-    let thiz = this
-    if (this.data.count - this.data.rightNumber <= offset || app.index.data.userInfo.playable_num <= 0){
-       this.setData({
-           isHelp: true
-       })
-    }  
-    this.isfail = true
-    this.data.isOver = true    
-    this.resetCountDown()
-    this.errorMusicPlay()
-    this.toogleFail(1)
-    this.failMusicPlay()
-    co(function* () {
-        let postData = yield kkservice.postScore(thiz.data.rightNumber, 0, app.formId, thiz.lp)
-        if (postData.data.code == 1) {
-          app.index.data.userInfo.played_num = postData.data.data.played_num
-          app.index.data.userInfo.playable_num = postData.data.data.playable_num
-          app.index.data.userInfo.money = postData.data.data.money
-          app.index.data.userInfo.total_num += 1
-          app.index.setData({
-            userInfo: app.index.data.userInfo
-
-          })
-        }
-    })
-  },
-succ(){
-  let thiz = this
-  thiz.resetCountDown()
-  thiz.rightMusicPlay()
-  if (thiz.data.currentIndex >= thiz.data.count - 1) {
-    thiz.issucc = true
-    thiz.data.isOver = true
-    co(function* () {
-      let postData = yield kkservice.postScore(thiz.data.rightNumber, 1, app.formId, thiz.lp)
-      if (postData.data.code == 1) {
-        app.index.data.userInfo.played_num = postData.data.data.played_num
-        app.index.data.userInfo.playable_num = postData.data.data.playable_num
-        app.index.data.userInfo.money = postData.data.data.money
-        app.index.data.userInfo.total_num += 1
-        app.index.setData({
-          userInfo: app.index.data.userInfo
-        })
-        thiz.setData({ rightNumber: ++thiz.data.rightNumber })
-        thiz.toogleSucc(1)
-      }
-    })
-    return
-  }
-  questions[thiz.data.currentIndex].animate = ''
-  thiz.setData({
-    questionInfo: questions[thiz.data.currentIndex]
-  }, () => {
-    thiz.countDown(thiz.data.questionInfo)
-  })
-  setTimeout(() => {
-    ++thiz.data.currentIndex
-    questions[thiz.data.currentIndex].animate = ' flipInY'
-
-    thiz.setData({
-      rightNumber: ++thiz.data.rightNumber,
-      currentIndex: thiz.data.currentIndex,
-      questionInfo: questions[thiz.data.currentIndex]
-    })
-  }, 10)
-
-},
-  action(e, s) {
-    var index = e.currentTarget.dataset.index
-    var animation = wx.createAnimation({
-      duration: 1000,
-      timingFunction: 'ease',
-    })
-    animation.scale(s, s).step()
-    this.data.questionInfo.options[index].animate = animation.export()
-
-    this.setData({
-      questionInfo: this.data.questionInfo
-    })
-  },
-  start(e) {
-    this.action(e, 0.8)
-  },
-  end(e) {
-    this.action(e, 1.0)
-  },
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    if (this.data.musicStatus == "off"){
-      this.data.musicStatus = "on"
-      this.backgroundMusicPlay()
-    }
-  },
-  playMuisc(){
+  playMuisc() {
     if (this.innerAudioContext) {
       this.innerAudioContext.play()
     }
   },
-  pauseMusic(){
+  pauseMusic() {
     if (this.innerAudioContext) {
       this.innerAudioContext.pause()
     }
   },
-  stopMusic(){
+  stopMusic() {
     if (this.innerAudioContext) {
       this.innerAudioContext.stop()
     }
   },
-  playMusic(src, loop = false){
-      if (this.data.musicStatus != "on"){
-          this.stopMusic()
-          return
-      }
-      const innerAudioContext = wx.createInnerAudioContext()
-      if(loop){
-        this.loopInnerAudioContext = innerAudioContext
-      }else{
-        this.innerAudioContext = innerAudioContext
-      }
-      innerAudioContext.src = src
-      innerAudioContext.loop = loop
-      innerAudioContext.play()
+  playMusic(src, loop = false) {
+    if (this.data.musicStatus != "on") {
+      this.stopMusic()
+      return
+    }
+    const innerAudioContext = wx.createInnerAudioContext()
+    if (loop) {
+      this.loopInnerAudioContext = innerAudioContext
+    } else {
+      this.innerAudioContext = innerAudioContext
+    }
+    innerAudioContext.src = src
+    innerAudioContext.loop = loop
+    innerAudioContext.play()
   },
-  coutedownMusicPlay(){
-     this.playMusic('/assets/audio/coutedown.wav')
+  coutedownMusicPlay() {
+    this.playMusic('/assets/audio/coutedown.wav')
   },
-  readygoMusicPlay(){
-     this.playMusic('/assets/audio/readygo.wav')  
+  readygoMusicPlay() {
+    this.playMusic('/assets/audio/readygo.wav')
   },
-  backgroundMusicPlay(){
-     this.playMusic('/assets/audio/background.wav', true) 
-  }, 
+  backgroundMusicPlay() {
+    this.playMusic('/assets/audio/background.wav', true)
+  },
   rightMusicPlay() {
     this.playMusic('/assets/audio/right.wav')
   },
@@ -277,9 +152,9 @@ succ(){
     this.playMusic('/assets/audio/error.wav')
   },
   failMusicPlay() {
-    setTimeout(() => { this.playMusic('/assets/audio/fail.wav')}, 500)
+    setTimeout(() => { this.playMusic('/assets/audio/fail.wav') }, 500)
   },
-  countdownAnimate(){
+  countdownAnimate() {
     var thiz = this
     var animation3 = wx.createAnimation({
       duration: 1000,
@@ -302,7 +177,7 @@ succ(){
       timingFunction: 'ease',
     })
     this.animation1 = animation1
-    animation1.opacity(1).scale( 0.5).step()
+    animation1.opacity(1).scale(0.5).step()
     animation1.opacity(0).step()
 
     var animationDataStart = wx.createAnimation({
@@ -327,7 +202,7 @@ succ(){
     this.timeAnimationDataGameStart = timeAnimationDataGameStart
     timeAnimationDataGameStart.top(-685).opacity(0).step()
 
-  
+
     var animationDataStartDesp = wx.createAnimation({
       duration: 800,
       timingFunction: 'ease',
@@ -341,7 +216,7 @@ succ(){
     })
     this.animationDataSelect = animationDataSelect
     animationDataSelect.opacity(1).top(0).step()
-    
+
     setTimeout(() => {
       this.coutedownMusicPlay()
       thiz.setData({
@@ -377,13 +252,13 @@ succ(){
       })
     }, 4500)
 
-    setTimeout(()=>{
+    setTimeout(() => {
       this.backgroundMusicPlay()
     }, 5500)
   },
-  invisiable(){
+  invisiable() {
     this.data.musicStatus = "off"
-    this.stopMusic();
+    this.stopMusic()
     if (this.loopInnerAudioContext) {
       this.loopInnerAudioContext.stop()
     }
@@ -392,16 +267,122 @@ succ(){
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-      this.invisiable()
+    this.invisiable()
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-      this.invisiable()
+    this.invisiable()
   },
-  toogleSucc(opacity){
+  action(e, s) {
+    var index = e.currentTarget.dataset.index
+    var animation = wx.createAnimation({
+      duration: 1000,
+      timingFunction: 'ease',
+    })
+    this.animation = animation
+    animation.scale(s, s).step()
+    if (index == 0) {
+      this.setData({
+        animationDataRight: this.animation.export()
+      })
+    } else if (index == 1) {
+      this.setData({
+        animationDataError: this.animation.export()
+      })
+    }
+  }
+  ,
+  start(e) {
+    this.action(e, 0.8)
+  },
+  end(e) {
+    this.action(e, 1.0)
+  },
+  answer1(e) {
+    if (this.data.isOver) {
+      return
+    }
+    let isRight = e.currentTarget.dataset.index;
+    if (isRight) {
+      this.succ()
+    } else {
+      this.fail()
+    }
+  },
+  answer2(e) {
+    if (this.data.isOver) {
+      return
+    }
+    let isRight = e.currentTarget.dataset.index;
+    if (isRight) {
+      this.succ()
+    } else {
+      this.fail()
+    }
+  },
+  fail() {
+    this.isfail = true
+    let thiz = this
+    this.data.isOver = true
+    this.resetCountDown()
+    this.errorMusicPlay()
+    this.toogleFail(1)
+    this.failMusicPlay();
+    co(function* () {
+      let postData = yield kkservice.postScore(thiz.data.rightNumber, 0)
+      if (postData.data.code == 1) {
+        app.index.data.userInfo.playable_num = postData.data.data.playable_num
+        app.index.data.userInfo.total_num += 1
+        app.index.setData({
+          userInfo: app.index.data.userInfo
+        })
+      }
+    })
+  },
+  succ() {
+    let thiz = this
+    this.resetCountDown()
+    this.rightMusicPlay()
+    if (this.data.currentIndex == this.data.count - 1) {
+      this.issucc = true
+      this.data.isOver = true
+      co(function* () {
+        let postData = yield kkservice.postScore(thiz.data.rightNumber, 1)
+        if (postData.data.code == 1) {
+          app.index.data.userInfo.money = postData.data.data.money
+          app.index.data.userInfo.total_num += 1
+          app.index.setData({
+            userInfo: app.index.data.userInfo
+          })
+          thiz.setData({ rightNumber: ++thiz.data.rightNumber })
+          thiz.toogleSucc(1)
+        }
+      })
+      return
+    }
+  
+    questions[thiz.data.currentIndex].animate = ''
+    thiz.setData({
+      questionInfo: questions[thiz.data.currentIndex]
+    }, () => {
+      thiz.countDown(thiz.data.questionInfo)
+    })
+    setTimeout(() => {
+      ++thiz.data.currentIndex
+      questions[thiz.data.currentIndex].animate = ' flipInY'
+
+      thiz.setData({
+        rightNumber: ++thiz.data.rightNumber,
+        currentIndex: thiz.data.currentIndex,
+        questionInfo: questions[thiz.data.currentIndex]
+      })
+    }, 10)
+
+  },
+  toogleSucc(opacity) {
     var animation = wx.createAnimation({
       duration: 500,
       timingFunction: 'ease',
@@ -436,49 +417,47 @@ succ(){
     animationMask.opacity(opacity).top(opacity == 0 ? "-100%" : 0).step()
 
     this.setData({
-        animationDataFail: animation.export(),
-        animationDataMaskFail: animationMask.export()
+      animationDataFail: animation.export(),
+      animationDataMaskFail: animationMask.export()
     })
   },
-  continuePlay(e){
+  continuePlay(e) {
     wx.redirectTo({
       url: 'start',
     })
   },
-  closeFail(e){
+  closeFail(e) {
     this.toogleFail(0)
     wx.navigateBack({
-      
+
     })
   },
   closeSucc(e) {
     this.toogleFail(0)
     wx.navigateBack({})
   },
-  navagateToPrizee(){
+  navagateToPrizee() {
     wx.redirectTo({
       url: '/pages/prize/prize',
     })
   },
-  countDown(questionInfo){
+  countDown(questionInfo) {
     var t = questionInfo.t * 1000;
     var animation = wx.createAnimation({
       duration: t,
       timingFunction: 'linear',
     })
     this.animation = animation
-    animation.width("90%").step()
+    animation.width(0).step()
     this.setData({
-        animationDataProcess: animation.export(),
+      animationDataProcess: animation.export()
     })
 
-    this.timer = setTimeout(()=>{
-       if(!this.data.isOver){
-          this.fail()
-       }
+    this.timer = setTimeout(() => {
+      this.fail()
     }, t)
   },
-  resetCountDown(){
+  resetCountDown() {
     if (this.timer) {
       clearTimeout(this.timer)
     }
@@ -486,33 +465,33 @@ succ(){
       duration: 0
     })
     this.animation = animation
-    animation.width(0).step() 
+    animation.width("100%").step()
     this.setData({
-        animationDataProcess: animation.export(),
+      animationDataProcess: animation.export()
     })
   },
   /**
-   * 用户点击右上角分享
-   */
+  * 用户点击右上角分享
+  */
   onShareAppMessage: function (shareRes) {
-      let title = app.index.appInfo.data.data.share_title[0]
-      let icon = app.index.appInfo.data.data.ico[0]
-      let thiz = this
-      if (shareRes.from == "button"){
-          title = app.index.appInfo.data.data.share_title[1]
-          icon = app.index.appInfo.data.data.ico[1]
-      }
-      if (thiz.issucc){
-          title = app.index.appInfo.data.data.share_title[2]
-          icon = app.index.appInfo.data.data.ico[2]
-      }
-      return app.index.commonShare(shareRes, title, icon, (iv, ed)=>{   
-          app.index.shareSucc(iv, ed, (u)=>{
-              if (thiz.isfail) {
-                thiz.help()
-              }
-              thiz.toogleFail(0)
-          })
-      }, this.fail ? 1 : -1) 
+    let title = app.index.appInfo.data.data.share_title[0]
+    let icon = app.index.appInfo.data.data.ico[0]
+    let thiz = this
+    if (shareRes.from == "button") {
+      title = app.index.appInfo.data.data.share_title[1]
+      icon = app.index.appInfo.data.data.ico[1]
+    }
+    if (thiz.issucc) {
+       title = app.index.appInfo.data.data.share_title[2]
+       icon = app.index.appInfo.data.data.ico[2]
+    }
+    return app.index.commonShare(shareRes, title, icon, (iv, ed) => {
+      app.index.shareSucc(iv, ed, (u) => {
+        if (thiz.isfail) {
+          thiz.help()
+        }
+        thiz.toogleFail(0)
+      })
+    }, this.fail ? 1 : -1)
   }
 })

@@ -1,11 +1,9 @@
 <!--pages/rank/rank.wxml-->
 <view class="container">
-     <image class="main-bg" src='../../assets/images/main-bg.jpg' hidden='{{!isShowContent}}'></image>
-       <image src="../../assets/images/loading.jpg" class="loading" hidden='{{isShowContent}}'></image>
+     <image class="main-bg" src='../../assets/images/main-bg2.png' hidden='{{!isShowContent}}'></image>
+       <image src="../../assets/images/loading.png" class="loading" hidden='{{isShowContent}}'></image>
      <view class="swiper-content" hidden='{{!isShowContent}}'>
           <view class="tab">
-                            <image src='../../assets/images/tab-bg.png'></image>
-
               <view bindtap='tabPage' class='tab-item {{currentNumber == 0 ? "tab-item-current" : ""}}' data-index='0'>实力榜</view>
               <view bindtap='tabPage' class='tab-item tab-item2 {{currentNumber == 1 ? "tab-item-current" : ""}}' data-index='1'>毅力榜</view>
           </view>
@@ -14,9 +12,9 @@
                 <scroll-view scroll-x="false" scroll-y="true" class='scroll-views' bindscrolltolower="lower">
                   <view class="rank-list">
                      <view class="rank-list-item" wx:for="{{aList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
-                         <view class="rank-num">
-                              <image  src="../../assets/images/rank-bg.png"></image>
-                              <view class="bg{{index < 3 ? index : ''}}">{{ index >= 9 ? (index+1) : '0' + (index + 1)}}</view>
+                          <view class="rank-num">
+                              <image wx:if="{{ index < 3 }}" src="../../assets/images/rank-num-{{index+1}}.png"></image>
+                              <view wx:if="{{ index >= 3 }}">{{ index >= 9 ? (index+1) : '0' + (index + 1)}}</view>
                           </view>
                           
                           <image class="user-head" src="{{ item.face }}"></image>
@@ -32,10 +30,9 @@
                   <view class="rank-list">
                      <view class="rank-list-item" wx:for="{{bList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
                           <view class="rank-num">
-                              <image  src="../../assets/images/rank-bg.png"></image>
-                              <view class="bg{{index < 3 ? index : ''}}">{{ index >= 9 ? (index+1) : '0' + (index + 1)}}</view>
-                          </view>
-                          
+                              <image wx:if="{{ index < 3 }}" src="../../assets/images/rank-num-{{index+1}}.png"></image>
+                              <view wx:if="{{ index >= 3 }}">{{ index >= 9 ? (index+1) : '0' + (index + 1)}}</view>
+                          </view>         
                           <image class="user-head" src="{{ item.face }}"></image>
                           <view class="user-name">{{ item.nick_name }}</view>
                           <view class="user-challenge-success-times"><view>已挑战</view><rich-text><i style='font-size: 36rpx;color: #ffde00;font-style:italic;'>{{ item.played_num }}</i> 次</rich-text></view>

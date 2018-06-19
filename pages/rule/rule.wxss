@@ -20,7 +20,7 @@
    height: 70rpx;
    border-radius: 50%;
    background-color: white;
-   color: #382198;
+   color: #0389d2;
    font-size: 30rpx;
    text-align: center;
    line-height: 70rpx;
@@ -37,7 +37,7 @@
    height: 70rpx;
    border-radius: 35rpx;
    font-size: 30rpx;
-   color: #382198;
+   color: #0389d2;
    margin-top: 50rpx;
 }
 
