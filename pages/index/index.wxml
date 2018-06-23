@@ -38,10 +38,10 @@
                   <image src='../../assets/images/game-rank.png' bindtap='navigateToRank' animation="{{rank_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="1" bindtouchcancel='end'></image>
               </view>
           </view>
-          <view class="invite" animation="{{invateFriend_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="3" bindtouchcancel='end'>
+          <view class="invite" animation="{{invateFriend_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="3" bindtouchcancel='end' catchtap='intro'>
              <image src='../../assets/images/invite-friend.png'></image>
-             <view class="invite-text">分享给朋友一起来挑战</view>
-             <button open-type='share'></button>
+             <view class="invite-text">赶紧通关领取奖品</view>
+             <!-- <button open-type='share'></button> -->
           </view>
           <view class="more" >
             <view class="more-usercenter" animation="{{more_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="4" bindtouchcancel='end'>

@@ -44,7 +44,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.hideShareMenu({})
+    wx.showShareMenu({
+      withShareTicket: true
+    })
     app.index.isStart = false
   },
 
@@ -61,24 +63,24 @@ Page({
       })
     }
     let thiz = this
-    thiz.setData({
-      isShowContent: true
-    })
-    co(function*(){
-        let res = yield kkservice.getQuestionList(thiz.data.count)
-        let t = 4
-        if (res.data && res.data.code == 1) {
-          questions = res.data.data
-          questions.forEach((v, i) => {
-            v.t = t - parseInt((i) / 10)
-            console.log("时间" + v.t)
-          })
-        }
-        thiz.setData({
-          questionInfo: questions[0],
-          count: questions.length
+    
+    co(function* () {
+      let res = yield kkservice.getQuestionList(thiz.data.count)
+      let t = 6
+      if (res.data && res.data.code == 1) {
+        questions = res.data.data
+        questions.forEach((v, i) => {
+          v.t = parseInt(v.time) || t - parseInt((i) / 10)
         })
-        thiz.countdownAnimate()
+      }
+      thiz.setData({
+        questionInfo: questions[0],
+        count: questions.length
+      })
+      thiz.setData({
+        isShowContent: true
+      })
+      thiz.countdownAnimate()
     })
   },
 
@@ -358,12 +360,13 @@ Page({
             userInfo: app.index.data.userInfo
           })
           thiz.setData({ rightNumber: ++thiz.data.rightNumber })
+         
           thiz.toogleSucc(1)
         }
       })
       return
     }
-  
+
     questions[thiz.data.currentIndex].animate = ''
     thiz.setData({
       questionInfo: questions[thiz.data.currentIndex]
@@ -482,8 +485,8 @@ Page({
       icon = app.index.appInfo.data.data.ico[1]
     }
     if (thiz.issucc) {
-       title = app.index.appInfo.data.data.share_title[2]
-       icon = app.index.appInfo.data.data.ico[2]
+      title = app.index.appInfo.data.data.share_title[2]
+      icon = app.index.appInfo.data.data.ico[2]
     }
     return app.index.commonShare(shareRes, title, icon, (iv, ed) => {
       app.index.shareSucc(iv, ed, (u) => {

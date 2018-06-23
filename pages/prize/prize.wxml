@@ -57,10 +57,10 @@
       <view class="mask" animation="{{animationDataMaskContact}}">
           <view class="mask-content-wrap" animation="{{animationDataContact}}">
                <view class="mask-content">
-                   <view class="title">请填写收货信息</view>
-                   <input class="name" placeholder='请输入收货人姓名' bindinput='inputName'></input>
-                   <input class="contact" placeholder='请输入收货人联系方式' bindinput='inputContact'></input>
-                   <input class="address" placeholder='请输入收货地址' bindinput='inputAddress'></input>
+                   <view class="title">请填写会员信息</view>
+                   <input class="name" placeholder='请输入收货人姓名' bindinput='inputName' hidden='true'></input>
+                   <input class="contact" placeholder='请填写电话号码或ID' bindinput='inputContact'></input>
+                   <input class="address" placeholder='请输入收货地址' bindinput='inputAddress' hidden='true'></input>
                    <view class="submit" bindtap='submit'>确定</view>
                </view>
                <image class="close" src='../../assets/images/close.png' bindtap='closeContact'></image>

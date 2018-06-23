@@ -1,8 +1,8 @@
 <!--pages/user_center/user_center.wxml-->
 <view class="container">
-      <image class="main-bg" src='../../assets/images/main-bg.png' hidden='{{!isShowContent}}'></image>
+       <image class="main-bg" src='../../assets/images/main-bg.png' hidden='{{!isShowContent}}'></image>
        <image src="../../assets/images/loading.png" class="loading" hidden='{{isShowContent}}'></image>
-      <view class='main-content' hidden='{{!isShowContent}}'>
+       <view class='main-content' hidden='{{!isShowContent}}'>
        <view class="user-related">
                <image src="../../assets/images/user-center-bg.png"></image>
                <view class="user-info-wrap">

@@ -13,6 +13,7 @@
          <view class="report" wx:if="{{ruleList.length}}" bindtap='navigateToComplain'>
             <!-- <image src="../../assets/images/report.png"></image> -->
             <view>投诉</view>
-         </view> 
+         </view>
+         <view style='width:100%; height:20rpx;'></view>
      </view>
 </view>

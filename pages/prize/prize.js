@@ -17,7 +17,7 @@ Page({
     currentIndex: 0,
     prizeList: [],
     prizeRecordList: [],
-    animationDataMaskContact:{},
+    animationDataMaskContact: {},
     animationDataContact: {},
     changeInfo: {},
     isShowContent: false,
@@ -27,24 +27,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-      wx.hideShareMenu({})
-      var thiz = this
-      co(function* () {
-        var [prizeList, prizeRecordList] = yield [kkservice.getPrizeList(), kkservice.getPrizeRecordList()]
-        thiz.setData({
-          prizeList: prizeList.data.data,
-          prizeRecordList: prizeRecordList.data.data,   
-        })
-        setTimeout(() => {
-          thiz.setData({
-            isShowContent: true
-          })
-        }, 1000)
-      })
-  },
-  loadPrizeRecordList(){
+    wx.hideShareMenu({})
     var thiz = this
-    co(function*(){
+    co(function* () {
+      var [prizeList, prizeRecordList] = yield [kkservice.getPrizeList(), kkservice.getPrizeRecordList()]
+      thiz.setData({
+        prizeList: prizeList.data.data,
+        prizeRecordList: prizeRecordList.data.data,
+      })
+      setTimeout(() => {
+        thiz.setData({
+          isShowContent: true
+        })
+      }, 1000)
+    })
+  },
+  loadPrizeRecordList() {
+    var thiz = this
+    co(function* () {
       var prizeRecordList = yield kkservice.getPrizeRecordList()
       thiz.setData({
         prizeRecordList: prizeRecordList.data.data
@@ -65,7 +65,7 @@ Page({
     })
   },
 
-  excahngePrize(e){
+  excahngePrize(e) {
     let thiz = this
     let id = e.currentTarget.dataset.id
     let money = e.currentTarget.dataset.money
@@ -81,29 +81,30 @@ Page({
       wx.showModal({
         title: '',
         content: `是否确定兑换?`,
-        success(res){ 
-           if(res.confirm){
-             thiz.data.changeInfo.id = id
-             thiz.data.changeInfo.money = money 
-             wx.chooseAddress({
-               success(res) {
-                 thiz.data.changeInfo.name = res.userName
-                 thiz.data.changeInfo.contact = res.telNumber
-                 thiz.data.changeInfo.address = `${res.provinceName}${res.cityName}${res.countyName}${res.detailInfo}   邮编:${res.postalCode}`
-                 thiz.submit()
-               },
-               fail(){
-                 thiz.toogleContact(1)
-               }
-             })
-           }
+        success(res) {
+          if (res.confirm) {
+            thiz.data.changeInfo.id = id
+            thiz.data.changeInfo.money = money
+            thiz.toogleContact(1)
+            //  wx.chooseAddress({
+            //    success(res) {
+            //      thiz.data.changeInfo.name = res.userName
+            //      thiz.data.changeInfo.contact = res.telNumber
+            //      thiz.data.changeInfo.address = `${res.provinceName}${res.cityName}${res.countyName}${res.detailInfo}   邮编:${res.postalCode}`
+            //      thiz.submit()
+            //    },
+            //    fail(){
+            //      thiz.toogleContact(1)
+            //    }
+            //  })
+          }
         }
       })
       return
     }
 
-    co(function*(){
-      var status= yield kkservice.authPermission("scope.userInfo")
+    co(function* () {
+      var status = yield kkservice.authPermission("scope.userInfo")
       if (status == kkconfig.status.authStatus.authOK) {
         app.index.login(undefined, () => {
           thiz.excahngePrize(e)
@@ -117,7 +118,7 @@ Page({
       }
     })
   },
-  inputName(e){
+  inputName(e) {
     this.data.changeInfo.name = e.detail.value
   },
   inputContact(e) {
@@ -126,39 +127,39 @@ Page({
   inputAddress(e) {
     this.data.changeInfo.address = e.detail.value
   },
-  submit(){
+  submit() {
     let thiz = this
 
-    if (!this.data.changeInfo.name || this.data.changeInfo.name.trim().length < 2) {
-      wx.showModal({
-        title: '',
-        content: '收货人姓名填写不正确',
-        showCancel: false
-      })
-      return
-    }
+    // if (!this.data.changeInfo.name || this.data.changeInfo.name.trim().length < 2) {
+    //   wx.showModal({
+    //     title: '',
+    //     content: '收货人姓名填写不正确',
+    //     showCancel: false
+    //   })
+    //   return
+    // }
     if (!this.data.changeInfo.contact || this.data.changeInfo.contact.trim().length < 8) {
       wx.showModal({
         title: '',
-        content: '收货人联系方式填写不正确',
+        content: '手机号或ID填写不正确',
         showCancel: false
       })
       return
     }
-    if (!this.data.changeInfo.address || this.data.changeInfo.address.trim().length < 8) {
-      wx.showModal({
-        title: '',
-        content: '收货人地址填写不正确',
-        showCancel: false
-      })
-      return
-    }
+    // if (!this.data.changeInfo.address || this.data.changeInfo.address.trim().length < 8) {
+    //   wx.showModal({
+    //     title: '',
+    //     content: '收货人地址填写不正确',
+    //     showCancel: false
+    //   })
+    //   return
+    // }
     co(function* () {
       wx.showLoading({
         title: '正在提交...',
         mask: true
       })
-      
+
       let changeData = yield kkservice.changeGift(thiz.data.changeInfo)
       wx.hideLoading()
       if (changeData && changeData.data && changeData.data.code == 1) {
@@ -168,29 +169,28 @@ Page({
         })
         wx.showModal({
           title: '',
-          content: '恭喜您兑换成功,请联系客服寄送娃娃',
+          content: '恭喜您兑换成功,请联系客服',
           showCancel: false,
-          complete(){
+          complete() {
             thiz.toogleContact(0)
-            thiz.loadPrizeRecordList();
+            thiz.loadPrizeRecordList()
             wx.navigateTo({
               url: '/pages/rule/rule',
             })
           }
         })
-
       } else {
         wx.showModal({
           title: '',
           content: changeData.data.msg,
           showCancel: false
-          
+
         })
       }
-      
+
     })
   },
-  closeContact(){
+  closeContact() {
     this.toogleContact(0)
   },
   toogleContact(opacity) {

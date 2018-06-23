@@ -6,7 +6,8 @@
     "pages/prize/prize",
     "pages/rule/rule",
     "pages/user_center/user_center",
-    "pages/complain/complain"
+    "pages/complain/complain",
+    "pages/intro/intro"
   ],
   "window": {
     "backgroundTextStyle": "light",

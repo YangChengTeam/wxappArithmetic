@@ -128,6 +128,11 @@ Page({
       })
     })
   },
+  intro(){
+    wx.navigateTo({
+      url: '/pages/intro/intro',
+    })
+  },
   doLogin(res){
      let thiz = this
      if(res.detail && res.detail.userInfo){

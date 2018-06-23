@@ -42,7 +42,7 @@
                  <view class="start-footer-wrap">
                 <view class="start-desp" animation="{{animationDataStartDesp}}">
                   <view class="title">挑战规则</view>
-                  <view class="desp">连续答对{{count}}道题既挑战成功</view>
+                  <view class="desp">连续答对{{count}}道题即挑战成功</view>
                 </view>
                 <view class="game-select" animation="{{animationDataSelect}}">
                     <view class="option animated{{questionInfo.animate}}" animation="{{animationDataRight}}" bindtouchstart='start' bindtouchend='end' data-index="{{questionInfo.options[0].is_answer}}" bindtouchcancel='end' bindtap='answer1'>
@@ -62,8 +62,9 @@
             </view>
           </view>
       </view>
-       <view class="mask mask-succ"  animation="{{animationDataMaskSucc}}">
+        <view class="mask mask-succ"  animation="{{animationDataMaskSucc}}">
           <view class="mask-content succ"  animation="{{animationDataSucc}}">
+                
                 <image class="succ-header" src='../../assets/images/succ.png'></image>
                 <view class="mask-main-content">
                     <view class="title">恭喜您获得一枚挑战币，
@@ -74,13 +75,16 @@
                 <image class="close" src='../../assets/images/close.png' bindtap='closeSucc'></image>
           </view>
       </view>
+
+
       <view class="mask mask-fail" animation="{{animationDataMaskFail}}">
           <view class="mask-content fail" animation="{{animationDataFail}}">
                 <image class="fail" src='../../assets/images/fail.png'></image>
-                <view class="mask-main-content">
-                    <view class="title">继续挑战，相信你可以的！</view>
-                    <button class="continue" bindtap='continuePlay'>继续挑战</button>
-                    <button class="invate-friend" open-type='share'>邀请好友一起玩</button>
+                 <view class="mask-main-content">
+                    <view class="title">{{isHelp ? '不要放弃，继续挑战，相信你是可以的！' : '分享到群求助好友，接着挑战！'}}</view>
+                    <button class="continue" wx:if="{{isHelp}}" bindtap='continuePlay'>继续挑战</button>
+                    <button class="continue" wx:if="{{!isHelp}}" open-type='share'>求助好友</button>
+                    <button class="invate-friend" bindtap='closeFail'>点击跳过</button>
                 </view>
                 <image class="close" src='../../assets/images/close.png' bindtap='closeFail'></image>
           </view>

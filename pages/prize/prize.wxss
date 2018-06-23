@@ -21,7 +21,6 @@
   left: 0;
   top: 0;
   position: relative;
-  
 }
 
 .tab {
@@ -115,7 +114,7 @@
    width: 640rpx;
    height: 340rpx;
    border-radius: 15rpx;
-   background-color: #13264C;
+   background-color: #d0e2ef;
    position: absolute;
    top: 0;
    left: 0;
@@ -224,7 +223,7 @@
    border-radius: 10rpx;
    align-items: center;
    width: 520rpx;
-   height: 564rpx;
+   height: 364rpx;
 }
 
 .mask-content .title {
@@ -254,7 +253,7 @@
    width: 440rpx;
    border-radius: 45rpx;
    line-height: 90rpx;
-   background-color: #1c8a24;
+   background-color: #00c5fe;
    color: #fff;
    text-align: center;
    margin-top: 30rpx;
