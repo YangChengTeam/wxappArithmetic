@@ -101,6 +101,12 @@ Page({
       })
     })
   },
+  natiageToMiniProgram(e){
+      console.log(e.currentTarget.dataset.appid)
+      wx.navigateToMiniProgram({
+        appId: e.currentTarget.dataset.appid,
+      })
+  },
   onShareAppMessage: function (shareRes) {
     let thiz = this
     return app.index.commonShare(shareRes, app.index.appInfo.data.data.share_title[0], app.index.appInfo.data.data.ico[0], (iv, ed) => {

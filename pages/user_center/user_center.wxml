@@ -42,14 +42,14 @@
      </view> 
 
      <view class="more-list">
-           <view class="more-list-item"  wx:for="{{moreList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+           <view class="more-list-item"  wx:for="{{moreList}}" wx:for-index="index" wx:for-item="item" wx:key="id" >
                           <image class="wxapp-head" src="{{item.img}}"></image>
-                          <view class="wxapp-info">
+                          <view class="wxapp-info"  bindtap='natiageToMiniProgram' data-appid="{{item.url}}">
                               <view class="wxapp-name">{{item.name}}</view>
                               <view class="wxapp-desp">{{item.desc}}
                           </view>
                           </view>
-                          <navigator target="miniProgram" app-id='{{item.url}}'>{{item.button_name}}</navigator> 
+                          <navigator  target="miniProgram" app-id='{{item.url}}' appId='{{item.url}}'>{{item.button_name}}</navigator> 
             </view>
             <view style='height:20rpx; width:100%;'></view>
      </view>

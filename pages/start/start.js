@@ -6,6 +6,7 @@ const regeneratorRuntime = global.regeneratorRuntime = require('../../libs/runti
 const co = require('../../libs/co')
 const kkgen = require('../../libs/yc/yc-arithmetic-gen.js')
 const kkservice = require("../../libs/yc/yc-service.js")
+const offset = 5
 
 var questions = []
 Page({
@@ -326,8 +327,13 @@ Page({
     }
   },
   fail() {
-    this.isfail = true
     let thiz = this
+    if (this.data.count - this.data.rightNumber <= offset || app.index.data.userInfo.playable_num <= 0) {
+      this.setData({
+        isHelp: true
+      })
+    }
+    this.isfail = true
     this.data.isOver = true
     this.resetCountDown()
     this.errorMusicPlay()
@@ -496,5 +502,13 @@ Page({
         thiz.toogleFail(0)
       })
     }, this.fail ? 1 : -1)
+  },
+  help() {
+    this.data.isOver = false
+    this.setData({
+      isHelp: true
+    })
+    this.lp = 1
+    this.succ()
   }
 })

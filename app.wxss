@@ -16,12 +16,12 @@ page {
 }
 
 .main-bg {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 750rpx;
-  height: 1214rpx;
-  z-index: -1;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 750rpx;
+    height: 1214rpx;
+    z-index: -1;
 }
 
 .main-content {    
@@ -34,11 +34,11 @@ button, button::after {
 }
 
 .loading {
-  position: fixed;
-  top: 80rpx;
-  left: 0;
-  width: 584rpx;
-  height: 958rpx;
-  z-index: -1;
-  margin-left: 83rpx;
+    position: fixed;
+    top: 80rpx;
+    left: 0;
+    width: 584rpx;
+    height: 958rpx;
+    z-index: -1;
+    margin-left: 83rpx;
 }
