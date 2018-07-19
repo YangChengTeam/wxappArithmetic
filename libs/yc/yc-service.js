@@ -158,10 +158,72 @@ function userSignIn() {
   })()
 }
 
+function text2Mp3(text){
+    return co.wrap(function*(){
+      return yield kkpromise.textToSpeech({
+          lang: "zh_CN",
+          tts: true,
+          content: text,
+      })
+    })()
+}
+
+function getQuestionMoney(is_help, question_token, question_ids){
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.getQuestionMoneyUrl, {
+      is_help: is_help,
+      question_token: question_token,
+      question_ids: question_ids
+    })
+  })()
+}
+
+function getAnswerMoney(op, question_id) {
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.getAnswerMoneyUrl, {
+      answer: op,
+      question_id: question_id
+    })
+  })()
+}
 
 
 
+function getRedBag(money_id) {
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.getRedBagUrl, {
+        money_id: money_id,
+    })
+  })()
+}
 
+function changeMoney(money) {
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.changeMoneyUrl, {
+      money: money
+    })
+  })()
+}
+
+function redBagList() {
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.redBagListUrl)
+  })()
+}
+
+
+function moneyList() {
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.moneyListUrl)
+  })()
+}
+
+
+function emptyQuestion(){
+  return co.wrap(function* () {
+      return yield kknet.post(kkconfig.emptyQuestionUrl)
+  })()
+}
 
 module.exports = {
     authPermission: authPermission,
@@ -178,5 +240,13 @@ module.exports = {
     getQuestionList: getQuestionList,
     share: share,
     getuserSignInfo: getuserSignInfo,
-    userSignIn: userSignIn
+    userSignIn: userSignIn,
+    text2Mp3: text2Mp3,
+    getQuestionMoney: getQuestionMoney,
+    getAnswerMoney: getAnswerMoney,
+    changeMoney: changeMoney,
+    getRedBag: getRedBag,
+    moneyList: moneyList, 
+    redBagList: redBagList,
+    emptyQuestion: emptyQuestion
 }

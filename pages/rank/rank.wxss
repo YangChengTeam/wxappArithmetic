@@ -12,7 +12,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #00a7fe;
+  background-color: #54059e;
   width: 660rpx;
   height: 100rpx;
   border-radius: 50rpx;
@@ -20,6 +20,14 @@
   top: 0;
   position: relative;
   
+}
+
+.tab-wrap {
+   height: 100rpx;
+   width: 50%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
 }
 
 .tab > image {
@@ -32,21 +40,14 @@
 
 .tab-item {
    font-size: 30rpx;
-   width: 320rpx;
+   width: 300rpx;
    height: 80rpx;
    line-height: 80rpx;
    text-align: center;
-   position: absolute;
-   left: 10rpx;
-   top: 10rpx;
-}
-
-.tab-item2 {
-   left: 330rpx;
 }
 
 .tab-item-current {
-  background-color: #ff7686;
+  background-color: #ad40d6;
   border-radius: 40rpx;
   font-weight: bold;
   color: #fff;
@@ -66,12 +67,12 @@
    flex-direction: row;
    align-items: center;
    justify-content: center;
-   border: solid #00a7fe 1rpx;
    border-radius: 10rpx;
    height: 140rpx;
-   margin-top: 25rpx;
+   margin-top: 2rpx;
    margin-left: 45rpx;
    width: 660rpx;
+   background: #280746;
 }
 
 .rank-list-item:first-child {

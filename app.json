@@ -1,19 +1,28 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/cash/cash",
+    "pages/cash-record/cashRecord",
+    "pages/money-record/moneyRecord",
+    "pages/openmoney/openmoney",
     "pages/start/start",
     "pages/rank/rank",
     "pages/prize/prize",
     "pages/rule/rule",
     "pages/user_center/user_center",
-    "pages/complain/complain",
-    "pages/intro/intro"
+    "pages/complain/complain"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "backgroundColor": "#91ccf0",
-    "navigationBarBackgroundColor": "#91ccf0",
-    "navigationBarTitleText": "小学英语百词斩",
+    "backgroundColor": "#0d0720",
+    "navigationBarBackgroundColor": "#0d0720",
+    "navigationBarTitleText": "荣耀台词王",
     "navigationBarTextStyle": "white"
+  },
+  "plugins": {
+    "WechatSI": {
+      "version": "0.0.9",
+      "provider": "wx069ba97219f66d99"
+    }
   }
 }

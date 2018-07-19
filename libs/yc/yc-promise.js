@@ -1,5 +1,4 @@
 // Author: 张凯
-
 const wrap = function (fn, options){
     if (options == undefined) options = {}
     var promise = new Promise((resolve, reject) => {
@@ -64,6 +63,23 @@ const sleep = function(time){
   return promise
 }
 
+const plugin = requirePlugin("WechatSI")
+const textToSpeech = function(option){
+  var promise = new Promise((resolve, reject) => {
+    plugin.textToSpeech({
+        ...option,
+        success: function (res) {
+            resolve(res)
+        },
+        fail: function (res) {
+            reject(res)
+        }
+      })
+  })
+  promise.catch(new Function)
+  return promise
+}
+
 module.exports = {
    login: login,
    request: request,
@@ -73,5 +89,6 @@ module.exports = {
    authorize: authorize,
    setData: setData,
    sleep: sleep,
-   checkSession: checkSession
+   checkSession: checkSession,
+   textToSpeech: textToSpeech
 }

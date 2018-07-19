@@ -4,17 +4,30 @@
    justify-content: center;
    align-items: center;
    width: 100%;
-   height: 330rpx;
+   height: 361rpx;
    position: relative;
 }
 
-.user-related > button {
-   width: 662rpx;
-   height: 322rpx;
-   left: 0;
-   top: 0;
+.user-money-take {
+   position: relative;
+   width: 282rpx;
+   height: 68rpx;
+   font-size: 30rpx;
+   margin-top: 20rpx;
+}
+
+.user-money-take > image {
+    width: 282rpx;
+    height: 68rpx;
+    position: absolute;
+}
+
+.user-money-take > view {
    position: absolute;
-   opacity: 0;
+   width: 282rpx;
+   height: 68rpx;
+   line-height: 68rpx;
+   text-align: center;
 }
 
 .user-related > image {
@@ -40,31 +53,52 @@
    display: flex;
    flex-direction: column;
    align-items: center;
-   justify-content: center;
    width: 100%;
    height: 100%;
 }
 
 .user-head {
-   width: 100rpx;
-   height: 100rpx;
+   width: 104rpx;
+   height: 104rpx;
    border-radius: 50%;
-   border: solid 6rpx #d0e2ef;
+   border: solid 4rpx rgba(217,207,232,0.8);
 }
 
 .username {
-   font-size: 30rpx;
-   margin-top: 10rpx;
+   font-size: 36rpx;
+   margin-left: 50rpx;
 }
 
+.user-game-info-part {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 
 .user-game-info {
    display: flex;
-   width: 100%;
+   width: 455rpx;
    flex-direction: row;
-   font-size: 24rpx;
+   align-items: center;
+   justify-content: space-between;
+   margin-top: 20rpx;
+}
+
+.user-game-info2 {
+   display: flex;
+   width: 500rpx;
+   flex-direction: row;
+   align-items: center;
+   justify-content: space-between;
    margin-top: 10rpx;
 }
+
+
+.gold {
+   color: #fff000;
+   font-size: 48rpx;
+}
+
 
 .user-game-info-item {
    width: 33.3%;
@@ -78,11 +112,10 @@
 .user-game-info-item > .num {
    margin-bottom: 5rpx;
    font-size: 36rpx;
+   font-weight: bold;
 }
 
-.gold {
-   color: #ffcc00;
-}
+
 
 .more-header {
   display: flex;
@@ -129,8 +162,18 @@
 }
 
 .menu-item > image {
-   width: 83rpx;
-   height: 83rpx;
+   width: 85rpx;
+   height: 89rpx;
+}
+
+.menu-item2 > image {
+   width: 110rpx;
+   height: 88rpx;
+}
+
+.menu-item3 > image {
+   width: 71rpx;
+   height: 100rpx;
 }
 
 .menu-item > view {
@@ -186,7 +229,7 @@
    margin-top: 4rpx;
 }
 
-.more-list-item > navigator {
+.more-list-item > .mini {
    height: 60rpx;
    width: 134rpx;
    border-radius: 30rpx;
@@ -199,11 +242,8 @@
 }
 
 image.help {
-   position: absolute;
    width: 40rpx;
    height: 40rpx;
-   left: 600rpx;
-   top: 15rpx;
 }
 
 
@@ -330,3 +370,7 @@ button.signed {
    background: #a9a9a9;
 }
 
+.min-money {
+   font-size: 22rpx;
+   color:#fff;
+}

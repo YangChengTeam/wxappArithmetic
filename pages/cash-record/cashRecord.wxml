@@ -1,0 +1,51 @@
+<!--pages/cash-record/cashRecord.wxml-->
+<view class="container">
+  <image class="main-bg" src='../../assets/images/main-bg.jpg'></image>
+     <image src="../../assets/images/loading.png" class="loading" hidden='{{isShowContent}}'></image> 
+
+<view class="record-list" hidden='{{!isShowContent}}'>
+  <view class="record-list-item" wx:for="{{recordList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+    <view class="info">
+      <rich-text class="money"><b style='font-size:40rpx;'>{{item.money}}</b>元</rich-text> 
+      <view class="time">{{item.add_time}}</view>
+    </view>
+    <view wx:if="{{item.status == 9}}" class="get">已领取</view>
+    <view class="user-money-take" wx:if="{{item.status == 0}}">
+      <image src='../../assets/images/user-money-take.png'></image>
+      <view bindtap='getCode' data-code="{{item.uniqid}}">领取</view>
+    </view>
+  </view>
+  <view class="record-footer"></view>
+</view>
+<view class="mask" animation="{{animationDataMaskSign}}">
+    <view class="mask-content" animation="{{animationDataSign}}">
+      <view class="mask-content-wrap">
+          <image class="left" src='../../assets/images/left.png'></image>
+          <image class="right" src='../../assets/images/right.png'></image>
+          <view class="title">复制提现码，申请提现</view>
+          <view class="code">{{code}}</view>
+          <button class="copy" bindtap='copyCode'>点击复制</button>
+          <view class="line"></view>
+          <image class="part" src='../../assets/images/md1.png'></image>
+          <view class="part1">
+             <view class="desp" style='margin-left: 55rpx;'>1、点击右上角</view>
+             <image class="dot" src='../../assets/images/md0.png'></image>
+             <view class="desp">，选择</view>
+             <image style='width:200rpx; height:25rpx;' src='../../assets/images/md2.png'></image>
+          </view>
+          <view class="part1">
+             <view class="desp" style='margin-left: 55rpx;'>2、点击相关公众号 ，选择</view>
+             <image style='width:152rpx; height:25rpx;' src='../../assets/images/md3.png'></image>
+          </view>
+          <view class="part1">
+             <view class="desp" style='margin-left: 55rpx;'>3、关注公众号，点击</view>
+             <image style='width:152rpx; height:25rpx;' src='../../assets/images/md4.png'></image>
+          </view>
+          <view class="part1">
+             <view class="desp" style='margin-left: 55rpx;'>4、将复制的提现码发送给公众号即可</view>
+          </view>
+      </view>
+      <image class="close" src='../../assets/images/close.png' bindtap='closeSign'></image>
+    </view>
+</view>
+</view>

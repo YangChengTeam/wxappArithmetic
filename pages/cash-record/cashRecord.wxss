@@ -1,0 +1,187 @@
+/* pages/cash-record/cashRecord.wxss */
+
+.record-list {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   width: 100%;
+}
+
+.record-list-item {
+   background: #fff;
+   border-radius: 8rpx;
+   width: 660rpx;
+   height: 122rpx;
+   margin-bottom: 20rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.info {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   height: 100%;
+}
+
+.info > .money {
+   color: #000;
+   font-size: 30rpx;
+   margin-left: 40rpx;
+}
+
+.info > .time {
+   color: #aaa;
+   font-size: 30rpx;
+   margin-left: 40rpx;
+}
+
+.get {
+   color: #000;
+   font-size: 30rpx;
+   margin-right: 60rpx;
+}
+
+.user-money-take {
+   position: relative;
+   width: 186rpx;
+   height: 68rpx;
+   font-size: 30rpx;
+   margin-right: 20rpx;
+}
+
+.user-money-take > image {
+    width: 186rpx;
+    height: 68rpx;
+    position: absolute;
+}
+
+.user-money-take > view {
+   position: absolute;
+   width: 186rpx;
+   height: 68rpx;
+   line-height: 68rpx;
+   text-align: center;
+}
+
+
+.mask {
+   position: fixed;
+   width: 100%;
+   height: 100%;
+   background: rgba(0,0,0,0.7);
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   top: -100%;
+   left: 0;
+   opacity: 0;
+   z-index: 10000;
+}
+
+.mask-content {
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+   height: 100%;
+   align-items: center;
+   top: -100%;
+   left: 0;
+   opacity: 0;
+   position: relative;
+}
+
+.mask-content-wrap {
+   width: 600rpx;
+   height: 672rpx;
+   background: #fff;
+   border-radius: 8rpx;
+   margin-top: 140rpx;
+   position: relative;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.mask-content > .close {
+   width: 48rpx;
+   height: 48rpx;
+   margin-top: 60rpx;
+   position: relative;
+}
+
+.left {
+   position: absolute;
+   width: 71rpx;
+   height: 301rpx;
+   top:50rpx;
+   left: 0;
+}
+
+.right {
+   position: absolute;
+   width: 85rpx;
+   height: 150rpx;
+   bottom:0rpx;
+   right: 0;
+}
+
+.title {
+   color: #aaa;
+   font-size: 30rpx;
+   margin-top: 50rpx;
+}
+
+
+.code {
+   color: #000;
+   font-size: 50rpx;
+   font-weight: bold;
+   margin-top: 20rpx;
+}
+
+.copy {
+   font-size: 30rpx;
+   height: 80rpx;
+   width: 380rpx;
+   border-radius: 40rpx;
+   line-height: 80rpx;
+   background: linear-gradient(to right,#d866db, #e067c5, #e466b2, #e6438c, #ea4276, #ed4b67);
+   color: #fff;
+   margin-top: 30rpx;
+}
+
+
+.line {
+   width: 100%;
+   height: 2rpx;
+   background: #dddddd;
+   margin-top: 30rpx;
+}
+
+.part {
+   height: 70rpx;
+   width: 340rpx;
+   margin-top: 30rpx;
+   margin-bottom: 20rpx;
+}
+
+.part1 {
+   width: 100%;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   margin-top: 10rpx;
+}
+
+.part1 > .desp {
+   color: #000;
+   font-size: 26rpx;
+}
+
+.dot {
+   width: 66rpx;
+   height: 44rpx;
+}

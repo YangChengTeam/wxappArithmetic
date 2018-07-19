@@ -1,7 +1,7 @@
 /**app.wxss**/
 page {
   width: 100%;
-  background-color: #91ccf0;
+  background-color: #0d0720;
   color: white;
   height: 98.3%;
 }
@@ -15,8 +15,12 @@ page {
     height: 100%;
 }
 
+.mb30 {
+   margin-bottom: 20rpx;
+}
+
 .main-bg {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     left: 0;
     width: 750rpx;
@@ -27,6 +31,7 @@ page {
 .main-content {    
     width: 662rpx;
     height: 100%;
+    position: relative;
 }
 
 button, button::after {
@@ -35,10 +40,15 @@ button, button::after {
 
 .loading {
     position: fixed;
-    top: 80rpx;
     left: 0;
-    width: 584rpx;
-    height: 958rpx;
-    z-index: -1;
-    margin-left: 83rpx;
+    width: 750rpx;
+    height: 1218rpx;
+}
+
+
+.ad {
+   position: fixed;
+   width: 100%;
+   bottom: 0rpx;
+   left: 0;
 }

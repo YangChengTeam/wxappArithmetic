@@ -10,6 +10,7 @@ const kkpromise = require("../../libs/yc/yc-promise.js")
 
 Page({
   data: {
+    sv: "",
     gameStart_animationData: {},
     rank_animationData: {},
     prize_animationData: {},
@@ -18,10 +19,13 @@ Page({
     rule_animationData: {},
     animationDataSign: {},
     animationDataMaskSign: {},
+    animationDataMaskShare: {},
+    animationDataShare: {},
     userInfo: {
       money: 0,
       playable_num: 0,
-      total_num: 0 
+      total_num: 0,
+      played_num: 0,
     },
     isLogin: false,
     signImg: '../../assets/images/sign-1.png',
@@ -29,60 +33,86 @@ Page({
     signInfo: {},
     loaded: false,
     isShowContent: false,
+    online: 1,
   },
-  onLoad: function () {   
-     let thiz = this
-     app.index = this
-     co(function*(){
-       var [status, appInfo] = yield [kkservice.authPermission("scope.userInfo"), yield kkservice.getAppInfo()] 
-          if (status == kkconfig.status.authStatus.authOK){
-              thiz.login(undefined, undefined, appInfo.data.data.play_total_num) 
-          } else{
-            setTimeout(()=>{
-              thiz.setData({
-                isShowContent: true
-              })
-            }, 1000)
-          } 
-          thiz.appInfo = appInfo
-          wx.showShareMenu({
-              withShareTicket: true
+  onLoad: function () {
+    let thiz = this
+    app.index = this
+    co(function* () {
+      var [status, appInfo] = yield [kkservice.authPermission("scope.userInfo"), yield kkservice.getAppInfo()]
+      if (status == kkconfig.status.authStatus.authOK) {
+        thiz.login(undefined, undefined, appInfo.data.data.play_total_num)
+      } else {
+        setTimeout(() => {
+          thiz.setData({
+            isShowContent: true
           })
-     })   
+        }, 1000)
+      }
+      thiz.appInfo = appInfo
+      wx.showShareMenu({
+        withShareTicket: true
+      })
+    })
+    wx.getSystemInfo({
+      success: function(res) {
+        thiz.setData({
+           sv: res.SDKVersion
+         })
+      },
+    })
   },
-  onHide(){
-     if(this.atimer){
-       clearInterval(this.atimer)
-     }
+  navigateToCash(e) {
+    wx.navigateTo({
+      url: '/pages/cash/cash',
+    })
+  },
+  onPullDownRefresh: function () {
+    let thiz = this
+    co(function* () {
+      let userInfo = yield kkservice.getUserInfo()
+      if (userInfo.data && userInfo.data.code == 1) {
+        thiz.setData({
+          userInfo: userInfo.data.data
+        })
+      }
+      wx.stopPullDownRefresh()
+    })
   }
   ,
-  onShow(){
+  onHide() {
+    if (this.atimer) {
+      clearInterval(this.atimer)
+    }
+  }
+  ,
+  onShow() {
     this.gif()
   }
   ,
-  gif(){
-    let a=1, b=1
+  gif() {
+    let a = 0, b = 0
     var thiz = this
     if (this.atimer) {
       clearInterval(this.atimer)
     }
-    this.atimer = setInterval(function(){
-        if(a > 3){
-           a = 1
-        }
-        if( b > 2){
-           b = 1
-        }
-        thiz.setData({
-          signImg: `../../assets/images/sign-${++a}.png`,
-        })
-        thiz.setData({
-          contactImg: `../../assets/images/contact-${++b}.png`,
-        })
+    this.atimer = setInterval(function () {
+      if (a > 3) {
+        a = 0
+      }
+      if (b > 3) {
+        b = 0
+      }
+      thiz.setData({
+        signImg: `../../assets/images/sign-${++a}.png`,
+      })
+      thiz.setData({
+        contactImg: `../../assets/images/contact-${++b}.png`,
+      })
     }, 300)
   },
-  login(url, callback, total_num){
-    if(this.data.isLogin){  
+  login(url, callback, total_num) {
+    if (this.data.isLogin) {
       if (url) {
         wx.navigateTo({
           url: url,
@@ -92,70 +122,68 @@ Page({
     }
     let thiz = this
     co(function* () {
-      if (thiz.data.isShowContent){
-         wx.showLoading({
-           title: '登录中...',
-         })
+      if (thiz.data.isShowContent) {
+        wx.showLoading({
+          title: '登录中...',
+        })
       }
       if (yield kkservice.login()) {
         let [userInfo, signInfo] = yield [kkservice.getUserInfo(), kkservice.getuserSignInfo()]
         if (thiz.data.isShowContent) {
-            wx.hideLoading()
+          wx.hideLoading()
         }
         thiz.signInfo = signInfo.data.data
-        if(kkcommon.isStorageInToday('sign')){
-            thiz.signInfo.signed = true
+        if (kkcommon.isStorageInToday('sign')) {
+          thiz.signInfo.signed = true
         }
-        if(total_num){
-            userInfo.data.data.total_num = total_num
+        if (total_num) {
+          userInfo.data.data.total_num = total_num
         }
         thiz.setData({
           isLogin: true,
           userInfo: userInfo.data.data,
           signInfo: thiz.signInfo
         })
-        if(url){
+        
+        if (url) {
           wx.navigateTo({
             url: url,
           })
+        } else {
+          let opsign = kkcommon.isStorageInToday('opsign')
+          if (!opsign) {
+            thiz.openSign()
+            kkcommon.storageToday('opsign')
+          }
         }
-        if(callback){
-           callback()
+        if (callback) {
+          callback()
         }
       }
       thiz.setData({
-         isShowContent: true
+        isShowContent: true
       })
     })
   },
-  intro(){
-    wx.navigateTo({
-      url: '/pages/intro/intro',
-    })
+  doLogin(res) {
+    let thiz = this
+    if (res.detail && res.detail.userInfo) {
+      thiz.login('/pages/user_center/user_center')
+    }
   },
-  doLogin(res){
-     let thiz = this
-     if(res.detail && res.detail.userInfo){
-        thiz.login('/pages/user_center/user_center')
-     }
-  },
-  loginToStart(res){
+  loginToStart(res) {
+    if (this.data.isLogin && this.data.userInfo.playable_num <= 0) {
+      // if (this.appInfo.data.data.status != 1){
+      //    this.setData({
+      //       online: 0
+      //    })
+      // } 
+      this.openShare()
+      return
+    }
     if (this.isStart) return
     this.isStart = true
     let thiz = this
-    if (thiz.data.isLogin && thiz.data.userInfo.playable_num <= 0){
-      wx.showModal({
-          title: '',
-          content: '分享到群, 增加挑战机会',
-          showCancel: false,
-          complete(){
-             wx.navigateTo({
-               url: '/pages/user_center/user_center',
-             })
-          }
-      })
-      return
-    }
     console.log('loginToStart')
     if (res.detail && res.detail.userInfo) {
       thiz.login('/pages/start/start')
@@ -175,7 +203,7 @@ Page({
   },
   navigateToPrize() {
     wx.navigateTo({
-      url: '/pages/prize/prize',
+      url: '/pages/cash/cash',
     })
   },
   navigateToRule() {
@@ -183,7 +211,7 @@ Page({
       url: '/pages/rule/rule',
     })
   },
-  action(e, s){
+  action(e, s) {
     var index = e.currentTarget.dataset.index
     var animation = wx.createAnimation({
       duration: 1000,
@@ -217,140 +245,169 @@ Page({
       })
     }
   },
-  start(e){
-     this.action(e, 0.8)
+  start(e) {
+    this.action(e, 0.8)
   },
-  end(e){
-     this.action(e, 1.0)
+  end(e) {
+    this.action(e, 1.0)
   },
-  openSign(){
+  openSign() {
     this.toogleSign(1.0)
   },
-  closeSign(){
+  closeSign() {
     this.toogleSign(0)
   },
-  toogleSign(opacity){
-      var animation = wx.createAnimation({
-        duration: 500,
-        timingFunction: 'ease',
-      })
-      this.animation = animation
-      animation.opacity(opacity).top(opacity == 0 ? "-100%" : 0).step()
+  toogleSign(opacity) {
+    var animation = wx.createAnimation({
+      duration: 500,
+      timingFunction: 'ease',
+    })
+    this.animation = animation
+    animation.opacity(opacity).top(opacity == 0 ? "-100%" : 0).step()
 
-      var animationMask = wx.createAnimation({
-        duration: 0,
-        timingFunction: 'ease',
-      })
-      this.animationMask = animationMask
-      animationMask.opacity(opacity).top(opacity == 0 ? "-100%" : 0).step()
-      this.setData({
-        animationDataSign: animation.export(),
-        animationDataMaskSign: animationMask.export()
-      })
-  },
-  submit(e){
-     app.formId = e.detail.formId
-  },
-  signIn(e, callback){
-     if(this.signInfo.signed) return
-     let thiz = this
-     co(function*(){
-        wx.showLoading({
-          title: '正在签到...',
-          mask:true
-        })
-        let res =yield kkservice.userSignIn()
-        console.log(res)
-        wx.hideLoading()
-        if(res.data && res.data.code == 1){
-           kkcommon.storageToday('sign', ()=>{
-              thiz.signInfo.sign_count = res.data.data.sign_count
-              thiz.signInfo.signed = true
-              if (res.data.data.user_info.name == 'playable_num'){
-                  thiz.data.userInfo.playable_num = res.data.data.user_info.value
-              } else if (res.data.data.user_info.name == 'money') {
-                  thiz.data.userInfo.money = res.data.data.user_info.value
-              }
-              thiz.setData({
-                  signInfo: thiz.signInfo,
-                  userInfo: thiz.data.userInfo
-              })
-              
-           })
-        } else {
-           wx.showToast({
-              title: res.data.msg,
-              icon: 'none'
-           })
-           kkcommon.storageToday('sign', () => {
-             thiz.signInfo.signed = true
-             thiz.setData({
-               signInfo: thiz.signInfo
-             })
-           })
-        } 
-        if (callback) {
-          callback(thiz.signInfo, thiz.data.userInfo)
-        }
-     })
-  },
-  shareSucc(iv, ed, callback, lp){
-    let thiz = this
-    co(function *(){
-        let sessionRes = yield kkpromise.checkSession()
-        if (sessionRes.code != "0" &&  sessionRes.errMsg != "checkSession:ok"){
-           if (! (yield kkservice.login())){
-                wx.showToast({
-                  title: 'session_key获取失败',
-                  icon: 'none'
-                })
-                return
-           }
-        }
-        let res = yield kkservice.share(iv, ed, kkconfig.global.session_key, lp)
-        if(res.data && res.data.code == 1){
-            thiz.data.userInfo.playable_num = res.data.data.playable_num
-            thiz.setData({
-              userInfo: thiz.data.userInfo
-            })
-        }
-        if (callback) {
-          callback(thiz.data.userInfo)
-        }
-        if (lp == 0 && res.data.msg && res.data.msg.trim().length > 0){
-          wx.showModal({
-            title: '',
-            content: res.data.msg,
-            showCancel:false
-          })
-        }
+    var animationMask = wx.createAnimation({
+      duration: 0,
+      timingFunction: 'ease',
+    })
+    this.animationMask = animationMask
+    animationMask.opacity(opacity).top(opacity == 0 ? "-100%" : 0).step()
+    this.setData({
+      animationDataSign: animation.export(),
+      animationDataMaskSign: animationMask.export()
     })
   },
-  commonShare(shareRes, title, icon, callback, lp = 0){
+  submit(e) {
+    app.formId = e.detail.formId
+  },
+  signIn(e, callback) {
+    if (this.signInfo.signed) return
+    let thiz = this
+    co(function* () {
+      wx.showLoading({
+        title: '正在签到...',
+        mask: true
+      })
+      let res = yield kkservice.userSignIn()
+      console.log(res)
+      wx.hideLoading()
+      if (res.data && res.data.code == 1) {
+        kkcommon.storageToday('sign', () => {
+          thiz.signInfo.sign_count = res.data.data.sign_count
+          thiz.signInfo.signed = true
+          if (res.data.data.user_info.name == 'playable_num') {
+            thiz.data.userInfo.playable_num = res.data.data.user_info.value
+          } else if (res.data.data.user_info.name == 'money') {
+            thiz.data.userInfo.money = res.data.data.user_info.value
+          }
+          thiz.setData({
+            signInfo: thiz.signInfo,
+            userInfo: thiz.data.userInfo
+          })
+
+        })
+      } else {
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none'
+        })
+        kkcommon.storageToday('sign', () => {
+          thiz.signInfo.signed = true
+          thiz.setData({
+            signInfo: thiz.signInfo
+          })
+        })
+      }
+      if (callback) {
+        callback(thiz.signInfo, thiz.data.userInfo)
+      }
+    })
+  },
+  openShare() {
+    this.sharing = true
+    this.toogleShare(1.0)
+  },
+  closeShare() {
+    this.toogleShare(0)
+  },
+  toogleShare(opacity) {
+    var animation = wx.createAnimation({
+      duration: 500,
+      timingFunction: 'ease',
+    })
+    this.animation = animation
+    animation.opacity(opacity).top(opacity == 0 ? "-100%" : 0).step()
+
+    var animationMask = wx.createAnimation({
+      duration: 0,
+      timingFunction: 'ease',
+    })
+    this.animationMask = animationMask
+    animationMask.opacity(opacity).top(opacity == 0 ? "-100%" : 0).step()
+    this.setData({
+      animationDataShare: animation.export(),
+      animationDataMaskShare: animationMask.export()
+    })
+  },
+  shareSucc(iv, ed, callback, lp) {
+    let thiz = this
+    co(function* () {
+      let sessionRes = yield kkpromise.checkSession()
+      if (sessionRes.code != "0" && sessionRes.errMsg != "checkSession:ok") {
+        if (!(yield kkservice.login())) {
+          wx.showToast({
+            title: 'session_key获取失败',
+            icon: 'none'
+          })
+          return
+        }
+      }
+      let res = yield kkservice.share(iv, ed, kkconfig.global.session_key, lp)
+      if (res.data && res.data.code == 1) {
+        thiz.data.userInfo.playable_num = res.data.data.playable_num
+        thiz.setData({
+          userInfo: thiz.data.userInfo
+        })
+      }
+      if (callback) {
+        callback(thiz.data.userInfo)
+      }
+      console.log('lp ' + lp + res.data.msg)
+      if (lp == 0 && res.data.msg && res.data.msg.trim().length > 0) {
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none'
+        })
+      }
+      thiz.sharing = false
+    })
+  },
+  commonShare(shareRes, title, icon, callback, lp = 0) {
+    this.closeShare()
     title = title.replace('{0}', app.index.data.userInfo.nick_name)
     return {
       title: title,
       path: "pages/index/index",
       imageUrl: icon,
       success: function (res) {
-        if (lp >= 0 && shareRes.from == "button"){
-           kkcommon.share(res.shareTickets[0], callback, lp)
+        if (lp >= 0 && shareRes.from == "button") {
+          kkcommon.share(res.shareTickets[0], callback, lp)
         }
       },
-      fail(){
+      fail() {
+        this.sharing = false
         if (lp >= 0 && shareRes.from == "button") {
           wx.showToast({
-              title: '取消分享',
-              icon: 'none'
+            title: '取消分享',
+            icon: 'none'
           })
         }
       }
     }
   },
-  onShareAppMessage(shareRes){
-     let thiz = this
-     return this.commonShare(shareRes, app.index.appInfo.data.data.share_title[0], app.index.appInfo.data.data.ico[0], (iv, ed)=>{
-        thiz.shareSucc(iv, ed)
-     }, -1)
+  onShareAppMessage(shareRes) {
+    let thiz = this
+    return this.commonShare(shareRes, app.index.appInfo.data.data.share_title[0], app.index.appInfo.data.data.ico[0], (iv, ed) => {
+      thiz.shareSucc(iv, ed, undefined, thiz.sharing ? 0 : -1)
+    }, thiz.sharing ? 0 : -1)
   }
 })

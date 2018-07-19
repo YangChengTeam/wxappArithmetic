@@ -22,7 +22,7 @@ function isStorageInToday(key){
     var value = wx.getStorageSync(key)
     let date = new Date()
     let currentDate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate()
-    flag = value && currentDate == value
+    flag = (value && currentDate == value)
   } catch (e) {
   }
   return flag

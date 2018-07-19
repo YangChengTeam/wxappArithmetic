@@ -22,31 +22,46 @@ Page({
     },
     signInfo: {},
     isShowContent: false,
-    status: 1
+    status: 1,
+    cashTip: '',
+    mini: 0
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     app.index.isStart = false
     wx.showShareMenu({
       withShareTicket: true
     })
+    try {
+      var res = wx.getSystemInfoSync()
+      this.setData({
+          mini: this.compareVersion(res.SDKVersion, '2.0.7')
+      })
+    } catch (e2) {
+    }
     var thiz = this
     this.setData({
       status: app.index.appInfo.data.data.status
     })
-    co(function* () {
+    co(function*() {
       var appInfo = app.index.appInfo
       var signInfo = app.index.signInfo
       wx.hideLoading()
+      if (parseFloat(app.index.data.userInfo.allow_change_money) > parseFloat(app.index.data.userInfo.money)) {
+        thiz.data.cashTip = `最低提现金额为${app.index.data.userInfo.allow_change_money}元`
+      } else {
+        thiz.data.cashTip = `满${app.index.data.userInfo.allow_change_money}元可提现`
+      }
       thiz.setData({
         isLogin: true,
       }, () => {
         thiz.setData({
           moreList: appInfo.data.data.more_app_info,
           userInfo: app.index.data.userInfo,
-          signInfo: signInfo
+          signInfo: signInfo,
+          cashTip: thiz.data.cashTip
         })
       })
       setTimeout(() => {
@@ -67,47 +82,48 @@ Page({
       url: '/pages/rule/rule',
     })
   },
-  openSign() {
-    this.toogleSign(1.0)
-  },
-  closeSign() {
-    this.toogleSign(0)
-  },
-  toogleSign(opacity) {
-    var animation = wx.createAnimation({
-      duration: 500,
-      timingFunction: 'ease',
+  openTakeMoneyRecord() {
+    wx.navigateTo({
+      url: '/pages/money-record/moneyRecord',
     })
-    this.animation = animation
-    animation.opacity(opacity).top(opacity == 0 ? "-100%" : 0).step()
+  },
+  natiageToMiniProgram(e) {
+    wx.navigateToMiniProgram({
+      appId: e.currentTarget.dataset.appid,
+    })
+  },
+  compareVersion(v1, v2) {
+    v1 = v1.split('.')
+    v2 = v2.split('.')
+    var len = Math.max(v1.length, v2.length)
 
-    var animationMask = wx.createAnimation({
-      duration: 0,
-      timingFunction: 'ease',
-    })
-    this.animationMask = animationMask
-    animationMask.opacity(opacity).top(opacity == 0 ? "-100%" : 0).step()
-    this.setData({
-      animationDataSign: animation.export(),
-      animationDataMaskSign: animationMask.export()
+    while (v1.length < len) {
+      v1.push('0')
+    }
+    while (v2.length < len) {
+      v2.push('0')
+    }
+
+    for (var i = 0; i < len; i++) {
+      var num1 = parseInt(v1[i])
+      var num2 = parseInt(v2[i])
+
+      if (num1 > num2) {
+        return 1
+      } else if (num1 < num2) {
+        return -1
+      }
+    }
+
+    return 0
+  }
+  ,
+  navigateToCash(e) {
+    wx.navigateTo({
+      url: '/pages/cash/cash',
     })
   },
-  signIn(e) {
-    let thiz = this
-    app.index.signIn(e, (signInfo, userInfo) => {
-      thiz.setData({
-        signInfo: signInfo,
-        userInfo: userInfo
-      })
-    })
-  },
-  natiageToMiniProgram(e){
-      console.log(e.currentTarget.dataset.appid)
-      wx.navigateToMiniProgram({
-        appId: e.currentTarget.dataset.appid,
-      })
-  },
-  onShareAppMessage: function (shareRes) {
+  onShareAppMessage: function(shareRes) {
     let thiz = this
     return app.index.commonShare(shareRes, app.index.appInfo.data.data.share_title[0], app.index.appInfo.data.data.ico[0], (iv, ed) => {
       app.index.shareSucc(iv, ed, (u) => {

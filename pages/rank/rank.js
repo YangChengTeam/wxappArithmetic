@@ -45,7 +45,7 @@ Page({
         })
       } 
       thiz.data.isALoading = true
-      var aListData= yield kkservice.getTopList(2, thiz.data.aPage, pagesize)
+      var aListData= yield kkservice.getTopList(4, thiz.data.aPage, pagesize)
       thiz.data.aTotalPage = aListData.data.data.total_page
       thiz.setData({
         aList: [...thiz.data.aList,...aListData.data.data.list],
