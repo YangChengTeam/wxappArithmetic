@@ -34,12 +34,58 @@ Page({
     loaded: false,
     isShowContent: false,
     online: 1,
+    mini: 0,
+    isShowAd: false
+  },
+  compareVersion(v1, v2) {
+    v1 = v1.split('.')
+    v2 = v2.split('.')
+    var len = Math.max(v1.length, v2.length)
+
+    while (v1.length < len) {
+      v1.push('0')
+    }
+    while (v2.length < len) {
+      v2.push('0')
+    }
+
+    for (var i = 0; i < len; i++) {
+      var num1 = parseInt(v1[i])
+      var num2 = parseInt(v2[i])
+
+      if (num1 > num2) {
+        return 1
+      } else if (num1 < num2) {
+        return -1
+      }
+    }
+
+    return 0
+  },
+  natiageToMiniProgram(e) {
+    console.log(e)
+    wx.navigateToMiniProgram({
+      appId: 'wx79ade44c39cefc7f',
+      path: '?chid=1966&subchid=qimi07'
+    })
   },
   onLoad: function () {
     let thiz = this
     app.index = this
+    try {
+      var res = wx.getSystemInfoSync()
+      this.setData({
+        mini: this.compareVersion(res.SDKVersion, '2.0.7')
+      })
+    } catch (e2) { 
+    }
     co(function* () {
       var [status, appInfo] = yield [kkservice.authPermission("scope.userInfo"), yield kkservice.getAppInfo()]
+      thiz.appInfo = appInfo
+      thiz.setData({
+        isShowAd: (appInfo.data.data.ad_arr.length > 0),
+        signImg: (appInfo.data.data.ad_arr.length > 0) ? '../../assets/images/yb-1.png' : '../../assets/images/sign-1.png'
+      })
       if (status == kkconfig.status.authStatus.authOK) {
         thiz.login(undefined, undefined, appInfo.data.data.play_total_num)
       } else {
@@ -49,16 +95,15 @@ Page({
           })
         }, 1000)
       }
-      thiz.appInfo = appInfo
       wx.showShareMenu({
         withShareTicket: true
       })
     })
     wx.getSystemInfo({
-      success: function(res) {
+      success: function (res) {
         thiz.setData({
-           sv: res.SDKVersion
-         })
+          sv: res.SDKVersion
+        })
       },
     })
   },
@@ -73,25 +118,30 @@ Page({
       let userInfo = yield kkservice.getUserInfo()
       if (userInfo.data && userInfo.data.code == 1) {
         thiz.setData({
-          userInfo: userInfo.data.data
+          userInfo: userInfo.data.data,
+          isShowContent: true
         })
       }
       wx.stopPullDownRefresh()
     })
-  }
-  ,
+  },
   onHide() {
     if (this.atimer) {
       clearInterval(this.atimer)
     }
-  }
-  ,
+  },
   onShow() {
+    if (this.data.isLogin) {
+      let opsign = kkcommon.isStorageInToday('opsign')
+      if (!opsign) {
+        this.openSign()
+      }
+    }
     this.gif()
-  }
-  ,
+  },
   gif() {
-    let a = 0, b = 0
+    let a = 0,
+      b = 0
     var thiz = this
     if (this.atimer) {
       clearInterval(this.atimer)
@@ -104,7 +154,7 @@ Page({
         b = 0
       }
       thiz.setData({
-        signImg: `../../assets/images/sign-${++a}.png`,
+        signImg: (thiz.data.isShowAd) ? `../../assets/images/yb-${++a}.png` : `../../assets/images/sign-${++a}.png`,
       })
       thiz.setData({
         contactImg: `../../assets/images/contact-${++b}.png`,
@@ -144,7 +194,7 @@ Page({
           userInfo: userInfo.data.data,
           signInfo: thiz.signInfo
         })
-        
+
         if (url) {
           wx.navigateTo({
             url: url,
@@ -153,7 +203,6 @@ Page({
           let opsign = kkcommon.isStorageInToday('opsign')
           if (!opsign) {
             thiz.openSign()
-            kkcommon.storageToday('opsign')
           }
         }
         if (callback) {
@@ -171,6 +220,7 @@ Page({
       thiz.login('/pages/user_center/user_center')
     }
   },
+
   loginToStart(res) {
     if (this.data.isLogin && this.data.userInfo.playable_num <= 0) {
       // if (this.appInfo.data.data.status != 1){
@@ -291,6 +341,7 @@ Page({
       console.log(res)
       wx.hideLoading()
       if (res.data && res.data.code == 1) {
+        kkcommon.storageToday('opsign')
         kkcommon.storageToday('sign', () => {
           thiz.signInfo.sign_count = res.data.data.sign_count
           thiz.signInfo.signed = true
@@ -310,6 +361,7 @@ Page({
           title: res.data.msg,
           icon: 'none'
         })
+        kkcommon.storageToday('opsign')
         kkcommon.storageToday('sign', () => {
           thiz.signInfo.signed = true
           thiz.setData({

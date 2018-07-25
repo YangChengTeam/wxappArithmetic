@@ -1,8 +1,10 @@
 <!--index.wxml-->
 <view class="container" style='height:115%'>
-  <!-- <view class="version">软件版本: 1.2.0 基础库版本: {{sv}}</view> -->
+  <!-- <view class="version">软件版本: 1.2.4 基础库版本: {{sv}}</view> -->
   <image class="main-bg" src='../../assets/images/main-bg.jpg'></image>
-  <image wx:if="{{isLogin}}" class='sign' src='{{signImg}}' bindtap='openSign'></image>
+  <image wx:if="{{isLogin}}" class='sign {{isShowAd? "yb" : ""}}' src='{{signImg}}' bindtap='openSign'></image>
+  <view class='sign {{isShowAd? "yb" : ""}}' wx:if="{{ isShowAd && mini==-1}}" bindtap='natiageToMiniProgram' ></view>
+                          <navigator class='sign {{isShowAd? "yb" : ""}}' wx:if="{{ isShowAd && mini>-1}}"  target="miniProgram" path="?chid=1966&subchid=qimi07" app-id='wx79ade44c39cefc7f' appId='wx79ade44c39cefc7f' ></navigator>
   <view class='contact' wx:if="{{isLogin}}">
     <image src='{{contactImg}}'></image>
     <button form-type='submit' open-type='contact' session-from="king"></button>
@@ -104,3 +106,5 @@
     </view>
   </view>
 </view>
+
+

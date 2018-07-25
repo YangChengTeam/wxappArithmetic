@@ -60,8 +60,12 @@
                               <view class="wxapp-desp">{{item.desc}}
                           </view>
                           </view>
+                          <block wx:if="{{item.is_bind}}">
                           <view wx:if="{{mini==-1}}" class="mini" bindtap='natiageToMiniProgram' data-appid="{{item.url}}">{{item.button_name}}</view>
-                          <navigator wx:if="{{mini>-1}}" class="mini" target="miniProgram" app-id='{{item.url}}' appId='{{item.url}}' >{{item.button_name}}</navigator> 
+                          <navigator wx:if="{{mini>-1}}" class="mini" target="miniProgram" app-id='{{item.url}}' appId='{{item.url}}' >{{item.button_name}}</navigator> </block>
+                          <block wx:else>
+                          <view class="mini" bindtap='previewImg' data-img="{{item.xcx_img}}">{{item.button_name}}</view>
+                          </block>
             </view>
             <view style='height:210rpx; width:100%;'></view>
      </view>

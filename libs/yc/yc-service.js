@@ -168,12 +168,13 @@ function text2Mp3(text){
     })()
 }
 
-function getQuestionMoney(is_help, question_token, question_ids){
+function getQuestionMoney(form_id, is_help, question_token, question_ids){
   return co.wrap(function* () {
     return yield kknet.post(kkconfig.getQuestionMoneyUrl, {
       is_help: is_help,
       question_token: question_token,
-      question_ids: question_ids
+      question_ids: question_ids,
+      form_id: form_id
     })
   })()
 }

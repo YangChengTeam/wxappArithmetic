@@ -56,7 +56,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     wx.showShareMenu({
       withShareTicket: true
     })
@@ -70,19 +70,27 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     if (this.noPlayableNum()) {
       return
     }
+
     if (app.index.appInfo.data.data.status != 1) {
       this.setData({
         isHelp: true
       })
+    } else {
+      let helpRnd = [false, true, true, false, true, false, true, false, true, false, true, false, true, false, true, true, false, false, true, true, true, false, true, false, true, true, true, false, true, false, true, false, false, true, true, false, true, false, true, false, true, false, false, false, true, false, true, false, true, false, , true, false, true, false, true, false, , true, false, true, false, true, false, , true, false, true, false, true, true, , true, false, true, false, true, false, ]
+      let h = helpRnd[parseInt(Math.random() * (helpRnd.length))]
+      this.setData({
+        isHelp: h
+      })
     }
+
     let thiz = this
 
-    co(function* () {
-      let res = yield kkservice.getQuestionMoney()
+    co(function*() {
+      let res = yield kkservice.getQuestionMoney(app.formId)
       let t = 6
       if (res.data && res.data.code == 1) {
         let questionInfo = res.data.data
@@ -90,7 +98,7 @@ Page({
         if (questionInfo.t < 10) {
           questionInfo.t = "0" + questionInfo.t;
         }
-        questionInfo.options.forEach(function (v) {
+        questionInfo.options.forEach(function(v) {
           v.op2 = v.op.toUpperCase()
         })
         thiz.setData({
@@ -99,8 +107,8 @@ Page({
         })
         thiz.countdownAnimate()
         thiz.question_ids = thiz.data.questionInfo.id + ","
-        
-        
+
+
       } else {
         thiz.netError = 1
         wx.showToast({
@@ -114,7 +122,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     if (this.data.musicStatus == "off") {
       this.data.musicStatus = "on"
       this.backgroundMusicPlay()
@@ -159,7 +167,7 @@ Page({
     } else {
       let thiz = this
       this.titleAudioContext = innerAudioContext
-      this.titleAudioContext.onEnded(function () {
+      this.titleAudioContext.onEnded(function() {
         if (!thiz.timer) {
           thiz.countDown(thiz.data.questionInfo)
         }
@@ -316,19 +324,19 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
     this.invisiable()
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
     this.invisiable()
     app.index.isStart = false
     if (!this.data.isOver && this.netError != 1) {
-      this.emptyQuestion(()=>{
-        this.setUserInfo() 
+      this.emptyQuestion(() => {
+        this.setUserInfo()
       })
     }
   },
@@ -420,7 +428,7 @@ Page({
         startImg: '../../assets/images/mstop.png',
       })
       thiz.isstartGame = false
-      co(function* () {
+      co(function*() {
         if (!thiz.data.questionInfo.mp3) {
           let res = yield kkservice.text2Mp3(thiz.data.questionInfo.name)
           thiz.data.questionInfo.mp3 = res.filename
@@ -445,14 +453,13 @@ Page({
     let thiz = this
     let index = (e.currentTarget.dataset.index)
     let option = this.data.questionInfo.options[index]
-    co(function* () {
+    co(function*() {
       wx.showLoading({
         title: '请稍后...',
         mask: true
       })
       var res = yield kkservice.getAnswerMoney(option.op, thiz.data.questionInfo.id)
-      
-      
+
       wx.hideLoading()
       thiz.isAnswer = false
       if (res.data && res.data.code == 1) {
@@ -466,7 +473,7 @@ Page({
       }
 
       if (option.is_answer === 1) {
-        thiz.data.questionInfo.options.forEach(function (v, k) {
+        thiz.data.questionInfo.options.forEach(function(v, k) {
           if (k == index) {
             v.style = ' right'
           }
@@ -481,7 +488,7 @@ Page({
         })
 
       } else {
-        thiz.data.questionInfo.options.forEach(function (v, k) {
+        thiz.data.questionInfo.options.forEach(function(v, k) {
           if (k == index) {
             v.style = ' error'
           }
@@ -562,21 +569,21 @@ Page({
     co(thiz.getQuestion)
   },
 
-  *getQuestion(){
+  * getQuestion() {
     let thiz = app.start
     let isHelp = (!thiz.isHelpd && thiz.data.isHelp) ? 1 : 0
     let question_ids = ""
-    if(isHelp == 1){
-        question_ids = thiz.question_ids
+    if (isHelp == 1) {
+      question_ids = thiz.question_ids
     }
-    
+
     wx.showLoading({
       title: '下一题...',
       mask: 'true'
     })
-    let res = yield kkservice.getQuestionMoney(isHelp, thiz.data.questionInfo.question_token, question_ids)
-   
-    if (isHelp == 1){
+    let res = yield kkservice.getQuestionMoney("", app.formIdisHelp, thiz.data.questionInfo.question_token, question_ids)
+
+    if (isHelp == 1) {
       thiz.isHelpd = true
     }
     let t = 6
@@ -588,7 +595,7 @@ Page({
         questionInfo.t = "0" + questionInfo.t;
       }
       thiz.question_ids += questionInfo.id + ","
-      questionInfo.options.forEach(function (v) {
+      questionInfo.options.forEach(function(v) {
         v.op2 = v.op.toUpperCase()
       })
       thiz.data.questionInfo = questionInfo
@@ -668,7 +675,7 @@ Page({
     this.opening = true
     let thiz = this
 
-    co(function* () {
+    co(function*() {
       wx.showLoading({
         title: '领取中...',
         mask: true
@@ -683,7 +690,7 @@ Page({
           app.index.setData({
             userInfo: app.index.data.userInfo
           })
-          setTimeout(function () {
+          setTimeout(function() {
             thiz.toogleSucc(0)
             wx.redirectTo({
               url: '/pages/openmoney/openmoney',
@@ -700,11 +707,11 @@ Page({
   },
   emptyQuestion(callback) {
     let thiz = this
-    co(function* () {
+    co(function*() {
       let res = yield kkservice.emptyQuestion()
       if (res && res.data && res.data.code == 1) {
-          if(callback) callback()
-      } 
+        if (callback) callback()
+      }
     })
   },
   countDown(questionInfo) {
@@ -762,7 +769,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function (shareRes) {
+  onShareAppMessage: function(shareRes) {
     let title = app.index.appInfo.data.data.share_title[0]
     let icon = app.index.appInfo.data.data.ico[0]
     let thiz = this
@@ -804,7 +811,8 @@ Page({
   help() {
     this.data.isOver = false
     this.setData({
-      isHelp: true
+      isHelp: true,
+      isOver: false
     })
     this.lp = 1
     this.succ()

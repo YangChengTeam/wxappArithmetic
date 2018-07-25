@@ -87,11 +87,17 @@ Page({
       url: '/pages/money-record/moneyRecord',
     })
   },
+  previewImg(e){
+     wx.previewImage({
+       urls: [e.currentTarget.dataset.img],
+     })
+  },
   natiageToMiniProgram(e) {
     wx.navigateToMiniProgram({
       appId: e.currentTarget.dataset.appid,
     })
   },
+
   compareVersion(v1, v2) {
     v1 = v1.split('.')
     v2 = v2.split('.')
