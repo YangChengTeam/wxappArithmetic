@@ -35,7 +35,10 @@ Page({
     isShowContent: false,
     online: 1,
     mini: 0,
-    isShowAd: false
+    isShowAd: false,
+    adappid: '',
+    adpath: '',
+    adimg: ''
   },
   compareVersion(v1, v2) {
     v1 = v1.split('.')
@@ -63,10 +66,18 @@ Page({
     return 0
   },
   natiageToMiniProgram(e) {
-    console.log(e)
+    let path = e.currentTarget.dataset.path
+    let id = e.currentTarget.dataset.id
+    let img = e.currentTarget.dataset.img
+    if(img.length > 0){
+       wx.previewImage({
+         urls: [img],
+       })
+       return
+    }
     wx.navigateToMiniProgram({
-      appId: 'wx79ade44c39cefc7f',
-      path: '?chid=1966&subchid=qimi07'
+      appId: id,
+      path: path
     })
   },
   onLoad: function () {
@@ -82,9 +93,14 @@ Page({
     co(function* () {
       var [status, appInfo] = yield [kkservice.authPermission("scope.userInfo"), yield kkservice.getAppInfo()]
       thiz.appInfo = appInfo
+    
+      let ad_arr = appInfo.data.data.ad_arr
       thiz.setData({
-        isShowAd: (appInfo.data.data.ad_arr.length > 0),
-        signImg: (appInfo.data.data.ad_arr.length > 0) ? '../../assets/images/yb-1.png' : '../../assets/images/sign-1.png'
+        isShowAd: (ad_arr.length > 0),
+        signImg: (ad_arr.length > 0) ? '../../assets/images/yb-1.png' : '../../assets/images/sign-1.png',
+        adappid: (ad_arr.length > 0) ? ad_arr[0].url.split('?')[0] :'',
+        adpath: (ad_arr.length > 0 && ad_arr[0].url.split('?').length > 1) ? ad_arr[0].url.split('?')[1] : '',
+        adimg: (ad_arr.length > 0) ?  ad_arr[0].xcx_img : ''
       })
       if (status == kkconfig.status.authStatus.authOK) {
         thiz.login(undefined, undefined, appInfo.data.data.play_total_num)
