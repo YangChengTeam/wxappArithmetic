@@ -3,21 +3,35 @@
      <image class="main-bg" src='../../assets/images/main-bg.jpg'></image>
      <view class="main-content">
           <view class="user-related">
-               <image src="../../assets/images/userinfo-bg.png"></image>
-               <view class="user-info-wrap">
-               <view class="user-info">
-                  <image class="user-head" src="{{ isLogin ? userInfo.face : '../../assets/images/avatar.png' }}"></image>
-                  <view class="user-desp">
-                      <view class="username">{{ isLogin ? userInfo.nick_name: '请登录' }}</view>
-                      <view class="user-game-info">
-                          <view class="user-challenge-times">挑战次数: {{userInfo.played_num}}次</view>
-                          <view class="user-score">挑战币: {{ userInfo.money }}枚</view>
-                      </view>
-                  </view>    
-               </view>
-             </view> 
-             <button  open-type='getUserInfo' bindgetuserinfo="doLogin"></button>
+      <image src="../../assets/images/userinfo-bg.png"></image>
+      <view class="user-info-wrap">
+        <view class="user-info">
+          <image class="user-head" src="{{ isLogin ? userInfo.face : '../../assets/images/avatar.png' }}"></image>
+          <view class="user-info-desc">
+            <view class="user-game-info mb30">
+              <view class="username">{{ isLogin ? userInfo.nick_name: '请登录' }}</view>
+              <image bindtap='navigateToRule' class="help" src='../../assets/images/help.png'></image>
+            </view>
+            <view class="user-game-info">
+              <view class="user-challenge-times">剩余次数: {{userInfo.playable_num}} 次</view>
+              <view class="user-score">挑战次数: {{ userInfo.played_num }} 次</view>
+            </view>
           </view>
+        </view>
+        <view class="user-info-prize">
+          <view class="user-prize-bg">
+            <image src="../../assets/images/user-info-prize.png"></image>
+            <view class="user-money-title">赏金余额：</view>
+            <view class="user-money">{{ userInfo.money }}元</view>
+          </view>
+          <view class="user-money-take" bindtap='takeMoney'>
+            <image bindtap='navigateToCash' src='../../assets/images/user-money-take.png'></image>
+          </view>
+        </view>
+      </view>
+      <button class="{{isLogin ? 'login' : 'nologin'}}" open-type='getUserInfo' bindgetuserinfo="doLogin"></button>
+
+    </view>
           <view class="game-related">
               <view animation="{{gameStart_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="0" bindtouchcancel='end' class="game-start">
                   <image src="../../assets/images/game-start.png"></image>
