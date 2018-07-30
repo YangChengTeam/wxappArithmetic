@@ -86,21 +86,26 @@ Page({
     try {
       var res = wx.getSystemInfoSync()
       this.setData({
-        mini: this.compareVersion(res.SDKVersion, '2.0.7')
+        mini: this.compareVersion(res.SDKVersion, '2.0.7'),
+        sv: res.SDKVersion
       })
     } catch (e2) { 
     }
+    this.loadData(thiz)
+  },
+  loadData(thiz){
     co(function* () {
       var [status, appInfo] = yield [kkservice.authPermission("scope.userInfo"), yield kkservice.getAppInfo()]
+      wx.stopPullDownRefresh()
       thiz.appInfo = appInfo
-    
+
       let ad_arr = appInfo.data.data.ad_arr
       thiz.setData({
         isShowAd: (ad_arr.length > 0),
         signImg: (ad_arr.length > 0) ? '../../assets/images/yb-1.png' : '../../assets/images/sign-1.png',
-        adappid: (ad_arr.length > 0) ? ad_arr[0].url.split('?')[0] :'',
+        adappid: (ad_arr.length > 0) ? ad_arr[0].url.split('?')[0] : '',
         adpath: (ad_arr.length > 0 && ad_arr[0].url.split('?').length > 1) ? ad_arr[0].url.split('?')[1] : '',
-        adimg: (ad_arr.length > 0) ?  ad_arr[0].xcx_img : ''
+        adimg: (ad_arr.length > 0) ? ad_arr[0].xcx_img : ''
       })
       if (status == kkconfig.status.authStatus.authOK) {
         thiz.login(undefined, undefined, appInfo.data.data.play_total_num)
@@ -115,13 +120,6 @@ Page({
         withShareTicket: true
       })
     })
-    wx.getSystemInfo({
-      success: function (res) {
-        thiz.setData({
-          sv: res.SDKVersion
-        })
-      },
-    })
   },
   navigateToCash(e) {
     wx.navigateTo({
@@ -130,16 +128,7 @@ Page({
   },
   onPullDownRefresh: function () {
     let thiz = this
-    co(function* () {
-      let userInfo = yield kkservice.getUserInfo()
-      if (userInfo.data && userInfo.data.code == 1) {
-        thiz.setData({
-          userInfo: userInfo.data.data,
-          isShowContent: true
-        })
-      }
-      wx.stopPullDownRefresh()
-    })
+    thiz.loadData(thiz)
   },
   onHide() {
     if (this.atimer) {

@@ -334,7 +334,7 @@ Page({
   onUnload: function() {
     this.invisiable()
     app.index.isStart = false
-    if (!this.data.isOver && this.netError != 1) {
+    if (!this.data.isOver && this.netError != 1 && !this.sharing) {
       this.emptyQuestion(() => {
         this.setUserInfo()
       })
@@ -799,7 +799,6 @@ Page({
           thiz.toogleFail(0)
         } else {
           if (u.playable_num > 0) {
-            thiz.closeShare(0)
             wx.navigateTo({
               url: '/pages/start/start',
             })
