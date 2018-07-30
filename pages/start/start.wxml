@@ -1,7 +1,12 @@
 <!--pages/start/start.wxml-->
 <view class="container">
+
+
       <image class="main-bg" src='../../assets/images/main-bg.jpg' ></image>
-      <view class="main-content">
+       <view class="loading" hidden='{{isShowContent}}'>
+       <image src="../../assets/images/loading.png"></image> 
+</view>
+      <view class="main-content"  hidden='{{!isShowContent}}'>
           <view class="start-time">
             <view class="start-content">
                <view class="time-content" animation="{{timeAnimationDataGameStart}}">
@@ -26,14 +31,14 @@
                               <view animation="{{animationDataProcess}}" class="process" src='../../assets/images/time-process.png'  />
                            </view>
                         </view>
-                        <view class="question-in-all">已经连续答对 {{ rightNumber }}/40</view>
+                        <view class="question-in-all">已经连续答对 {{ currentIndex+1  }}/{{count}}</view>
                         <view class="question-index">
                              <view class="line"></view>
                              <rich-text class="title">第<em style='color:#ff3e3e; font-weight: bold;'>{{currentIndex+1}}</em>题</rich-text>
                              <view class="line"></view>
                         </view>
                         <view class="question-info">
-                            <rich-text>{{questionInfo.questionStr}}</rich-text>
+                            <rich-text>{{questionInfo.name}}</rich-text>
                         </view>
                     </view>
               </view>
@@ -45,10 +50,10 @@
                   <view class="desp">连续答对{{count}}道题既挑战成功</view>
                 </view>
                 <view class="game-select" animation="{{animationDataSelect}}">
-                    <view class="right" animation="{{animationDataRight}}" bindtouchstart='start' bindtouchend='end' data-index="0" bindtouchcancel='end' bindtap='right'>
+                    <view class="right" animation="{{animationDataRight}}" bindtouchstart='start' bindtouchend='end' data-option="1" bindtouchcancel='end' bindtap='answer'>
                       <image src='../../assets/images/right.png'></image>
                     </view>
-                    <view class="error" animation="{{animationDataError}}" bindtouchstart='start' bindtouchend='end' data-index="1" bindtouchcancel='end' bindtap='error'>
+                    <view class="error" animation="{{animationDataError}}" bindtouchstart='start' bindtouchend='end' data-option="0" bindtouchcancel='end' bindtap='answer'>
                       <image src='../../assets/images/error.png'></image>
                     </view>
                 </view>
@@ -57,32 +62,56 @@
           </view>
       </view>
 
-     
-       <view class="mask mask-succ"  animation="{{animationDataMaskSucc}}">
-            <image class="win-header" src='../../assets/images/win.png'></image>
-          <view class="mask-content succ"  animation="{{animationDataSucc}}">
-                
-                <image class="succ-header" src='../../assets/images/succ.png'></image>
-                <view class="mask-main-content">
-                    <view class="title">恭喜您获得一枚挑战币，
-快去兑换吧！</view>
-                    <button class="continue" bindtap='navagateToPrizee'>兑换礼物</button>
-                    <button class="invate-friend" open-type='share'>炫耀一下</button>
-                </view>
-                <image class="close" src='../../assets/images/close.png' bindtap='closeSucc'></image>
-          </view>
-      </view>
-
-
-      <view class="mask mask-fail" animation="{{animationDataMaskFail}}">
-          <view class="mask-content fail" animation="{{animationDataFail}}">
-                <image class="fail" src='../../assets/images/fail.png'></image>
-                <view class="mask-main-content">
-                    <view class="title">继续挑战，相信你可以的！</view>
-                    <button class="continue" bindtap='continuePlay'>继续挑战</button>
-                    <button class="invate-friend" open-type='share'>邀请好友一起玩</button>
-                </view>
-                <image class="close" src='../../assets/images/close.png' bindtap='closeFail'></image>
-          </view>
-      </view>
 </view>
+<ad wx:if="{{isOver}}" class="ad" unit-id="adunit-6057acc1a28a3d02"></ad>
+
+  <view class="mask mask-succ" animation="{{animationDataMaskSucc}}">
+    <view class="mask-content succ" animation="{{animationDataSucc}}">
+
+      <image class="succ-header" src='../../assets/images/succ-bg.png'></image>
+      <view class="mask-main-content">
+        <view class="title">恭喜您获得一个红包</view>
+        <image class="avatar" src='{{avatarImg}}'></image>
+        <view class="desp">加减挑战赛通关</view>
+        <view class="desp2">恭喜发财，大吉大利</view>
+        <button class="open-money" bindtap='navagateToPrizee'></button>
+      </view>
+      <image class="close" src='../../assets/images/close.png' bindtap='closeSucc'></image>
+    </view>
+  </view>
+
+  <view class="mask mask-fail" animation="{{animationDataMaskFail}}">
+    <view class="mask-content fail" animation="{{animationDataFail}}">
+            <image class="fail-img2" src='../../assets/images/fail.png'></image>
+
+      <view class="mask-main-content">
+        <view class="title">{{isHelp ? '不要放弃，继续挑战，相信你是可以的！' : '真可惜答错了！分享到群求助好友，可以继续答题哦~'}}</view>
+        <button class="continue" wx:if="{{isHelp}}" bindtap='continuePlay'>继续挑战</button>
+        <button class="continue" wx:if="{{!isHelp}}" open-type='share'>求助好友</button>
+        <button class="invate-friend" wx:if="{{!isHelp}}" bindtap='continuePlay'>继续挑战</button>
+        <button class="invate-friend"wx:if="{{isHelp}}" bindtap='closeFail'>点击跳过</button>
+      </view>
+      <image class="close" src='../../assets/images/close.png' bindtap='closeFail'></image>
+    </view>
+  </view>
+
+  
+  <view class="mask mask-share" animation="{{animationDataMaskShare}}">
+    <view class="mask-content share" animation="{{animationDataShare}}">
+      <view class="main-share">
+        <image class="share-img" src="../../assets/images/share-bg.png"></image>
+        <view class="share-part">
+          <image class="share-more" src="../../assets/images/share-more.png"></image>
+          <view class="share-desp">分享到群,即可获得挑战机会</view>
+          <view class="share-desp">今日分享过的群，不会得挑战机会哟</view>
+        </view>
+        <view class="share-part2">
+         <view class="share-part2-wrapper">
+          <image src='../../assets/images/share-btn.png'></image>
+          <button open-type='share'></button>
+          </view>
+        </view>
+      </view>
+      <image class="close" src='../../assets/images/close.png' bindtap='closeShare'></image>
+    </view>
+  </view>

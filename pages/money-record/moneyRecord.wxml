@@ -1,0 +1,36 @@
+<!--pages/money-record/moneyRecord.wxml-->
+
+<view class="container">
+  <image class="main-bg" src='../../assets/images/main-bg.jpg'></image>
+  <view class="loading"  hidden='{{isShowContent}}'>
+     <image src="../../assets/images/loading.png"></image> 
+</view>
+<view class="record-list" hidden='{{!isShowContent}}'>
+  <view class="record-list-item" wx:for="{{recordList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+    <view class="info">
+      <rich-text class="money"><b style='font-size:40rpx;'>{{item.money}}</b>元 <strong style="color:#382198; font-size:26rpx;">{{item.type == 1 ? "每日签到红包" : ""}}{{item.type == 2 ? "通关红包" : ""}}</strong></rich-text> 
+      <view class="time">{{item.add_time}}</view>
+    </view>
+    <view wx:if="{{item.status == 1}}" class="get">已领取</view>
+    <view class="user-money-take" wx:if="{{item.status == 0}}">
+      <image src='../../assets/images/mr-btn.png' data-money="{{item.money}}" bindtap='getMoney'  data-index="{{index}}" data-id='{{item.id}}' data-type='{{item.type}}'></image>
+     
+    </view>
+  </view>
+  <view class="record-footer"></view>
+</view>
+<view class="mask mask-succ"  animation="{{animationDataMaskSign}}">
+          <view class="mask-content succ"  animation="{{animationDataSign}}">      
+                <image class="succ-header" src='../../assets/images/succ-bg.png'></image>
+                <view class="mask-main-content">
+                    <view class="title">恭喜您获得一个红包</view>
+                    <image class="avatar" src='{{avatarImg}}'></image>
+                    <view class="desp">{{type == 1 ? "每日签到" : ""}}{{type == 2 ? "加减挑战赛通关" : ""}}</view>
+                    <view class="desp2">恭喜发财，大吉大利</view>
+                    <button class="open-money" bindtap='navagateToPrizee'></button>
+                </view>
+                <image class="close" src='../../assets/images/close.png' bindtap='closeSign'></image>
+          </view>
+</view>
+
+</view>

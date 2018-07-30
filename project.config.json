@@ -1,14 +1,14 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.6.8",
+	"libVersion": "1.9.94",
 	"appid": "wxa909727d8919504e",
 	"projectname": "wxappArithmetic",
 	"condition": {

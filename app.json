@@ -1,15 +1,21 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/cash/cash",
+    "pages/openmoney/openmoney",
+   
     "pages/start/start",
     "pages/rank/rank",
     "pages/prize/prize",
     "pages/rule/rule",
     "pages/user_center/user_center",
-    "pages/complain/complain"
+    "pages/complain/complain",
+    "pages/cash-record/cashRecord",
+    "pages/money-record/moneyRecord"
+    
   ],
   "window": {
-    "backgroundTextStyle": "light",
+    "backgroundTextStyle": "dark",
     "backgroundColor": "#382198",
     "navigationBarBackgroundColor": "#382198",
     "navigationBarTitleText": "加减挑战赛",

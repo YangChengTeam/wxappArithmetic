@@ -54,6 +54,7 @@
    width: 660rpx;
 }
 
+
 .rank-list-item:first-child {
   margin-top: 28rpx;
 }

@@ -173,6 +173,7 @@
    width: 300rpx;
 }
 
+
 .mask {
    position: fixed;
    width: 100%;
@@ -190,24 +191,12 @@
    flex-direction: column;
    width: 510rpx;
    height: 100%;
-   justify-content: center;
    align-items: center;
    top: -100%;
    opacity: 0;
    position: relative;
 }
 
-.succ {
-  justify-content: flex-start;
-}
-
-.mask-content > .fail {
-   width: 485rpx;
-   height: 193rpx;
-   position: relative;
-   top: 50rpx;
-   left: 30rpx;
-}
 
 .mask-main-content {
    display: flex;
@@ -215,37 +204,75 @@
    justify-content:flex-start;
    align-items: center;
    width: 510rpx;
-   height: 430rpx;
+   height: 450rpx;
    background-color: #fff;
    border-radius: 15rpx;
-
+   margin-top: 140rpx;
 }
+
+
+.fail-img2 {
+   width: 485rpx;
+   height: 193rpx;
+   position: relative;
+   z-index: 2;
+   top: 190rpx;
+   left: 30rpx;
+}
+
 .succ  .mask-main-content {
-   height: 480rpx;
+   height: 722rpx;
+   width: 512rpx;
 }
 .succ {
-   margin-top: 357rpx;
+   width: 512rpx;
+   margin-top: 140rpx;
 }
 
 .mask-content > .close {
    width: 48rpx;
    height: 48rpx;
-   margin-top: 60rpx;
+   margin-top: 50rpx;
    
 }
 
 .mask-main-content > .title {
    font-size: 32rpx;
    color: #000;
-   width: 100%;
-   margin-top: 80rpx;
+   width: 80%;
+   margin-top: 60rpx;
    text-align: center;
 }
 
 .succ .title {
-   margin-top: 60rpx;
-   width: 310rpx;
+   margin-top: 36rpx;
+   color: #fff;
+   font-size: 40rpx;
+}
 
+.succ .avatar {
+   width: 180rpx;
+   height: 180rpx;
+   margin-top: 20rpx;
+   border-radius: 50%;
+}
+
+.succ .desp {
+   font-size: 30rpx;
+   margin-top: 20rpx;
+}
+
+.succ .desp2 {
+   font-size: 36rpx;
+   margin-top: 10rpx;
+   color: #ecc47f;
+}
+
+.open-money {
+   margin-top: 40rpx;
+   width: 182rpx;
+   height: 182rpx;
+   opacity: 0;
 }
 
 .mask-main-content > .continue {
@@ -254,9 +281,9 @@
    width: 380rpx;
    border-radius: 45rpx;
    line-height: 90rpx;
-   background-color: #382198;
+   background: #775ee0;
    color: #fff;
-   margin-top: 50rpx;
+   margin-top: 30rpx;
 }
 
 .mask-main-content > .invate-friend {
@@ -266,16 +293,22 @@
    border-radius: 45rpx;
    line-height: 90rpx;
    background-color: #fff;
-   border: solid 2rpx #382198;
-   color: #382198;
+   border: solid 2rpx #775ee0;
+   color: #775ee0;
    margin-top: 30rpx;
 }
 
+.succ > .mask-main-content {
+  margin-top: 0;
+  background: rgba(0,0,0,0.0);
+  z-index: 100;
+}
+
 .mask-content > .succ-header {
-   width: 348rpx;
-   height: 72rpx;
-   position: relative;
-   top: 30rpx;
+   width: 512rpx;
+   height: 722rpx;
+   position: absolute;
+   top: 0;
 }
 
 .mask > .win-header {
@@ -296,4 +329,107 @@
 .mask-fail {
    opacity: 0;
    top: -100%;
+}
+
+
+.ig {
+   animation:circle 1.5s infinite linear;
+}
+@keyframes circle{
+     0%{ transform:rotate(0deg); }
+     100%{ transform:rotate(360deg); }
+}
+
+.mask-share {
+   left: 0;
+   top: -100%;
+}
+
+.main-share {
+   display: flex;
+   width: 500rpx;
+   height: 500rpx;
+   flex-direction: column;
+   align-items: center;
+   border-radius: 10rpx;
+   margin-top: 140rpx;
+   position: relative;
+}
+
+
+
+.share-part {
+   display: flex;
+   width: 100%;
+   height: 300rpx;
+   flex-direction: column;
+   align-items: center;
+   position: relative;
+   z-index: 100rpx;
+}
+
+.share-part2 {
+   width: 100%;
+   height: 200rpx;
+   background: #fff;
+    justify-content: center;
+    display: flex;
+   border-bottom-left-radius: 15rpx;
+   border-bottom-right-radius: 15rpx;
+  
+}
+
+.share-part2-wrapper {
+   position: relative;
+   width: 378rpx;
+   height: 90rpx;
+   margin-top: 50rpx;
+}
+
+.share-part2-wrapper  > image {
+   width: 378rpx;
+   height: 90rpx;
+   position: absolute;
+   left: 0;
+   top: 0;
+}
+
+.share-part2-wrapper  > button {
+    position: absolute;
+     left: 0;
+   top: 0;
+    background: linear-gradient(to right, #d866db, #e565b1,#e64690, #e84081, #ee4f62); 
+    width: 378rpx;
+    height: 90rpx;
+    line-height: 90rpx;
+    border-radius: 40rpx;
+    color: #fff;
+    font-size: 30rpx;
+    opacity: 0;
+}
+
+.share-img {
+   width: 500rpx;
+   height: 300rpx;
+   position: absolute;
+   left: 0;
+   top: 0;
+}
+
+.share-more {
+   width: 390rpx;
+   height: 66rpx;
+   margin-top: 60rpx;
+   margin-bottom: 20rpx;
+}
+
+.share-title {
+   color: #f8d548;
+   font-size: 36rpx;
+}
+
+.share-desp {
+   color: #fff;
+   font-size: 26rpx;
+   margin-top: 15rpx;
 }

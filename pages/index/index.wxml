@@ -1,7 +1,13 @@
 <!--index.wxml-->
 <view class="container">
+
      <image class="main-bg" src='../../assets/images/main-bg.jpg'></image>
-     <view class="main-content">
+      <view class="loading" hidden='{{isShowContent}}'>
+       <image src="../../assets/images/loading.png"></image> 
+</view>
+
+     <image wx:if="{{isLogin}}" hidden='{{!isShowContent}}' class='gzh' src='{{gzhImg}}' bindtap='openGzh'></image>
+     <view class="main-content" hidden='{{!isShowContent}}'>
           <view class="user-related">
       <image src="../../assets/images/userinfo-bg.png"></image>
       <view class="user-info-wrap">
@@ -24,7 +30,7 @@
             <view class="user-money-title">赏金余额：</view>
             <view class="user-money">{{ userInfo.money }}元</view>
           </view>
-          <view class="user-money-take" bindtap='takeMoney'>
+          <view class="user-money-take">
             <image bindtap='navigateToCash' src='../../assets/images/user-money-take.png'></image>
           </view>
         </view>
@@ -36,13 +42,14 @@
               <view animation="{{gameStart_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="0" bindtouchcancel='end' class="game-start">
                   <image src="../../assets/images/game-start.png"></image>
                   <view class="game-challenge-times">当前共有 {{userInfo.total_num}} 次挑战</view>
-                  <button  open-type='getUserInfo' bindgetuserinfo="loginToStart"></button>
-              </view>
+<form bindsubmit='submit' report-submit>
+          <button form-type='submit' open-type='getUserInfo' bindgetuserinfo="loginToStart"></button>
+        </form>              </view>
               <view class="game-excite" >
                   <image src='../../assets/images/game-rank.png' bindtap='navigateToRank' animation="{{rank_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="1" bindtouchcancel='end'></image>
                   <view animation="{{prize_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="2" bindtouchcancel='end' class="game-prize" bindtap='navigateToPrize'>
                        <image src='../../assets/images/game-prize.png'></image>
-                       <view class="game-prize-text">免费换娃娃</view>
+                       <!-- <view class="game-prize-text">免费换娃娃</view> -->
                   </view>
               </view>
           </view>
@@ -55,5 +62,53 @@
              <image animation="{{more_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="4" bindtouchcancel='end' src='../../assets/images/more.png' bindtap='navigateToMore'></image>
              <image animation="{{rule_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="5" bindtouchcancel='end' src='../../assets/images/game-rule.png' bindtap='navigateToRule'></image>
           </view>
+          <view style='height:250rpx; width:100%;'></view>
+
      </view>
 </view>
+  <view class="mask mask-succ" animation="{{animationDataMaskSucc}}">
+    <view class="mask-content succ" animation="{{animationDataSucc}}">
+
+      <image class="succ-header" src='../../assets/images/succ-bg.png'></image>
+      <view class="mask-main-content">
+        <view class="title">恭喜您获得一个红包</view>
+        <image class="avatar" src='{{userInfo.face}}'></image>
+        <view class="desp">每日签到</view>
+        <view class="desp2">恭喜发财，大吉大利</view>
+
+        <form bindsubmit='submit' class="open-money" report-submit>
+          <button form-type='submit' style='margin-top:0' class="open-money" bindtap='navagateToPrizee'></button>
+        </form>
+      </view>
+      <image class="close" src='../../assets/images/close.png' bindtap='closeSucc'></image>
+    </view>
+  </view>
+  <view class="mask" animation="{{animationDataMaskGzh}}">
+   
+    <view class="mask-content" animation="{{animationDataGzh}}">
+           <image src="{{arrowImg}}" class="arrow"></image>
+           <image src='../../assets/images/gzh-bg.png' class="gzhbg" ></image>
+           <image class="close" src='../../assets/images/close.png' bindtap='closeGzh'></image>
+    </view>
+  </view>
+  <ad wx:if='{{isShowContent}}' class="ad" unit-id="adunit-b004832e51191659"></ad>
+
+  <view class="mask mask-share" animation="{{animationDataMaskShare}}">
+    <view class="mask-content share" animation="{{animationDataShare}}">
+      <view class="main-share">
+        <image class="share-img" src="../../assets/images/share-bg.png"></image>
+        <view class="share-part">
+          <image class="share-more" src="../../assets/images/share-more.png"></image>
+          <view class="share-desp">分享到群,即可获得挑战机会</view>
+          <view class="share-desp">今日分享过的群，不会得挑战机会哟</view>
+        </view>
+        <view class="share-part2">
+         <view class="share-part2-wrapper">
+          <image src='../../assets/images/share-btn.png'></image>
+          <button open-type='share'></button>
+          </view>
+        </view>
+      </view>
+      <image class="close" src='../../assets/images/close.png' bindtap='closeShare'></image>
+    </view>
+  </view>

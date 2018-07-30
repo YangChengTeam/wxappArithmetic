@@ -5,88 +5,138 @@ const regeneratorRuntime = global.regeneratorRuntime = require('../../libs/runti
 const co = require('../../libs/co')
 const kkservice = require("../../libs/yc/yc-service.js")
 const kkconfig = require("../../libs/yc/yc-config.js")
+const kkcommon = require("../../libs/yc/yc-common.js")
 
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    moreList: []
+    animationDataSign: {},
+    animationDataMaskSign: {},
+    moreList: [],
+    userInfo: {
+      money: 0,
+      played_num: 0,
+      playable_num: 0
+    },
+    signInfo: {},
+    isShowContent: false,
+    status: 1,
+    cashTip: '',
+    mini: 0
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    wx.hideShareMenu({})
+  onLoad: function(options) {
+    app.index.isStart = false
+    wx.showShareMenu({
+      withShareTicket: true
+    })
+    try {
+      var res = wx.getSystemInfoSync()
+      this.setData({
+          mini: this.compareVersion(res.SDKVersion, '2.0.7')
+      })
+    } catch (e2) {
+    }
     var thiz = this
-    co(function* () {
-      wx.showLoading({
-        title: '正在加载...',
-      })
+    this.setData({
+      status: app.index.appInfo.data.data.status
+    })
+    co(function*() {
       var appInfo = app.index.appInfo
-      thiz.setData({
-          moreList: appInfo.data.data.more_app_info
-      })
       wx.hideLoading()
+      if (parseFloat(app.index.data.userInfo.allow_change_money) > parseFloat(app.index.data.userInfo.money)) {
+        thiz.data.cashTip = `最低提现金额为${app.index.data.userInfo.allow_change_money}元`
+      } else {
+        thiz.data.cashTip = `满${app.index.data.userInfo.allow_change_money}元可提现`
+      }
+      thiz.setData({
+        isLogin: true,
+      }, () => {
+        thiz.setData({
+          moreList: appInfo.data.data.more_app_info,
+          userInfo: app.index.data.userInfo,
+          cashTip: thiz.data.cashTip
+        })
+      })
+      setTimeout(() => {
+        thiz.setData({
+          isShowContent: true
+        })
+      }, 1000)
     })
   },
-  open(e){
-     let appid = e.currentTarget.dataset.appid
-     wx.navigateToMiniProgram({
-       appId: appid,
+  open(e) {
+    let appid = e.currentTarget.dataset.appid
+    wx.navigateToMiniProgram({
+      appId: appid,
+    })
+  },
+  navigateToRule() {
+    wx.navigateTo({
+      url: '/pages/rule/rule',
+    })
+  },
+  openTakeMoneyRecord() {
+    wx.navigateTo({
+      url: '/pages/money-record/moneyRecord',
+    })
+  },
+  previewImg(e){
+     wx.previewImage({
+       urls: [e.currentTarget.dataset.img],
      })
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
+  natiageToMiniProgram(e) {
+    wx.navigateToMiniProgram({
+      appId: e.currentTarget.dataset.appid,
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
+  compareVersion(v1, v2) {
+    v1 = v1.split('.')
+    v2 = v2.split('.')
+    var len = Math.max(v1.length, v2.length)
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-    return {
-      title: '我在参加加减挑战赛，竟然免费领娃娃！？',
-      path: "pages/index/index"
+    while (v1.length < len) {
+      v1.push('0')
     }
+    while (v2.length < len) {
+      v2.push('0')
+    }
+
+    for (var i = 0; i < len; i++) {
+      var num1 = parseInt(v1[i])
+      var num2 = parseInt(v2[i])
+
+      if (num1 > num2) {
+        return 1
+      } else if (num1 < num2) {
+        return -1
+      }
+    }
+
+    return 0
+  }
+  ,
+  navigateToCash(e) {
+    wx.navigateTo({
+      url: '/pages/cash/cash',
+    })
+  },
+  onShareAppMessage: function(shareRes) {
+    let thiz = this
+    return app.index.commonShare(shareRes, app.index.appInfo.data.data.share_title[0], app.index.appInfo.data.data.ico[0], (iv, ed) => {
+      app.index.shareSucc(iv, ed, (u) => {
+        if (u) {
+          thiz.setData({
+            userInfo: u
+          })
+        }
+      }, -1)
+    })
   }
 })

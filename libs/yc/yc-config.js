@@ -37,18 +37,32 @@ const net = {
 }
 
 module.exports = {
-   global: global,
-   status: status,
-   net: net,
+  global: global,
+  status: status,
+  net: net,
 
-   loginUrl: getUrl("/v1.user/login"),
-   getUserInfoUrl: getUrl("/v1.game/getUserInfo"),
-   topListUrl: getUrl("/v1.game/topList"),
-   prizeListUrl: getUrl("/v1.gift/getGiftList"),
-   prizeRecordListUrl: getUrl("/v1.gift/myGiftList"),
-   appInfoUrl: getUrl("/v1.game/getAppInfo"),
-   postScoreUrl: getUrl("/v1.game/postScore"),
-   changeGiftUrl: getUrl("/v1.gift/changeGift"),
-   complainUrl: getUrl("/v1.game/tousu"),
-   shareUrl: getUrl("/v1.game/share")
+  loginUrl: getUrl("/v1.user/login"),
+  getUserInfoUrl: getUrl("/v1.game/getUserInfo"),
+  topListUrl: getUrl("/v1.game/topList"),
+  prizeListUrl: getUrl("/v1.gift/getGiftList"),
+  prizeRecordListUrl: getUrl("/v1.gift/myGiftList"),
+  appInfoUrl: getUrl("/v1.game/getAppInfo"),
+  postScoreUrl: getUrl("/v1.game/postScore"),
+  changeGiftUrl: getUrl("/v1.gift/changeGift"),
+  complainUrl: getUrl("/v1.game/tousu"),
+  getQuestionListUrl: getUrl("/v1.questions/getQuestionList"),
+  shareUrl: getUrl("/v1.game/getShareQunInfo"),
+  userSignInfoUrl: getUrl("/v1.game/userSignInfo"),
+  userSignInUrl: getUrl("/v1.game/userSignIn"),
+
+  getQuestionMoneyUrl: getUrl("/v1.questions/getQuestionMoney"),
+  getAnswerMoneyUrl: getUrl("/v1.questions/commonAnswer"),
+
+  getRedBagUrl: getUrl('/v1.money/getRedBag'),
+  changeMoneyUrl: getUrl('/v1.money/changeMoney'),
+  redBagListUrl: getUrl('/v1.money/redBagList'),
+  moneyListUrl: getUrl('/v1.money/moneyList'),
+  emptyQuestionUrl: getUrl('/v1.questions/emptyQuestion'),
+
 }
+
