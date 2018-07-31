@@ -1,19 +1,21 @@
 /* pages/start/start.wxss */
-.start-content {
-   background-color: #8373c8;
-   width: 100%;
-   height: 700rpx;
-   position: relative;
-   border-radius: 25rpx;
-   overflow: hidden;
+@import "../../assets/css/animate.min.wxss";
 
+.start-time {
+   width: 100%;
+   height: 100%;
+}
+
+.start-content {
+   width: 100%;
+   height: 100%;
+   position: relative;
+   overflow: hidden;
 }
 
 .time-content {
-   background-color: #775ee0;
    width: 100%;
-   height: 685rpx;
-   border-radius: 25rpx;
+   height: 100%;
    position: absolute;
 }
 
@@ -21,12 +23,10 @@
 .game-content {
    display: flex;
    justify-content: center;
-   background-color: #fff;
-   width: 100%;
-   height: 685rpx;
-   border-radius: 25rpx;
+   width: 652rpx;
+   height: 100%;
    position: absolute;
-   top: -685rpx;
+   top: -100%;
    opacity: 0;
 }
 
@@ -36,12 +36,13 @@
   height: 100%;
   position: absolute;
   left: 0;
-  top:0;
+  top: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 330rpx;
-  
+  font-size: 320rpx;
+  font-weight: bold;
+  color:#fff;
 }
 
 .time-num > view {
@@ -54,6 +55,7 @@
     font-size: 48rpx;
     width: 100%;
     text-align: center;
+    color: #0072ba;
 }
 
 .start-desp > .desp {
@@ -61,111 +63,113 @@
     width: 100%;
     text-align: center;
     margin-top: 10rpx;
+    color: #0072ba;
 }
 
 .game-content-wrap { 
+   width: 100%;
+   height: 100%;
+   color: black;
    display: flex;
    flex-direction: column;
    align-items: center;
-   width: 580rpx;
-   height: 100%;
-   color: black;
 }
 
 .process-info {
-   width: 100%;
-   height: 26rpx;
-   margin-top: 70rpx;
-}
-
-.process-info-wrap {
-  position: relative;
-  width: 100%;
-  height: 26rpx;
-}
-
-.process-info-wrap > image {
-   position: absolute;
-   width: 100%;
-   height: 26rpx;
-}
-
-.process-info-wrap > .process {
-    width: 100%;
-    height: 26rpx;
-    position: absolute;
-    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAkQAAAAaCAMAAABhJbPGAAAAn1BMVEUAAACznQC9oADAowC+oQC7pAC5ngC0mwDBpQDAsAC1mgC3qQD76QD41ADaygDr2QDXuADoxgDyzwD15ADGtwDDpgD65QD41wD75gD52QD64gD53AD63wD53gDFrwDz0QD01AD03wD14gDGtQDpzADq0wDZwwDYvwDDqADkwwDtywDVtQDevgDQsADLrQD76ADl1ADv3QDNvQDJqwDRvwD7h28ZAAAADHRSTlMADMXnvpl8K/rGPz/U1pxDAAACBklEQVRo3u3b23KqMBQG4IAiahUCGmxtK0G7DwkHEX3/Z9ucku4WO/SuMPP/d36znFkXawLMrBAVezadzBk7bFUOrAkM1rX5ZDqzyccsTZalMaV/HJXftAkMds/iNGPmkrzHsFhKEyG8N1fll9cGBrtnQiQ0PViGniHzGieelH64UYl8FQ6D3TMpvcQpFoaaoYyKcoL4bqUSrFWeYLC7xsPwkuspsq5UyJCv32foUf0VBvvagk3kOoVFyixZLCQfWH+wMdg5iHJn+0AIMdNEhiWudNoqGKzHzptLflsQYjPq+Xx4/cHGYMHRdZhNZll9ED3qul1bBYP1WnkUJdmMTNPqjWiA/cHGYIEU6ZRMYuGvA133pMpgsG/YzhfxhMzLIdr/eC+wsZrvxfNqiKKzsmddt1/BYP3WDNEkfjuef74X2EitfpxNb3kUNPaq617KXzBYv/H6xXpW5JfNubIXXfda18BgvRbK6hPf3jruMShtr+uemyIYrM+471FmE7K4VUfR8PqDjcBCmaQmIeRh6+RRsB/gsgFs6MaliNmSlLEKx72EfGD9wQZvPJSCXi1SxVgUTr2UNsBlA9hgjYe+FDQz1Wrjol2P9f9bkD36dWCwrqn12PhqGp1Ffc/V8drAYB1Ti/rMMrpXhhwdqgKDda17ZUhfXjydTtsmf5lKKTDYJ/t4efEfNWOF19ii4sAAAAAASUVORK5CYII=');
-    background-size: cover;
-}
-.question-in-all {
-   font-size: 30rpx;
+   height: 80rpx;
+   color:#fff000;
+   width: 260rpx;
+   line-height: 80rpx;
+   text-align: center;
+   border-radius: 40rpx;
+   background: linear-gradient(to right, #ee4e63,#ec486d, #e94278,#e64791,#e565b1,#e067c5, #d967d9);
+   font-weight: bold;
    margin-top: 40rpx;
 }
 
-.question-index {
-  display: flex;
-  width: 100%;
-  height: 40rpx;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30rpx;
-  margin-bottom: 30rpx;
-}
-
-.question-index > .line {
-   width: 80rpx;
-   height: 2rpx;
-   background-color: #382198;
-}
-
-.question-index > .title {
-   font-size: 36rpx;
-   margin-left: 30rpx;
-   margin-right: 30rpx;
+.question-in-all {
+   font-size: 33rpx;
+   margin-top: 40rpx;
+   color: #fff;
 }
 
 .question-info {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   width: 100%;
-   height: 330rpx;
-   background-color: #ffebc1;
-}
-
-.question-info {
-  font-size: 90rpx;
-  margin-top: 30rpx;
-}
-
-.start-footer {
-   width: 100%;
-   height: 315rpx;
-   margin-top: 90rpx;
-}
-
-.start-footer-wrap {
    position: relative;
-   width: 100%;
-   height: 315rpx;
-   overflow: hidden;
+   width: 600rpx;
+   margin-left: 26rpx;
+   margin-top: 40rpx;
+   margin-bottom: 60rpx;
+   color:#fff;
+   font-size: 48rpx;
+   font-weight: bold;
+   text-align: center;
 }
 
-.start-desp {
+.question-info > .m1 {
    position: absolute;
-   width: 100%;
+   width: 274rpx;
+   height: 278rpx;
+   left: 0;
+   top: 0;
+}
+
+.question-info > .m3 {
+   position: absolute;
+   width: 104rpx;
+   height: 224rpx;
+   left: 150rpx;
+   top: -70rpx;
+}
+
+.m2 {
+   position: absolute;
+   width: 169rpx;
+   height: 169rpx;
+   left: 52.5rpx;
+   top: 46.5rpx;
+}
+
+.mstart {
+   position: absolute;
+   width: 24rpx;
+   height: 24rpx;
+   left: 125rpx;
+   top: 119rpx;
+}
+
+.mstart2 {
+   position: absolute;
+   width: 274rpx;
+   height: 278rpx;
+   left: 0rpx;
+   top: 0rpx;
 }
 
 .game-select {
-   position: absolute;
+   height: 528rpx;
+   width: 520rpx;
+}
+
+.option {
+   background-color: #fff;
+   border-radius: 10rpx;
    width: 100%;
-   height: 315rpx;
-   display: flex;
-   flex-direction: row;
-   justify-content: space-between;
-   top: 315rpx;
-   opacity: 0;
+   height: 112rpx;
+   margin-bottom: 20rpx;
+   text-align: center;
+   line-height: 112rpx;
+   font-weight: bold;
+   font-size: 36rpx;
+}
+
+.right {
+   background: #34b65f;
+   color: #fff;
+}
+
+.error {
+    background: #df3a3a;
+    color: #fff;
 }
 
 .game-select image {
@@ -173,6 +177,18 @@
    width: 300rpx;
 }
 
+.miusc {
+   position: absolute;
+   width: 48rpx;
+   height: 48rpx;
+   right: 50rpx;
+   top: 50rpx;
+   z-index: 1000;
+}
+
+.optionAnswer {
+   font-size: 140rpx;
+}
 
 .mask {
    position: fixed;
@@ -198,26 +214,40 @@
 }
 
 
+.mask-content > .fail {
+   width: 485rpx;
+   height: 193rpx;
+   position: relative;
+   top: 50rpx;
+   left: 30rpx;
+}
+
 .mask-main-content {
    display: flex;
    flex-direction: column;
    justify-content:flex-start;
    align-items: center;
    width: 510rpx;
-   height: 450rpx;
+   height: 550rpx;
    background-color: #fff;
    border-radius: 15rpx;
-   margin-top: 140rpx;
+   margin-top: -55rpx;
 }
 
 
-.fail-img2 {
-   width: 485rpx;
-   height: 193rpx;
+
+.fail-img {
+   width: 660rpx;
+   height: 370rpx;
+   margin-top: 70rpx;
+   z-index: 100;
    position: relative;
-   z-index: 2;
-   top: 190rpx;
-   left: 30rpx;
+}
+
+.fail-img2 {
+   width: 138rpx;
+   height: 142rpx;
+    margin-top: 20rpx;
 }
 
 .succ  .mask-main-content {
@@ -240,7 +270,7 @@
    font-size: 32rpx;
    color: #000;
    width: 80%;
-   margin-top: 60rpx;
+   margin-top: 30rpx;
    text-align: center;
 }
 
@@ -277,13 +307,28 @@
 
 .mask-main-content > .continue {
    font-size: 30rpx;
-   height: 90rpx;
-   width: 380rpx;
-   border-radius: 45rpx;
-   line-height: 90rpx;
-   background: #775ee0;
+   height: 99rpx;
+   width: 378rpx;
    color: #fff;
-   margin-top: 30rpx;
+   margin-top: 20rpx;
+}
+
+.sshare {
+   height: 99rpx;
+   width: 378rpx;
+   position: relative;
+}
+
+.sshare > image, .sshare > button {
+   height: 99rpx;
+   width: 378rpx;
+   position: absolute;
+   left: 0;
+   top: 0;
+}
+
+.sshare > button {
+   opacity: 0;
 }
 
 .mask-main-content > .invate-friend {
@@ -293,8 +338,8 @@
    border-radius: 45rpx;
    line-height: 90rpx;
    background-color: #fff;
-   border: solid 2rpx #775ee0;
-   color: #775ee0;
+   border: solid 2rpx #ec496b;
+   color: #ec496b;
    margin-top: 30rpx;
 }
 
@@ -356,9 +401,8 @@
    position: relative;
 }
 
-
-
 .share-part {
+
    display: flex;
    width: 100%;
    height: 300rpx;
@@ -372,40 +416,19 @@
    width: 100%;
    height: 200rpx;
    background: #fff;
-    justify-content: center;
-    display: flex;
    border-bottom-left-radius: 15rpx;
    border-bottom-right-radius: 15rpx;
-  
 }
 
-.share-part2-wrapper {
-   position: relative;
-   width: 378rpx;
-   height: 90rpx;
-   margin-top: 50rpx;
-}
-
-.share-part2-wrapper  > image {
-   width: 378rpx;
-   height: 90rpx;
-   position: absolute;
-   left: 0;
-   top: 0;
-}
-
-.share-part2-wrapper  > button {
-    position: absolute;
-     left: 0;
-   top: 0;
+.share-part2 > button {
+    margin-top: 50rpx;
     background: linear-gradient(to right, #d866db, #e565b1,#e64690, #e84081, #ee4f62); 
-    width: 378rpx;
+    width: 380rpx;
     height: 90rpx;
     line-height: 90rpx;
     border-radius: 40rpx;
     color: #fff;
     font-size: 30rpx;
-    opacity: 0;
 }
 
 .share-img {
@@ -433,3 +456,4 @@
    font-size: 26rpx;
    margin-top: 15rpx;
 }
+

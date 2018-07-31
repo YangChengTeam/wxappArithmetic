@@ -33,6 +33,7 @@ Page({
     isLogin: false,
     gzhImg: '../../assets/images/gzgzh-1.png',
     arrowImg: '../../assets/images/gzgzh-arrow-1.png',
+    
   },
   onLoad: function () {
     let thiz = this
@@ -59,7 +60,7 @@ Page({
     })
   },
   login(url, callback) {
-    if (this.data.isLogin) {
+    if (this.data.isLogin && !this.refreshing) {
       if (url) {
         wx.navigateTo({
           url: url,
@@ -69,9 +70,12 @@ Page({
     }
     let thiz = this
     co(function* () {
-      wx.showLoading({
-        title: '正在登录...',
-      })
+      if (!thiz.refreshing){
+        wx.showLoading({
+          title: '正在登录...',
+        })
+      }
+      thiz.refreshing = false
       if (yield kkservice.login()) {
         let userInfo = yield kkservice.getUserInfo()
 
@@ -128,6 +132,7 @@ Page({
   },
   onPullDownRefresh: function () {
     let thiz = this
+    thiz.refreshing = true
     thiz.loadData(thiz)
   },
   doLogin(res) {
@@ -222,7 +227,7 @@ Page({
   },
   navigateToRule() {
     wx.navigateTo({
-      url: '/pages/rule/rule',
+      url: '/pages/cash/cash',
     })
   },
   navigateToCash(e) {

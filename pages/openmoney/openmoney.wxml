@@ -2,7 +2,7 @@
 <view class="open-money-container">
     <image class='bg' src="../../assets/images/om-bg.png"></image>
     <image class="avatar" src='{{avatarImg}}'></image>
-    <view class="desp">加减挑战赛通关</view>
+    <view class="desp">武汉常识通关</view>
     <view class="desp2">恭喜发财，大吉大利</view> 
     <rich-text class="money"><b style='font-size: 60rpx;'>{{money}}</b>元</rich-text>
     <view class="desp3" bindtap='navigateToCash'>已存入红包余额</view>

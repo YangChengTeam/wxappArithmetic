@@ -46,23 +46,23 @@
 
 .user-money-take {
    position: relative;
-   width: 186rpx;
-   height: 68rpx;
+   width: 182rpx;
+   height: 69rpx;
    font-size: 30rpx;
    margin-right: 20rpx;
 }
 
 .user-money-take > image {
-    width: 186rpx;
-    height: 68rpx;
+    width: 182rpx;
+    height: 69rpx;
     position: absolute;
 }
 
 .user-money-take > view {
    position: absolute;
-   width: 186rpx;
-   height: 68rpx;
-   line-height: 68rpx;
+   width: 182rpx;
+   height: 69rpx;
+   line-height: 69rpx;
    text-align: center;
 }
 
@@ -94,15 +94,32 @@
 }
 
 .mask-content-wrap {
-   width: 600rpx;
-   height: 672rpx;
-   background: #fff;
-   border-radius: 8rpx;
+   width: 602rpx;
+   height: 647rpx;
    margin-top: 140rpx;
    position: relative;
    display: flex;
    flex-direction: column;
    align-items: center;
+}
+
+.code-copy-bg {
+   position: absolute;
+   left: 0;
+   top: 0;
+   width: 602rpx;
+   height: 647rpx;
+}
+
+.mask-content-wrap2 {
+  width: 602rpx;
+   height: 647rpx;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   position: absolute;
+   left: 0;
+   top: 0;
 }
 
 .mask-content > .close {
@@ -151,23 +168,24 @@
 }
 
 .copy {
-   height: 90rpx;
+   height: 99rpx;
    width: 378rpx;
    margin-top: 30rpx;
 }
 
 .line {
-   width: 100%;
-   height: 2rpx;
-   background: #dddddd;
+   width: 550rpx;
+   height: 290rpx;
+   background: #fff;
+   border-radius: 15rpx;
    margin-top: 30rpx;
 }
 
 .part {
    height: 38rpx;
    width: 150rpx;
-   margin-top: 30rpx;
-   margin-bottom: 20rpx;
+   margin-top: 20rpx;
+   margin-bottom: 10rpx;
 }
 
 .part1 {

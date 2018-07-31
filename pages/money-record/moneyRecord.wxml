@@ -25,7 +25,7 @@
                 <view class="mask-main-content">
                     <view class="title">恭喜您获得一个红包</view>
                     <image class="avatar" src='{{avatarImg}}'></image>
-                    <view class="desp">{{type == 1 ? "每日签到" : ""}}{{type == 2 ? "加减挑战赛通关" : ""}}</view>
+                    <view class="desp">{{type == 1 ? "每日签到" : ""}}{{type == 2 ? "武汉常识通关" : ""}}</view>
                     <view class="desp2">恭喜发财，大吉大利</view>
                     <button class="open-money" bindtap='navagateToPrizee'></button>
                 </view>

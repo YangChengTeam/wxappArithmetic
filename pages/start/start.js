@@ -6,25 +6,23 @@ const regeneratorRuntime = global.regeneratorRuntime = require('../../libs/runti
 const co = require('../../libs/co')
 const kkgen = require('../../libs/yc/yc-arithmetic-gen.js')
 const kkservice = require("../../libs/yc/yc-service.js")
-const kkconfig = require("../../libs/yc/yc-config.js")
-const kkcommon = require("../../libs/yc/yc-common.js")
-const kkpromise = require("../../libs/yc/yc-promise.js")
 const offset = 4
 
+var questions = []
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    count : 30,
+    count: 10,
     animationData3: {},
     animationData2: {},
     animationData1: {},
     animationDataStart: {},
     gameAnimationDataGameStart: {},
     timeAnimationDataGameStart: {},
-    animationDataStartDesp:{},
+    animationDataStartDesp: {},
     animationDataSelect: {},
     animationDataRight: {},
     animationDataError: {},
@@ -33,17 +31,23 @@ Page({
     animationDataMaskSucc: {},
     animationDataMaskFail: {},
     animationDataProcess: {},
-    isShowContent: false,
+    animationDataM2Roate: {},
+    animationDataM3Roate: {},
+    animationDataMiuscRoate: {},
+
+    animationDataMaskShare: {},
+    animationDataShare: {},
     musicStatus: "on",
 
     questionInfo: {},
     currentIndex: 0,
     rightNumber: 0,
 
+    startImg: '../../assets/images/mstart.png',
     isOver: false,
+    isFinal: false,
+    isHelp: false,
     avatarImg: '',
-
-    isHelp: false
   },
 
   /**
@@ -68,7 +72,7 @@ Page({
       return
     }
 
-    if (app.index.appInfo.data && app.index.appInfo.data.data.status != 1) {
+    if (app.index.appInfo.data.data.status != 1) {
       this.setData({
         isHelp: true
       })
@@ -91,12 +95,17 @@ Page({
         if (questionInfo.t < 10) {
           questionInfo.t = "0" + questionInfo.t;
         }
+        questionInfo.options.forEach(function (v) {
+          v.op2 = v.op.toUpperCase()
+        })
         thiz.setData({
           questionInfo: questionInfo,
           isShowContent: true
         })
         thiz.countdownAnimate()
         thiz.question_ids = thiz.data.questionInfo.id + ","
+
+
       } else {
         thiz.netError = 1
         wx.showToast({
@@ -106,73 +115,97 @@ Page({
       }
     })
   },
-  noPlayableNum() {
-    if (app.index.data.userInfo && app.index.data.userInfo.playable_num <= 0) {
-      this.openShare()
-      return true
-    }
-  },
+
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (this.data.musicStatus != "on"){
+    if (this.data.musicStatus == "off") {
       this.data.musicStatus = "on"
       this.backgroundMusicPlay()
     }
   },
-  playMuisc(){
+  noPlayableNum() {
+    if (app.index.data.userInfo.playable_num <= 0) {
+      this.openShare()
+      return true
+    }
+  },
+  playMuisc() {
     if (this.innerAudioContext) {
       this.innerAudioContext.play()
     }
   },
-  pauseMusic(){
+  pauseMusic() {
     if (this.innerAudioContext) {
       this.innerAudioContext.pause()
     }
   },
-  stopMusic(){
+  stopMusic() {
     if (this.innerAudioContext) {
       this.innerAudioContext.stop()
     }
+    if (this.titleAudioContext) {
+      this.titleAudioContext.stop()
+    }
   },
-  playMusic(src, loop = false){
-      if (this.data.musicStatus != "on"){
-          this.stopMusic()
-          return
-      }
-      const innerAudioContext = wx.createInnerAudioContext()
-      if(loop){
+  playMusic(src, loop = false, titleMp3 = false) {
+    this.stopMusic()
+    if (this.data.musicStatus != "on") {
+      return
+    }
+    const innerAudioContext = wx.createInnerAudioContext()
+    if (!titleMp3) {
+      if (loop) {
         this.loopInnerAudioContext = innerAudioContext
-      }else{
+      } else {
         this.innerAudioContext = innerAudioContext
       }
-      innerAudioContext.src = src
-      innerAudioContext.loop = loop
-      innerAudioContext.play()
+    } else {
+      let thiz = this
+      this.titleAudioContext = innerAudioContext
+      this.titleAudioContext.onEnded(function () {
+        if (!thiz.timer) {
+          thiz.countDown(thiz.data.questionInfo)
+        }
+      })
+    }
+    innerAudioContext.src = src
+    innerAudioContext.loop = loop
+    innerAudioContext.play()
   },
-  coutedownMusicPlay(){
-     this.playMusic('/assets/audio/coutedown.wav')
+  playTitle() {
+    this.playMusic(this.data.questionInfo.mp3, false, true)
   },
-  readygoMusicPlay(){
-     this.playMusic('/assets/audio/readygo.wav')  
+  coutedownMusicPlay() {
+    this.playMusic('/assets/audio/coutedown.mp3')
   },
-  backgroundMusicPlay(){
-     this.playMusic('/assets/audio/background.wav', true) 
-  }, 
+  readygoMusicPlay() {
+    this.playMusic('/assets/audio/readygo.wav')
+  },
+  backgroundMusicPlay() {
+    //this.playMusic('https://wx1.bshu.com/static/mp3/background.mp3', true)
+  },
   rightMusicPlay() {
-    this.playMusic('/assets/audio/right.wav')
+    this.playMusic('/assets/audio/right.mp3')
   },
   errorMusicPlay() {
-    this.playMusic('/assets/audio/error.wav')
+    this.playMusic('/assets/audio/error.mp3')
+  },
+  failMusicPlay() {
+    setTimeout(() => {
+      this.playMusic('/assets/audio/fail.mp3')
+    }, 500)
+  },
+  succMusicPlay() {
+    setTimeout(() => {
+      this.playMusic('/assets/audio/succ.mp3')
+    }, 500)
   },
   moneyMusicPlay() {
     this.playMusic('/assets/audio/money.mp3')
   },
-  failMusicPlay() {
-    setTimeout(() => { this.playMusic('/assets/audio/fail.wav')}, 500)
-  },
-  countdownAnimate(){
+  countdownAnimate() {
     var thiz = this
     var animation3 = wx.createAnimation({
       duration: 1000,
@@ -195,7 +228,7 @@ Page({
       timingFunction: 'ease',
     })
     this.animation1 = animation1
-    animation1.opacity(1).scale( 0.5).step()
+    animation1.opacity(1).scale(0.5).step()
     animation1.opacity(0).step()
 
     var animationDataStart = wx.createAnimation({
@@ -218,9 +251,9 @@ Page({
       timingFunction: 'ease',
     })
     this.timeAnimationDataGameStart = timeAnimationDataGameStart
-    timeAnimationDataGameStart.top(-685).opacity(0).step()
+    timeAnimationDataGameStart.top("100%").opacity(0).step()
 
-  
+
     var animationDataStartDesp = wx.createAnimation({
       duration: 800,
       timingFunction: 'ease',
@@ -234,7 +267,7 @@ Page({
     })
     this.animationDataSelect = animationDataSelect
     animationDataSelect.opacity(1).top(0).step()
-    
+
     setTimeout(() => {
       this.coutedownMusicPlay()
       thiz.setData({
@@ -270,40 +303,23 @@ Page({
       })
     }, 4500)
 
-    setTimeout(()=>{
-      this.backgroundMusicPlay()
-      this.countDown(thiz.data.questionInfo)
+    setTimeout(() => {
+      this.countDown()
     }, 5500)
   },
-  invisiable(){
+  invisiable() {
     this.data.musicStatus = "off"
-    this.stopMusic();
+    this.stopMusic()
     if (this.loopInnerAudioContext) {
       this.loopInnerAudioContext.stop()
     }
-  },
-  setUserInfo(data) {
-    if (data && data.money) {
-      app.index.data.userInfo.playable_num = data.playable_num
-      app.index.data.userInfo.total_num += 1
-      app.index.data.userInfo.played_num = data.played_num
-      app.index.data.userInfo.money = data.money
-    } else {
-      if (app.index.data.userInfo.playable_num > 0) {
-        app.index.data.userInfo.playable_num -= 1
-      }
-      app.index.data.userInfo.total_num += 1
-      app.index.data.userInfo.played_num += 1
-    }
-    app.index.setData({
-      userInfo: app.index.data.userInfo
-    })
+
   },
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-      this.invisiable()
+    this.invisiable()
   },
 
   /**
@@ -335,15 +351,89 @@ Page({
         animationDataError: this.animation.export()
       })
     }
-  }
-  ,
+  },
   start(e) {
     this.action(e, 0.8)
   },
   end(e) {
     this.action(e, 1.0)
   },
+  answer(e) {
+    if (this.isAnswer) return
+    this.isAnswer = true
+    if (this.data.isOver) return
+    this.data.questionInfo.mp3 = ""
+    let thiz = this
+    let index = (e.currentTarget.dataset.index)
+    let option = this.data.questionInfo.options[index]
+    co(function* () {
+      wx.showLoading({
+        title: '请稍后...',
+        mask: true
+      })
+      var res = yield kkservice.getAnswerMoney(option.op, thiz.data.questionInfo.id)
 
+      wx.hideLoading()
+      thiz.isAnswer = false
+      if (res.data && res.data.code == 1) {
+        option.is_answer = res.data.data.is_answer
+        thiz.data.isFinal = res.data.data.is_final
+        thiz.answerData = res.data.data
+        if (thiz.data.isFinal) {
+          app.id = res.data.data.money_id
+          app.money = res.data.data.get_money
+        }
+      }
+
+      if (option.is_answer === 1) {
+        thiz.data.questionInfo.options.forEach(function (v, k) {
+          if (k == index) {
+            v.style = ' right'
+          }
+        })
+        console.log(thiz.data.questionInfo)
+        thiz.setData({
+          questionInfo: thiz.data.questionInfo,
+        }, () => {
+          setTimeout(() => {
+            thiz.succ()
+          }, 10)
+        })
+
+      } else {
+        thiz.data.questionInfo.options.forEach(function (v, k) {
+          if (k == index) {
+            v.style = ' error'
+          }
+        })
+        console.log(thiz.data.questionInfo.options)
+        thiz.setData({
+          questionInfo: thiz.data.questionInfo,
+        }, () => {
+          setTimeout(() => {
+            thiz.fail()
+          }, 10)
+        })
+      }
+    })
+  },
+  setUserInfo(data) {
+    if (data && data.money) {
+      app.index.data.userInfo.playable_num = data.playable_num
+      app.index.data.userInfo.total_num += 1
+      app.index.data.userInfo.played_num = data.played_num
+      app.index.data.userInfo.money = data.money
+    } else {
+      if (app.index.data.userInfo.playable_num > 0) {
+        app.index.data.userInfo.playable_num -= 1
+      }
+      app.index.data.userInfo.total_num += 1
+      app.index.data.userInfo.played_num += 1
+    }
+    app.index.setData({
+      userInfo: app.index.data.userInfo
+    })
+  },
   fail() {
     let thiz = this
     if (this.data.count - this.data.currentIndex <= offset) {
@@ -364,37 +454,6 @@ Page({
     }
     this.setUserInfo(this.answerData)
 
-  },
-  answer(e) {
-    if (this.isAnswer) return
-    this.isAnswer = true
-    if (this.data.isOver) return
-    let thiz = this
-    let index = (e.currentTarget.dataset.option)
-    let option = {}
-    co(function* () {
-      wx.showLoading({
-        title: '请稍后...',
-        mask: true
-      })
-      var res = yield kkservice.getAnswerMoney(index, thiz.data.questionInfo.id, thiz.data.questionInfo.question_token)
-      wx.hideLoading()
-      thiz.isAnswer = false
-      if (res.data && res.data.code == 1) {
-        option.is_answer = res.data.data.is_answer
-        thiz.data.isFinal = res.data.data.is_final
-        thiz.answerData = res.data.data
-        if (thiz.data.isFinal) {
-          app.id = res.data.data.money_id
-          app.money = res.data.data.get_money
-        }
-      }
-      if (option.is_answer === 1) {
-        thiz.succ()
-      } else {
-        thiz.fail()
-      }
-    })
   },
   succ() {
     let thiz = this
@@ -418,8 +477,6 @@ Page({
     thiz.data.questionInfo.animate = ''
     thiz.setData({
       questionInfo: thiz.data.questionInfo
-    }, ()=>{
-      thiz.countDown(thiz.data.questionInfo)
     })
     app.start = thiz
     co(thiz.getQuestion)
@@ -437,7 +494,7 @@ Page({
       title: '下一题...',
       mask: 'true'
     })
-    let res = yield kkservice.getQuestionMoney(app.formId, isHelp, thiz.data.questionInfo.question_token, thiz.data.currentIndex + 1)
+    let res = yield kkservice.getQuestionMoney(app.formId, isHelp, thiz.data.questionInfo.question_token, question_ids)
 
     if (isHelp == 1) {
       thiz.isHelpd = true
@@ -451,6 +508,9 @@ Page({
         questionInfo.t = "0" + questionInfo.t;
       }
       thiz.question_ids += questionInfo.id + ","
+      questionInfo.options.forEach(function (v) {
+        v.op2 = v.op.toUpperCase()
+      })
       thiz.data.questionInfo = questionInfo
       setTimeout(() => {
         ++thiz.data.currentIndex
@@ -461,10 +521,10 @@ Page({
         })
       }, 10)
     } else {
-      thiz.getQuestion()
+      this.getQuestion()
     }
   },
-  toogleSucc(opacity){
+  toogleSucc(opacity) {
     var animation = wx.createAnimation({
       duration: 500,
       timingFunction: 'ease',
@@ -499,26 +559,30 @@ Page({
     animationMask.opacity(opacity).top(opacity == 0 ? "-100%" : 0).step()
 
     this.setData({
-        animationDataFail: animation.export(),
-        animationDataMaskFail: animationMask.export()
+      animationDataFail: animation.export(),
+      animationDataMaskFail: animationMask.export()
     })
   },
-  continuePlay(e){
+  continuePlay(e) {
+    if (this.noPlayableNum()) {
+      this.toogleFail(0)
+      return
+    }
     wx.redirectTo({
       url: 'start',
     })
   },
-  closeFail(e){
+  closeFail(e) {
     this.toogleFail(0)
     wx.navigateBack({
-      
+
     })
   },
   closeSucc(e) {
-    this.toogleSucc(0)
+    this.toogleFail(0)
     wx.navigateBack({})
   },
-  navagateToPrizee(){
+  navagateToPrizee() {
     if (this.opening) return
     this.opening = true
     let thiz = this
@@ -529,7 +593,7 @@ Page({
         mask: true
       })
 
-      let res = yield kkservice.getRedBag(app.id, app.formId)
+      let res = yield kkservice.getRedBag(app.id)
       wx.hideLoading()
       if (res && res.data) {
         if (res.data.code == 1) {
@@ -547,30 +611,11 @@ Page({
         } else {
           wx.showToast({
             title: res.data.msg,
-            icon: 'none'
           })
         }
       }
       thiz.opening = false
     })
-  },
-  countDown(questionInfo){
-    var t = questionInfo.t * 1000;
-    var animation = wx.createAnimation({
-      duration: t,
-      timingFunction: 'linear',
-    })
-    this.animation = animation
-    animation.width(0).step()
-    this.setData({
-        animationDataProcess: animation.export()
-    })
-
-    this.timer = setTimeout(()=>{
-      if(this.data.isOver) return
-       this.emptyQuestion()
-       this.fail()
-    }, t)
   },
   emptyQuestion(callback) {
     let thiz = this
@@ -581,18 +626,29 @@ Page({
       }
     })
   },
-  resetCountDown(){
+  countDown(questionInfo) {
+    this.timer = setInterval(() => {
+      if (this.data.isOver) return
+      if (this.data.questionInfo.t <= 0) {
+        this.data.isOver = true
+        this.emptyQuestion()
+        this.fail()
+        return
+      }
+      this.data.questionInfo.t -= 1
+      if (this.data.questionInfo.t < 10) {
+        this.data.questionInfo.t = "0" + this.data.questionInfo.t;
+      }
+      this.setData({
+        questionInfo: this.data.questionInfo
+      })
+    }, 1000)
+  },
+  resetCountDown() {
     if (this.timer) {
       clearTimeout(this.timer)
+      this.timer = null
     }
-    var animation = wx.createAnimation({
-      duration: 0
-    })
-    this.animation = animation
-    animation.width("100%").step()
-    this.setData({
-      animationDataProcess: animation.export()
-    })
   },
   openShare() {
     this.sharing = true
@@ -630,21 +686,19 @@ Page({
     let icon = app.index.appInfo.data.data.ico[0]
     let thiz = this
     let lp = -1
+
     if (!this.sharing) {
       if (shareRes.from == "button") {
         title = app.index.appInfo.data.data.share_title[1]
         icon = app.index.appInfo.data.data.ico[1]
       }
-
       if (thiz.issucc) {
         title = app.index.appInfo.data.data.share_title[2]
         icon = app.index.appInfo.data.data.ico[2]
       }
-
-      if (thiz.isfail) {
+      if (this.fail) {
         lp = 1
       }
-
     } else {
       lp = 0
     }
@@ -657,7 +711,7 @@ Page({
           thiz.toogleFail(0)
         } else {
           if (u.playable_num > 0) {
-            wx.redirectTo({
+            wx.navigateTo({
               url: '/pages/start/start',
             })
           }

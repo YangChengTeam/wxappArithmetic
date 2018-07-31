@@ -1,5 +1,7 @@
 {
   "pages": [
+        "pages/cash-record/cashRecord",
+        
     "pages/index/index",
     "pages/cash/cash",
     "pages/openmoney/openmoney",
@@ -10,7 +12,6 @@
     "pages/rule/rule",
     "pages/user_center/user_center",
     "pages/complain/complain",
-    "pages/cash-record/cashRecord",
     "pages/money-record/moneyRecord"
     
   ],
@@ -18,7 +19,7 @@
     "backgroundTextStyle": "dark",
     "backgroundColor": "#321d6c",
     "navigationBarBackgroundColor": "#321d6c",
-    "navigationBarTitleText": "武汉知识有奖猜",
+    "navigationBarTitleText": "武汉知识",
     "navigationBarTextStyle": "white"
   }
 }
