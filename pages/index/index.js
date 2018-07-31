@@ -123,7 +123,7 @@ Page({
   },
   navigateToCash(e) {
     wx.navigateTo({
-      url: '/pages/cash/cash',
+      url: '/pages/user_center/user_center',
     })
   },
   onPullDownRefresh: function () {

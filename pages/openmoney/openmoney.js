@@ -16,7 +16,7 @@ Page({
   },
   navigateToCash(e) {
     wx.redirectTo({
-      url: '/pages/cash/cash',
+      url: '/pages/user_center/user_center',
     })
   },
   /**
