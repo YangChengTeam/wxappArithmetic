@@ -56,7 +56,8 @@ module.exports = {
   userSignInUrl: getUrl("/v1.game/userSignIn"),
 
   getQuestionMoneyUrl: getUrl("/v1.questions/getQuestionMoney"),
-  getAnswerMoneyUrl: getUrl("/v1.questions/commonAnswer"),
+  getAnswerMoneyUrl: getUrl("/v1.questions/getAnswerMoney"),
+
 
   getRedBagUrl: getUrl('/v1.money/getRedBag'),
   changeMoneyUrl: getUrl('/v1.money/changeMoney'),

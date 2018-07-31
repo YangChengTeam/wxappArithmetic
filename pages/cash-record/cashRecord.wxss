@@ -71,7 +71,7 @@
    position: fixed;
    width: 100%;
    height: 100%;
-   background: rgba(0,0,0,0.7);
+   background: rgba(0,0,0,0.6);
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -154,9 +154,10 @@
 }
 
 .title {
-   color: #aaa;
+   color: #fff;
    font-size: 30rpx;
    margin-top: 50rpx;
+
 }
 
 
@@ -182,8 +183,8 @@
 }
 
 .part {
-   height: 38rpx;
-   width: 150rpx;
+   height: 37rpx;
+   width: 148rpx;
    margin-top: 20rpx;
    margin-bottom: 10rpx;
 }
@@ -194,6 +195,7 @@
    flex-direction: row;
    align-items: center;
    margin-top: 10rpx;
+   
 }
 
 .part1 > .desp {

@@ -484,18 +484,18 @@ Page({
 
   * getQuestion() {
     let thiz = app.start
-    let isHelp = (!thiz.isHelpd && !thiz.data.isHelp) ? 1 : 0
-    let question_ids = ""
-    if (isHelp == 1) {
-      question_ids = thiz.question_ids
-    }
-
     wx.showLoading({
       title: '下一题...',
       mask: 'true'
     })
-    let res = yield kkservice.getQuestionMoney(app.formId, isHelp, thiz.data.questionInfo.question_token, question_ids)
-
+    let res 
+    if(this.isHelp){
+      this.isHelp = false
+      res = yield kkservice.getQuestionMoney(app.formId, 1, thiz.data.questionInfo.question_token, thiz.question_ids)
+    } else {
+      res = yield kkservice.getQuestionMoney(app.formId)
+    }
+  
     if (isHelp == 1) {
       thiz.isHelpd = true
     }
@@ -726,6 +726,7 @@ Page({
       isOver: false
     })
     this.lp = 1
+    this.isHelp = true
     this.succ()
   }
 })

@@ -28,14 +28,14 @@
           <view class="code">{{code}}</view>
           <image src='../../assets/images/copy-code.png' class="copy" bindtap='copyCode'></image>
           <view class="line">
-          <view class="part1">
-          <image class="part" style='margin-left: 30rpx;' src='../../assets/images/md1.png'></image>
+          <view class="part1"  style='justify-content: center;'>
+          <image class="part" src='../../assets/images/md1.png'></image>
           </view>
           <view class="part1">
              <view class="desp" style='margin-left: 30rpx;'>1、点击右上角</view>
              <image class="dot" src='../../assets/images/md0.png'></image>
              <view class="desp">，选择</view>
-             <image style='width:200rpx; height:25rpx;' src='../../assets/images/md2.png'></image>
+             <image style='width:176rpx; height:25rpx;' src='../../assets/images/md2.png'></image>
           </view>
           <view class="part1">
              <view class="desp" style='margin-left: 30rpx;'>2、点击相关公众号 ，选择</view>
