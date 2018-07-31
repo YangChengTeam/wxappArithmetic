@@ -17,7 +17,6 @@ Page({
     invateFriend_animationData: {},
     more_animationData: {},
     rule_animationData: {},
-
     animationDataGzh: {},
     animationDataMaskGzh: {},
     animationDataMaskShare: {},
@@ -41,8 +40,12 @@ Page({
     wx.showShareMenu({
       withShareTicket: true
     })
+    thiz.loadData(thiz)
+  },
+  loadData(thiz){
     co(function* () {
       var [status, appInfo] = yield [kkservice.authPermission("scope.userInfo"), yield kkservice.getAppInfo()]
+      wx.stopPullDownRefresh()
       if (status == kkconfig.status.authStatus.authOK) {
         thiz.login()
       } else {
@@ -55,7 +58,6 @@ Page({
       thiz.appInfo = appInfo
     })
   },
-
   login(url, callback) {
     if (this.data.isLogin) {
       if (url) {
@@ -126,27 +128,7 @@ Page({
   },
   onPullDownRefresh: function () {
     let thiz = this
-    co(function* () {
-      let appInfo = yield kkservice.getAppInfo()
-      if (appInfo.data && appInfo.data.code == 1) {
-        app.index.appInfo = appInfo
-      }
-      if (!thiz.data.isLogin) {
-        thiz.setData({
-          isShowContent: true
-        })
-        wx.stopPullDownRefresh()
-        return
-      }
-      let userInfo = yield kkservice.getUserInfo()
-      wx.stopPullDownRefresh()
-      if (userInfo.data && userInfo.data.code == 1) {
-        thiz.setData({
-          userInfo: userInfo.data.data,
-          isShowContent: true
-        })
-      }
-    })
+    thiz.loadData(thiz)
   },
   doLogin(res) {
     let thiz = this

@@ -427,7 +427,7 @@ Page({
 
   * getQuestion() {
     let thiz = app.start
-    let isHelp = (!thiz.isHelpd && thiz.data.isHelp) ? 1 : 0
+    let isHelp = (!thiz.isHelpd && !thiz.data.isHelp) ? 1 : 0
     let question_ids = ""
     if (isHelp == 1) {
       question_ids = thiz.question_ids
@@ -567,6 +567,7 @@ Page({
     })
 
     this.timer = setTimeout(()=>{
+      if(this.data.isOver) return
        this.emptyQuestion()
        this.fail()
     }, t)
