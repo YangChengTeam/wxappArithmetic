@@ -1,12 +1,11 @@
 /**index.wxss**/
 
-.gzh {
-  position: fixed;
-  width: 254rpx;
-  height: 108rpx;
-  z-index: 1000;
+.bg-header {
+  width: 750rpx;
+  height: 306rpx;
+  position: absolute;
   left: 0;
-  top:480rpx;
+  top: 0;
 }
 
 .user-related {
@@ -14,8 +13,9 @@
    justify-content: center;
    align-items: center;
    width: 100%;
-   height: 250rpx;
+   height: 222rpx;
    position: relative;
+   margin-top: 306rpx;
 }
 
 
@@ -58,8 +58,8 @@
 .user-info {
    display: flex;
    flex-direction: row;
-   margin-left: 30rpx;
-   margin-top: 30rpx;
+   margin-left: 35rpx;
+   margin-top: 15rpx;
    align-items: center;
    width: 100%;
    height: 108rpx;
@@ -68,6 +68,8 @@
 .user-info-desc {
    margin-left: 40rpx;
 }
+
+
 image.help {
   
    width: 40rpx;
@@ -97,7 +99,7 @@ image.help {
 .user-info-prize {
     display: flex;
     flex-direction: row;
-    margin-top: 30rpx;
+    margin-top: 15rpx;
 }
 
 .user-prize-bg {
@@ -132,8 +134,8 @@ image.help {
 
 .user-money-take {
    position: relative;
-   width: 186rpx;
-   height: 68rpx;
+   width: 182rpx;
+   height: 69rpx;
    font-size: 30rpx;
    margin-left: 50rpx;
 }
@@ -153,7 +155,7 @@ image.help {
    display: flex;
    flex-direction: row;
    width: 100%;
-   height: 390rpx;
+   height: 202rpx;
    margin-top: 26rpx;
    justify-content: space-between;
 
@@ -196,7 +198,7 @@ image.help {
 
 .game-excite > image {
     width: 100%;
-    height: 182rpx;
+    height: 202rpx;
 }
 
 .game-prize {
@@ -220,7 +222,7 @@ image.help {
 
 .invite {
    width: 100%;
-   height: 210rpx;
+   height: 172rpx;
    margin-top: 26rpx;
    position: relative;
 }
@@ -250,13 +252,31 @@ image.help {
    flex-direction: row;
    margin-top: 26rpx;
    width: 100%;
-   height: 182rpx;
+   height: 172rpx;
    justify-content: space-between;
 }
 
 .more > image {
    width: 317rpx;
    height: 100%;
+}
+
+.more-usercenter {
+    position: relative;
+    width: 319rpx;
+    height: 184rpx;
+}
+
+.more-usercenter > image , .more-usercenter > button {
+   width: 317rpx;
+   height: 172rpx;
+   position: absolute;
+   left: 0;
+   top: 0;
+}
+
+.more-usercenter > button {
+   opacity: 0;
 }
 
 .mask {

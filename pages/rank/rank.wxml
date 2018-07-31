@@ -1,13 +1,17 @@
 <!--pages/rank/rank.wxml-->
 <view class="container">
-     <image class="main-bg" src='../../assets/images/main-bg.jpg' ></image>
+     <image class="main-bg" src='../../assets/images/main-bg.jpg'></image>
       <view class="loading" hidden='{{isShowContent}}'>
        <image src="../../assets/images/loading.png"></image> 
 </view>
      <view class="swiper-content" hidden='{{!isShowContent}}'>
           <view class="tab">
+             <view class="tab-wrap">
               <view bindtap='tabPage' class='tab-item {{currentNumber == 0 ? "tab-item-current" : ""}}' data-index='0'>赏金榜</view>
-              <view bindtap='tabPage' class='tab-item {{currentNumber == 1 ? "tab-item-current" : ""}}' data-index='1'>毅力榜</view>
+             </view>
+             <view class="tab-wrap">
+              <view bindtap='tabPage' class='tab-item tab-item2 {{currentNumber == 1 ? "tab-item-current" : ""}}' data-index='1'>毅力榜</view>
+              </view>
           </view>
           <swiper current='{{currentIndex}}' bindchange="switchPage">
               <swiper-item>
@@ -19,9 +23,9 @@
                               <view wx:if="{{ index >= 3 }}">{{ index >= 9 ? (index+1) : '0' + (index + 1)}}</view>
                           </view>
                           
-                           <image class="user-head" src="{{ item.face }}"></image>
+                          <image class="user-head" src="{{ item.face }}"></image>
                           <view class="user-name">{{ item.nick_name }}</view>
-                          <view class="user-challenge-success-times"><view>已获得</view><rich-text><i style='font-size: 36rpx;color: #f95759;font-style:italic;'>{{ item.money }}</i> 元</rich-text></view>
+                          <view class="user-challenge-success-times"><view>已获得</view><rich-text><i style='font-size: 36rpx;color: #ffde00;font-style:italic;'>{{ item.money }}</i> 元</rich-text></view>
                      </view>  
                   </view>
                   <view class="rank-footer"></view>
@@ -34,11 +38,10 @@
                           <view class="rank-num">
                               <image wx:if="{{ index < 3 }}" src="../../assets/images/rank-num-{{index+1}}.png"></image>
                               <view wx:if="{{ index >= 3 }}">{{ index >= 9 ? (index+1) : '0' + (index + 1)}}</view>
-                          </view>
-                          
+                          </view>         
                           <image class="user-head" src="{{ item.face }}"></image>
                           <view class="user-name">{{ item.nick_name }}</view>
-                          <view class="user-challenge-success-times"><view>已挑战</view><rich-text><i style='font-size: 36rpx;color: #f95759;font-style:italic;'>{{ item.played_num }}</i> 次</rich-text></view>
+                          <view class="user-challenge-success-times"><view>已挑战</view><rich-text><i style='font-size: 36rpx;color: #ffde00;font-style:italic;'>{{ item.played_num }}</i> 次</rich-text></view>
                      </view>  
                   </view>
                   <view class="rank-footer"></view>

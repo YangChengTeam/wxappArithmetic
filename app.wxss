@@ -1,7 +1,7 @@
 /**app.wxss**/
 page {
   width: 100%;
-  background-color: #382198;
+  background-color: #321d6c;
   color: white;
   height: 98.3%;
 }
@@ -25,7 +25,7 @@ page {
 }
 
 .main-content {    
-    width: 660rpx;
+    width: 652rpx;
     height: 100%;
 }
 
@@ -46,8 +46,8 @@ button, button::after {
 }
 
 .loading > image {
-  width: 527rpx;
-  height: 426rpx;
+  width: 541rpx;
+  height: 484rpx;
   margin-top: -60rpx;
 }
 

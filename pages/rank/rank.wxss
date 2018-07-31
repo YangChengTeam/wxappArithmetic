@@ -12,24 +12,45 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #29128a;
+  background-color: #54059e;
   width: 660rpx;
   height: 100rpx;
   border-radius: 50rpx;
+  left: 0;
+  top: 0;
+  position: relative;
+  
+}
+
+.tab-wrap {
+   height: 100rpx;
+   width: 50%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.tab > image {
+   width: 414rpx;
+   height: 54rpx;
+   position: absolute;
+   left: -1rpx;
+   top: -1rpx;
 }
 
 .tab-item {
    font-size: 30rpx;
-   width: 320rpx;
+   width: 300rpx;
    height: 80rpx;
    line-height: 80rpx;
    text-align: center;
 }
 
 .tab-item-current {
-  background-color: #ff5686;
+  background-color: #ad40d6;
   border-radius: 40rpx;
   font-weight: bold;
+  color: #fff;
 }
 
 .swiper-content > swiper {
@@ -46,14 +67,13 @@
    flex-direction: row;
    align-items: center;
    justify-content: center;
-   border: solid #6e5ac5 1rpx;
    border-radius: 10rpx;
    height: 140rpx;
-   margin-top: 25rpx;
+   margin-top: 2rpx;
    margin-left: 45rpx;
    width: 660rpx;
+   background: #280746;
 }
-
 
 .rank-list-item:first-child {
   margin-top: 28rpx;
@@ -80,7 +100,7 @@
    width: 100rpx;
    height: 100rpx;
    border-radius: 50%;
-   border: solid 6rpx #a69bd4;
+   border: solid 3rpx #d0e2ef;
    margin-left: 30rpx;
 }
 
@@ -93,6 +113,7 @@
 .user-challenge-success-times {
   width: 110rpx;
   font-size: 24rpx;
+  text-align: right;
 }
 
 .scroll-views {

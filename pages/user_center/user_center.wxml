@@ -1,6 +1,6 @@
 <!--pages/user_center/user_center.wxml-->
 <view class="container">
-       <image class="main-bg" src='../../assets/images/main-bg.jpg'></image>
+      <image class="main-bg" src='../../assets/images/main-bg.jpg'></image>
       <view class="loading" hidden='{{isShowContent}}'>
        <image src="../../assets/images/loading.png"></image> 
 </view>
@@ -25,7 +25,7 @@
                   <view class="user-money-take">
                        <image src='../../assets/images/user-money-take2.png' bindtap='navigateToCash'></image>
                     </view> 
-                    <view class="min-money">({{cashTip}})</view> 
+                    <!-- <view class="min-money">({{cashTip}})</view>  -->
                </view>
              </view>
              

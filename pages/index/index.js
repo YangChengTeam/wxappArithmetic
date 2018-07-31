@@ -213,10 +213,12 @@ Page({
       url: '/pages/money-record/moneyRecord',
     })
   },
-  navigateToMore() {
-    wx.navigateTo({
-      url: '/pages/user_center/user_center',
-    })
+  loginToMore(res) {
+    console.log('loginToMore')
+    let thiz = this
+    if (res.detail && res.detail.userInfo) {
+      thiz.login('/pages/user_center/user_center')
+    }
   },
   navigateToRule() {
     wx.navigateTo({

@@ -16,9 +16,9 @@
   ],
   "window": {
     "backgroundTextStyle": "dark",
-    "backgroundColor": "#382198",
-    "navigationBarBackgroundColor": "#382198",
-    "navigationBarTitleText": "加减挑战赛",
+    "backgroundColor": "#321d6c",
+    "navigationBarBackgroundColor": "#321d6c",
+    "navigationBarTitleText": "武汉知识有奖猜",
     "navigationBarTextStyle": "white"
   }
 }
