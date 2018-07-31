@@ -427,9 +427,6 @@ Page({
 
   * getQuestion(isHelppp) {
     let thiz = app.start
-    let question_ids = ""
-    question_ids = thiz.question_ids
-  
 
     wx.showLoading({
       title: '下一题...',
@@ -439,7 +436,7 @@ Page({
     let res 
     if (thiz.isHelp){
        thiz.isHelp = false
-        res = yield kkservice.getQuestionMoney(app.formId, isHelp, thiz.data.questionInfo.question_token, thiz.data.currentIndex + 1)
+      res = yield kkservice.getQuestionMoney(app.formId, 1, thiz.data.questionInfo.question_token, thiz.data.currentIndex + 1)
     } else {
         res = yield kkservice.getQuestionMoney(app.formId)
     }
