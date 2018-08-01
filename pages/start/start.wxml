@@ -75,7 +75,7 @@
         <view class="title">{{isHelp ? '不要放弃，继续挑战，相信你是可以的！' : '真可惜答错了！分享到群求助好友，可以继续答题哦~'}}</view>
         <image class="continue" wx:if="{{isHelp}}" src='../../assets/images/start-continue.png' bindtap='continuePlay'></image>
         <view class="sshare" wx:if="{{!isHelp}}">
-          <image src='../../assets/images/start-continue2.png'  >继续挑战</image>
+          <image src='../../assets/images/start-invite.png'  >继续挑战</image>
           <button class="continue" open-type='share'></button>
         </view>
          <image class="continue" wx:if="{{!isHelp}}" src='../../assets/images/start-continue2.png'></image>
@@ -96,7 +96,10 @@
           <view class="share-desp">今日分享过的群，不会得挑战机会哟</view>
         </view>
         <view class="share-part2">
-          <button open-type='share'>分享到群机会+1</button>
+         <view class="share-part2-wrapper">
+          <image src='../../assets/images/share-btn.png'></image>
+          <button open-type='share'></button>
+          </view>
         </view>
       </view>
 

@@ -20,7 +20,8 @@ Page({
       },
       currentMoney: '',
       code: '',
-      ruleList: []
+      ruleList: [],
+      cashTip: ""
   },
   /**
    * 生命周期函数--监听页面加载
@@ -33,11 +34,19 @@ Page({
       ruleList.forEach((v, k) => {
         ruleList[k] = v.replace(`${k + 1}.`, '')
       })
+      if (parseFloat(app.index.data.userInfo.allow_change_money) > parseFloat(app.index.data.userInfo.money)) {
+        thiz.data.cashTip = `最低提现金额为${app.index.data.userInfo.allow_change_money}元`
+      } else {
+        thiz.data.cashTip = `满${app.index.data.userInfo.allow_change_money}元可提现`
+      }
       thiz.setData({
         ruleList: ruleList,
-        userInfo: app.index.data.userInfo
+        userInfo: app.index.data.userInfo,
+        cashTip: thiz.data.cashTip
       })
     })
+
+   
   },
 
   /**

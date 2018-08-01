@@ -56,7 +56,6 @@ Page({
         })
       }, 1000)
     })
-    thiz.toogleSign(1)
   },
   getCode(e){
     this.setData({

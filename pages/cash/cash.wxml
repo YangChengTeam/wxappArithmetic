@@ -8,6 +8,7 @@
   <view class="money">
     ¥{{userInfo.money}}
   </view>
+  <view class="min-money">({{cashTip}})</view> 
   <view class="cash">
     <view>¥</view>
     <input type='text' bindinput="checkMoney" placeholder='请输入要提现的赏金' value="{{currentMoney}}" maxlength='5' type='number'></input>
@@ -30,31 +31,33 @@
     <view class="mask-content" animation="{{animationDataSign}}">
       <image src='../../assets/images/copy-up.png' class="up" ></image>
       <view class="mask-content-wrap">
-          <image class="left" src='../../assets/images/copy-left.png'></image>
-          <image class="right" src='../../assets/images/copy-right.png'></image>
+          <image src='../../assets/images/cash-code-bg.png' class="code-copy-bg" ></image>
+          <view class="mask-content-wrap2">
           <view class="title">复制提现码，申请提现</view>
           <view class="code">{{code}}</view>
           <image src='../../assets/images/copy-code.png' class="copy" bindtap='copyCode'></image>
-          <view class="line"></view>
-          <view class="part1">
-          <image class="part" style='margin-left: 55rpx;' src='../../assets/images/md1.png'></image>
+          <view class="line">
+          <view class="part1"  style='justify-content: center;'>
+          <image class="part" src='../../assets/images/md1.png'></image>
           </view>
           <view class="part1">
-             <view class="desp" style='margin-left: 55rpx;'>1、点击右上角</view>
+             <view class="desp" style='margin-left: 30rpx;'>1、点击右上角</view>
              <image class="dot" src='../../assets/images/md0.png'></image>
              <view class="desp">，选择</view>
-             <image style='width:200rpx; height:25rpx;' src='../../assets/images/md2.png'></image>
+             <image style='width:176rpx; height:25rpx;' src='../../assets/images/md2.png'></image>
           </view>
           <view class="part1">
-             <view class="desp" style='margin-left: 55rpx;'>2、点击相关公众号 ，选择</view>
+             <view class="desp" style='margin-left: 30rpx;'>2、点击相关公众号 ，选择</view>
              <image style='width:152rpx; height:25rpx;' src='../../assets/images/md3.png'></image>
           </view>
           <view class="part1">
-             <view class="desp" style='margin-left: 55rpx;'>3、关注公众号，点击</view>
-             <image style='width:152rpx; height:25rpx;' src='../../assets/images/md4.png'></image>
+             <view class="desp" style='margin-left: 30rpx;'>3、关注并进入公众号，回复”提现“2个字</view>
+            
           </view>
           <view class="part1">
-             <view class="desp" style='margin-left: 55rpx;'>4、将复制的提现码发送给公众号即可</view>
+             <view class="desp" style='margin-left: 30rpx;'>4、按提示操作即可。</view>
+             </view>
+             </view>
           </view>
       </view>
       <image class="close" src='../../assets/images/close.png' bindtap='closeSign'></image>

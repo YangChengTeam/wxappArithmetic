@@ -42,11 +42,11 @@
              <image style='width:152rpx; height:25rpx;' src='../../assets/images/md3.png'></image>
           </view>
           <view class="part1">
-             <view class="desp" style='margin-left: 30rpx;'>3、关注公众号，点击</view>
-             <image style='width:152rpx; height:25rpx;' src='../../assets/images/md4.png'></image>
+             <view class="desp" style='margin-left: 30rpx;'>3、关注并进入公众号，回复”提现“2个字</view>
+            
           </view>
           <view class="part1">
-             <view class="desp" style='margin-left: 30rpx;'>4、将复制的提现码发送给公众号即可</view>
+             <view class="desp" style='margin-left: 30rpx;'>4、按提示操作即可。</view>
              </view>
              </view>
           </view>

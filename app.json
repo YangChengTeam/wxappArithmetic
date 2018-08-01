@@ -1,8 +1,7 @@
 {
   "pages": [
-        "pages/cash-record/cashRecord",
-        
     "pages/index/index",
+    "pages/cash-record/cashRecord",
     "pages/cash/cash",
     "pages/openmoney/openmoney",
    
@@ -19,7 +18,7 @@
     "backgroundTextStyle": "dark",
     "backgroundColor": "#321d6c",
     "navigationBarBackgroundColor": "#321d6c",
-    "navigationBarTitleText": "武汉知识",
+    "navigationBarTitleText": "武汉常识",
     "navigationBarTextStyle": "white"
   }
 }

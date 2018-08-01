@@ -178,28 +178,23 @@ Page({
     this.playMusic(this.data.questionInfo.mp3, false, true)
   },
   coutedownMusicPlay() {
-    this.playMusic('/assets/audio/coutedown.mp3')
+    this.playMusic('/assets/audio/coutedown.wav')
   },
   readygoMusicPlay() {
     this.playMusic('/assets/audio/readygo.wav')
   },
   backgroundMusicPlay() {
-    //this.playMusic('https://wx1.bshu.com/static/mp3/background.mp3', true)
+    this.playMusic('https://wx1.bshu.com/static/mp3/background.wav', true)
   },
   rightMusicPlay() {
-    this.playMusic('/assets/audio/right.mp3')
+    this.playMusic('/assets/audio/right.wav')
   },
   errorMusicPlay() {
-    this.playMusic('/assets/audio/error.mp3')
+    this.playMusic('/assets/audio/error.wav')
   },
   failMusicPlay() {
     setTimeout(() => {
-      this.playMusic('/assets/audio/fail.mp3')
-    }, 500)
-  },
-  succMusicPlay() {
-    setTimeout(() => {
-      this.playMusic('/assets/audio/succ.mp3')
+      this.playMusic('/assets/audio/fail.wav')
     }, 500)
   },
   moneyMusicPlay() {
@@ -489,15 +484,11 @@ Page({
       mask: 'true'
     })
     let res 
-    if(this.isHelp){
-      this.isHelp = false
+    if(thiz.isHelp){
+      thiz.isHelp = false
       res = yield kkservice.getQuestionMoney(app.formId, 1, thiz.data.questionInfo.question_token, thiz.question_ids)
     } else {
       res = yield kkservice.getQuestionMoney(app.formId)
-    }
-  
-    if (isHelp == 1) {
-      thiz.isHelpd = true
     }
     let t = 6
     wx.hideLoading()
@@ -521,7 +512,7 @@ Page({
         })
       }, 10)
     } else {
-      this.getQuestion()
+      thiz.getQuestion()
     }
   },
   toogleSucc(opacity) {
@@ -711,7 +702,7 @@ Page({
           thiz.toogleFail(0)
         } else {
           if (u.playable_num > 0) {
-            wx.navigateTo({
+            wx.redirectTo({
               url: '/pages/start/start',
             })
           }

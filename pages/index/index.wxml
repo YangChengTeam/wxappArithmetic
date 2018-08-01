@@ -30,7 +30,7 @@
             <view class="user-money">{{ userInfo.money }}元</view>
           </view>
           <view class="user-money-take">
-            <image bindtap='navigateToCash' src='../../assets/images/user-money-take3.png'></image>
+            <image bindtap='navigateToUC' src='../../assets/images/user-money-take3.png'></image>
           </view>
         </view>
       </view>
@@ -59,7 +59,7 @@
         <image src='../../assets/images/more.png'></image>
         <button open-type='getUserInfo' bindgetuserinfo="loginToMore"></button>
       </view>
-             <image animation="{{rule_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="5" bindtouchcancel='end' src='../../assets/images/game-prize.png' bindtap='navigateToRule'></image>
+             <image animation="{{rule_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="5" bindtouchcancel='end' src='../../assets/images/game-prize.png' bindtap='navigateToCash'></image>
           </view>
           <!-- <view style='height:250rpx; width:100%;'></view> -->
      </view>

@@ -227,12 +227,17 @@ Page({
   },
   navigateToRule() {
     wx.navigateTo({
-      url: '/pages/cash/cash',
+      url: '/pages/rule/rule',
+    })
+  },
+  navigateToUC(e){
+    wx.navigateTo({
+      url: '/pages/user_center/user_center',
     })
   },
   navigateToCash(e) {
     wx.navigateTo({
-      url: '/pages/user_center/user_center',
+      url: '/pages/cash/cash',
     })
   },
   action(e, s) {
@@ -245,7 +250,7 @@ Page({
     animation.scale(s, s).step()
     if (index == 0) {
       this.setData({
-        gameStart_animationData: this.animation
+          gameStart_animationData: this.animation
       })
     } else if (index == 1) {
       this.setData({
@@ -390,6 +395,7 @@ Page({
         wx.hideLoading()
         if (res && res.data) {
           if (res.data.code == 1) {
+            app.type = 1
             thiz.moneyMusicPlay()
             app.index.data.userInfo.is_send = 0
             app.index.data.userInfo.money = res.data.data.f_money
