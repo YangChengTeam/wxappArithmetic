@@ -1,5 +1,6 @@
 <!--index.wxml-->
 <view class="container">
+  <view class="version">软件版本: 1.1.4 基础库版本: {{sv}}</view>
 
      <image class="main-bg" src='../../assets/images/main-bg.jpg'></image>
       <view class="loading" hidden='{{isShowContent}}'>

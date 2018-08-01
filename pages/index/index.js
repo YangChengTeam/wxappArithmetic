@@ -43,6 +43,7 @@ Page({
     thiz.loadData(thiz)
   },
   loadData(thiz){
+    thiz.refreshing = true
     co(function* () {
       var [status, appInfo] = yield [kkservice.authPermission("scope.userInfo"), yield kkservice.getAppInfo()]
       wx.stopPullDownRefresh()
@@ -59,7 +60,7 @@ Page({
     })
   },
   login(url, callback) {
-    if (this.data.isLogin) {
+    if (this.data.isLogin && !this.refreshing) {
       if (url) {
         wx.navigateTo({
           url: url,
@@ -69,9 +70,11 @@ Page({
     }
     let thiz = this
     co(function* () {
-      wx.showLoading({
-        title: '正在登录...',
-      })
+      if (!thiz.refreshing){
+        wx.showLoading({
+          title: '正在登录...',
+        })
+      }
       if (yield kkservice.login()) {
         let userInfo = yield kkservice.getUserInfo()
 
@@ -383,6 +386,8 @@ Page({
         wx.hideLoading()
         if (res && res.data) {
           if (res.data.code == 1) {
+            app.mtype = 1
+            app.type = 1
             thiz.moneyMusicPlay()
             app.index.data.userInfo.is_send = 0
             app.index.data.userInfo.money = res.data.data.f_money

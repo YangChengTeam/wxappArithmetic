@@ -7,7 +7,9 @@ Page({
    */
   data: {
      avatarImg: '',
-     money: 0.0
+     money: 0.0,
+     mtype: 2,
+     type: 1
   },
   startGame(e){
      wx.redirectTo({
@@ -28,7 +30,11 @@ Page({
       })
       this.setData({
          avatarImg: app.index.data.userInfo.face,
-         money: app.money
+         money: app.money,
+         mtype: app.mtype,
+         type: app.type
       })
+
+      
   }
 })

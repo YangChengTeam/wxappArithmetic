@@ -485,3 +485,13 @@ image.help {
    opacity: 0;
 }
 
+.version {
+   position: absolute;
+   text-align: center;
+   color: #fff;
+   font-size: 22rpx;
+   width: 100%;
+   left: 0;
+   bottom: 0;
+   height: 40rpx;
+}
