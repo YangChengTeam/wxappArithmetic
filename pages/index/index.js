@@ -396,6 +396,7 @@ Page({
         if (res && res.data) {
           if (res.data.code == 1) {
             app.type = 1
+            app.mtype = 1
             thiz.moneyMusicPlay()
             app.index.data.userInfo.is_send = 0
             app.index.data.userInfo.money = res.data.data.f_money

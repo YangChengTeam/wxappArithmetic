@@ -6,7 +6,7 @@
     <view class="desp2">恭喜发财，大吉大利</view> 
     <rich-text class="money"><b style='font-size: 60rpx;'>{{money}}</b>元</rich-text>
     <view class="desp3" bindtap='navigateToCash'>已存入红包余额</view>
-    <button wx:if="{{type != 1}}" class="jingli" bindtap='startGame'>继续游戏</button>
-    <button wx:if="{{type == 1}}" class="jingli" bindtap='backIndex'>返回</button>
+    <button wx:if="{{mtype != 1}}" class="jingli" bindtap='startGame'>继续游戏</button>
+    <button wx:if="{{mtype == 1}}" class="jingli" bindtap='backIndex'>返回</button>
 </view>
 

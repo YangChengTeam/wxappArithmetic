@@ -9,6 +9,7 @@ Page({
      avatarImg: '',
      money: 0.0,
      type: 0,
+     mtype: 0
      
   },
   startGame(e){
@@ -27,12 +28,12 @@ Page({
   onLoad: function (options) {
       wx.hideShareMenu({
         
-      })
-      
+      })    
       this.setData({
          avatarImg: app.index.data.userInfo.face,
          money: app.money,
-         type: app.type
+         type: app.type,
+         mtype: app.mtype
       })
   },
   backIndex(e){
