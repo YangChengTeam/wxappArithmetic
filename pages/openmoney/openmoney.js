@@ -36,5 +36,10 @@ Page({
       })
 
       
+  },
+  backIndex(e){
+     wx.navigateBack({
+       
+     })
   }
 })
