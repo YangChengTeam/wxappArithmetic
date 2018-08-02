@@ -16,4 +16,6 @@
          </view>
          <view style='width:100%; height:20rpx;'></view>
      </view>
+      <view class="version">软件版本: 1.3.0 基础库版本: {{sv}}</view>
+
 </view>

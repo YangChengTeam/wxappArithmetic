@@ -87,6 +87,7 @@ Page({
        if(res && res.data){     
           thiz.moneyMusicPlay() 
           if(res.data.code == 1){
+            app.mtype = 1
             app.index.data.userInfo.money = res.data.data.f_money
             app.index.setData({
                 userInfo: app.index.data.userInfo

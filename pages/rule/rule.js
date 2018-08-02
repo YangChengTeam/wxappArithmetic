@@ -14,7 +14,8 @@ Page({
    */
   data: {
     ruleList: [],
-    isShowContent: false
+    isShowContent: false,
+    sv: ""
   },
 
   /**
@@ -30,12 +31,18 @@ Page({
         ruleList[k] = v.replace(`${k+1}.`, '')
       })
       thiz.setData({
-        ruleList: ruleList
-      })
-      thiz.setData({
+        ruleList: ruleList,
         isShowContent: true
       })
+      
     })
+    wx.getSystemInfo({
+      success: function(res) {
+        thiz.setData({
+            sv: res.SDKVersion
+        })
+      },
+    })    
   },
 
   navigateToComplain(){
