@@ -13,5 +13,7 @@
             <!-- <image src="../../assets/images/report.png"></image> -->
             <view>投诉</view>
          </view> 
+           <view class="version">软件版本: 1.2.4 基础库版本: {{sv}}</view>
+
      </view>
 </view>

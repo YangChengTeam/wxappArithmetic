@@ -1,5 +1,7 @@
 <!--index.wxml-->
+
 <view class="container">
+
      <image class="main-bg" src='../../assets/images/main-bg.jpg'></image>
          <image class="bg-header" src="../../assets/images/index-header.png" hidden='{{!isShowContent}}'></image> 
 

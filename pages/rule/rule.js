@@ -13,7 +13,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    ruleList: []
+    ruleList: [],
+    sv: ""
   },
 
   /**
@@ -31,6 +32,13 @@ Page({
       thiz.setData({
         ruleList: ruleList
       })
+    })
+    wx.getSystemInfo({
+      success: function(res) {
+        thiz.setData({
+           sv: res.SDKVersion
+        })
+      },
     })
   },
 

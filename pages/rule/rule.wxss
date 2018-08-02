@@ -1,4 +1,15 @@
 /* pages/rule/rule.wxss */
+.version {
+   width: 100%;
+   position: absolute;
+   bottom: 20rpx;
+   left: 0;
+   font-size: 22rpx;
+   color: #999;
+   text-align: center;
+}
+
+
 .rule-list {
    width: 100%;
 }

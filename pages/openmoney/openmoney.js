@@ -10,7 +10,6 @@ Page({
      money: 0.0,
      type: 0,
      mtype: 0
-     
   },
   startGame(e){
      wx.redirectTo({

@@ -104,8 +104,6 @@ Page({
         })
         thiz.countdownAnimate()
         thiz.question_ids = thiz.data.questionInfo.id + ","
-
-
       } else {
         thiz.netError = 1
         wx.showToast({
@@ -155,20 +153,10 @@ Page({
       return
     }
     const innerAudioContext = wx.createInnerAudioContext()
-    if (!titleMp3) {
-      if (loop) {
-        this.loopInnerAudioContext = innerAudioContext
-      } else {
-        this.innerAudioContext = innerAudioContext
-      }
+    if (loop) {
+      this.loopInnerAudioContext = innerAudioContext
     } else {
-      let thiz = this
-      this.titleAudioContext = innerAudioContext
-      this.titleAudioContext.onEnded(function () {
-        if (!thiz.timer) {
-          thiz.countDown(thiz.data.questionInfo)
-        }
-      })
+      this.innerAudioContext = innerAudioContext
     }
     innerAudioContext.src = src
     innerAudioContext.loop = loop
@@ -510,6 +498,7 @@ Page({
           questionInfo: questionInfo,
           currentIndex: thiz.data.currentIndex
         })
+        thiz.countDown()
       }, 10)
     } else {
       thiz.getQuestion()
