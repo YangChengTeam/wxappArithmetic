@@ -23,7 +23,7 @@
           <view class="mask-content succ"  animation="{{animationDataSign}}">      
                 <image class="succ-header" src='../../assets/images/succ-bg.png'></image>
                 <view class="mask-main-content">
-                    <view class="title">恭喜您获得一个红包</view>
+                    <view class="title">{{type == 1 ? "恭喜您签到成功" : ""}}{{type == 2 ? "恭喜您挑战成功" : ""}}</view>
                     <image class="avatar" src='{{avatarImg}}'></image>
                     <view class="desp">{{type == 1 ? "每日签到" : ""}}{{type == 2 ? "武汉常识通关" : ""}}</view>
                     <view class="desp2">恭喜发财，大吉大利</view>

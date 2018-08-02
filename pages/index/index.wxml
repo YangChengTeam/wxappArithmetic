@@ -71,7 +71,7 @@
 
       <image class="succ-header" src='../../assets/images/succ-bg.png'></image>
       <view class="mask-main-content">
-        <view class="title">恭喜您获得一个红包</view>
+        <view class="title">恭喜您签到成功</view>
         <image class="avatar" src='{{userInfo.face}}'></image>
         <view class="desp">每日签到</view>
         <view class="desp2">恭喜发财，大吉大利</view>
