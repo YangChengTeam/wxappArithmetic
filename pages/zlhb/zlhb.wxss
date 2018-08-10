@@ -1,0 +1,274 @@
+/* pages/zlhb/zlhb.wxss */
+
+page {
+  background: #ab2b22;
+}
+
+.zlhb-header {
+  width: 100%;
+  height: 306rpx;
+}
+
+.zlhb-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cash-money-title {
+  font-size: 36rpx;
+  color: #fff;
+}
+
+.cash-money-btn {
+  width: 222rpx;
+  height: 89rpx;
+  margin-top: 30rpx;
+}
+
+.part1 {
+  width: 522rpx;
+  height: 462rpx;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30rpx;
+}
+
+.zlhb-part1-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 522rpx;
+  height: 462rpx;
+}
+
+.max-money {
+  position: relative;
+  margin-top: 230rpx;
+  z-index: 2;
+  font-size: 30rpx;
+}
+
+.zlhb-get-money {
+  position: relative;
+  margin-top: 30rpx;
+  width: 402rpx;
+  height: 106rpx;
+  z-index: 2;
+}
+
+.zlhb-get-money image, .zlhb-get-money button {
+   position: absolute;
+   left: 0;
+   top: 0;
+   width: 402rpx;
+   height: 106rpx;
+}
+
+ .zlhb-get-money button {
+    opacity: 0;
+ }
+
+.part2 {
+  width: 522rpx;
+  height: 535rpx;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30rpx;
+}
+
+.part2 > view {
+  position: relative;
+  z-index: 2;
+  font-size: 30rpx;
+  margin-left: 40rpx;
+  margin-right: 40rpx;
+}
+
+.zlhb-part2-title {
+  margin-top: 40rpx;
+  color: #ecc47f;
+  margin-bottom: 10rpx;
+}
+
+.users {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30rpx;
+}
+
+.users-wrapper {
+  display: flex;
+  width: 92rpx;
+  flex-direction: column;
+  align-items: center;
+  height: 180rpx;
+}
+
+.users-wrapper  > image {
+  width: 92rpx;
+  height: 92rpx;
+  border-radius: 50%;
+}
+
+.nick_name {
+   color: #fff;
+   font-size: 22.45rpx;
+   margin-top: 5rpx;
+}
+
+.money {
+   color: #fffc00;
+   font-size: 30rpx;
+   margin-top: 5rpx;
+}
+
+.zlhb-part2-bg {
+   height: 535rpx;
+}
+
+.user1 {
+  margin-right: 50rpx;
+}
+
+.zlhb-shar {
+  width: 402rpx;
+  height: 105rpx;
+  align-self: center;
+  position: relative;
+  z-index: 2;
+  margin-top: 20rpx;
+}
+
+.zlhb-shar image, .zlhb-shar button {
+   position:  absolute;
+   left: 0;
+   top: 0;
+   width: 402rpx;
+   height: 105rpx;
+}
+
+.zlhb-shar button {
+   opacity: 0;
+}
+
+.help2 {
+  background: rgba(0, 0, 0, 0.4);
+  border-top-left-radius: 25rpx;
+  border-bottom-left-radius: 25rpx;
+  height: 70rpx;
+  width: 48rpx;
+  position: fixed;
+  right: 0rpx;
+  top: 300rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 20rpx;
+  z-index: 2;
+}
+
+.help2 view {
+  margin-left: 17rpx;
+}
+
+.index {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 30rpx;
+  height: 60rpx;
+  width: 150rpx;
+  position: fixed;
+  left: -25rpx;
+  top: 120rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 24rpx;
+  z-index: 2;
+}
+
+.index image {
+  width: 30rpx;
+  height: 30rpx;
+  margin-left: 40rpx;
+}
+
+.index view {
+  margin-left: 10rpx;
+}
+
+.mask {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: -100%;
+  opacity: 0;
+  left: 0;
+  z-index: 10000;
+}
+
+.mask-content {
+  display: flex;
+  flex-direction: column;
+  width: 510rpx;
+  height: 100%;
+  align-items: center;
+  top: -100%;
+  opacity: 0;
+  position: relative;
+}
+
+.main-rule {
+  width: 600rpx;
+  height: 600rpx;
+  display: flex;
+  border-radius: 15rpx;
+  background: #eb453b;
+  margin-top: 140rpx;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-rule-wrapper {
+  width: 580rpx;
+  height: 580rpx;
+  background: #fff;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.mask-content > .close {
+  width: 48rpx;
+  height: 48rpx;
+  margin-top: 50rpx;
+}
+
+.header {
+   color: #eb453b;
+   font-size: 30rpx;
+   font-weight: bold;
+   margin-top: 30rpx;
+   align-self: center;
+}
+
+.rule-item {
+   color: #000;
+   font-size: 28rpx;
+   margin-top: 15rpx;
+   margin-left: 20rpx;
+   margin-right: 20rpx;
+}
+

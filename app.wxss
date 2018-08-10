@@ -1,7 +1,7 @@
 /**app.wxss**/
 page {
   width: 100%;
-  background-color: #321d6c;
+  background-color: #300a67;
   color: white;
   height: 98.3%;
 }
@@ -10,7 +10,6 @@ page {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    margin-top: 20rpx;
     width: 100%;
     height: 100%;
 }
@@ -37,7 +36,7 @@ button, button::after {
    width: 100%;
    height: 100%;
    display: flex;
-   align-items: center;
+   align-items: flex-start;
    justify-content: center;
    position: absolute;
    left: 0;
@@ -46,9 +45,9 @@ button, button::after {
 }
 
 .loading > image {
-  width: 541rpx;
-  height: 484rpx;
-  margin-top: -60rpx;
+  width: 498rpx;
+  height: 318rpx;
+  margin-top: 200rpx;
 }
 
 .ad {

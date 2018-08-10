@@ -32,7 +32,7 @@ const status = {
 const net = {
   defaultParams: {
     app_type: 'wx',
-    app_id: 41
+    app_id: 42
   }
 }
 
@@ -55,9 +55,8 @@ module.exports = {
   userSignInfoUrl: getUrl("/v1.game/userSignInfo"),
   userSignInUrl: getUrl("/v1.game/userSignIn"),
 
-  getQuestionMoneyUrl: getUrl("/v1.questions/getQuestionMoney"),
-  getAnswerMoneyUrl: getUrl("/v1.questions/getAnswerMoney"),
-
+  getQuestionMoneyUrl: getUrl("/v1.questions/commonQuestion"),
+  getAnswerMoneyUrl: getUrl("/v1.questions/commonAnswer"),
 
   getRedBagUrl: getUrl('/v1.money/getRedBag'),
   changeMoneyUrl: getUrl('/v1.money/changeMoney'),
@@ -65,5 +64,8 @@ module.exports = {
   moneyListUrl: getUrl('/v1.money/moneyList'),
   emptyQuestionUrl: getUrl('/v1.questions/emptyQuestion'),
 
+  userHelpUrl: getUrl('/v1.game/userHelp'),
+  userRedBagUrl: getUrl('/v1.game/userRedBag'),
+  userGetMoneyUrl: getUrl('/v1.money/userGetMoney'),
 }
 

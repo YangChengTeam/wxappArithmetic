@@ -80,7 +80,7 @@
 .mask-content {
    display: flex;
    flex-direction: column;
-   width: 510rpx;
+   width: 652rpx;
    height: 100%;
    align-items: center;
    top: -100%;
@@ -88,40 +88,32 @@
    position: relative;
 }
 
-
-.mask-content > .fail {
-   width: 485rpx;
-   height: 193rpx;
-   position: relative;
-   top: 50rpx;
-   left: 30rpx;
-}
-
-
 .mask-main-content {
    display: flex;
    flex-direction: column;
    justify-content:flex-start;
    align-items: center;
-   width: 510rpx;
-   height: 572rpx;
+   width: 652rpx;
+   height: 842rpx;
    background-color: #fff;
    border-radius: 15rpx;
    margin-top: -60rpx;
 }
 
 .succ  .mask-main-content {
-   height: 722rpx;
-   width: 512rpx;
+    width: 652rpx;
+    height: 842rpx;
 }
 
 .succ {
-   width: 512rpx;
+   width: 652rpx;
    margin-top: 140rpx;
 }
 
+
+
 .succ .title {
-   margin-top: 36rpx;
+   margin-top: 180rpx;
    color: #fff;
    font-size: 40rpx;
 }
@@ -151,20 +143,10 @@
 }
 
 .mask-content > .succ-header {
-   width: 512rpx;
-   height: 722rpx;
+   width: 652rpx;
+   height: 842rpx;
    position: absolute;
    top: 0;
-}
-
-.mask > .win-header {
-   width: 750rpx;
-   height: 500rpx;
-   position: absolute;
-   z-index: -1;
-   top:170rpx;
-   left: 0rpx;
-  
 }
 
 .mask-succ {
@@ -184,4 +166,31 @@
    width: 182rpx;
    height: 182rpx;
    opacity: 0;
+}
+
+.double {
+   width: 402rpx;
+   height: 105rpx;
+   margin-top: 250rpx;
+   position: relative;
+}
+
+.double image {
+   width: 402rpx;
+   height: 105rpx;
+}
+
+.double button {
+   position: absolute;
+   left: 0;
+   top: 0;
+   width: 402rpx;
+   height: 105rpx;
+   opacity: 0;
+}
+
+.hb {
+   width: 402rpx;
+   height: 105rpx;
+   margin-top: 320rpx;
 }

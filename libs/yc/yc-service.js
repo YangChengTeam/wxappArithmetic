@@ -127,13 +127,15 @@ function complain(title) {
   })()
 }
 
-function share(iv, ed, sk, lp = 0) {
+function share(iv, ed, sk, lp = 0, is_double = 0, money_token) {
   return co.wrap(function* () {
     return yield kknet.post(kkconfig.shareUrl, {
       iv: iv,
       encryptedData: ed,
       session_key: sk,
-      is_help: lp
+      is_help: lp,
+      is_double: is_double,
+      money_token: money_token
     })
   })()
 }
@@ -228,6 +230,32 @@ function emptyQuestion() {
   })()
 }
 
+function userHelp(share_user_id) {
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.userHelpUrl, {
+      share_user_id: share_user_id
+    })
+  })()
+}
+
+
+function userRedBag(share_user_id) {
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.userRedBagUrl, {
+      share_user_id: share_user_id
+    })
+  })()
+}
+
+function userGetMoney(share_user_id) {
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.userGetMoneyUrl, {
+      share_user_id: share_user_id
+    })
+  })()
+}
+
+
 module.exports = {
   authPermission: authPermission,
   login: login,
@@ -251,5 +279,8 @@ module.exports = {
   getRedBag: getRedBag,
   moneyList: moneyList,
   redBagList: redBagList,
-  emptyQuestion: emptyQuestion
+  emptyQuestion: emptyQuestion,
+  userHelp: userHelp,
+  userRedBag: userRedBag,
+  userGetMoney: userGetMoney
 }

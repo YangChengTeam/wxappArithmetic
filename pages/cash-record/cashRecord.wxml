@@ -1,6 +1,5 @@
 <!--pages/cash-record/cashRecord.wxml-->
 <view class="container">
-  <image class="main-bg" src='../../assets/images/main-bg.jpg'></image>
      <view class="loading" hidden='{{isShowContent}}'>
        <image src="../../assets/images/loading.png"></image> 
 </view>
@@ -41,19 +40,19 @@
              <view class="desp" style='margin-left: 30rpx;'>2、点击相关公众号 ，选择</view>
              <image style='width:152rpx; height:25rpx;' src='../../assets/images/md3.png'></image>
           </view>
-          <view class="part1">
-             <view class="desp" style='margin-left: 30rpx;'>3、关注公众号，点击</view>
+         <view class="part1">
+             <view class="desp" style='margin-left: 30rpx;'>3、关注公众号，点击</view> 
               <image style='width:152rpx; height:25rpx;' src='../../assets/images/md4.png'></image>
-            
           </view>
           <view class="part1">
-             <view class="desp" style='margin-left: 30rpx;'>4、回复【提现】，按照提示加客服好友提现</view>
+             <view class="desp" style='margin-left: 30rpx;'>4、将提制的提现码发送给公众号即可</view>
              </view>
              </view>
           </view>
       </view>
       <image class="close" src='../../assets/images/close.png' bindtap='closeSign'></image>
     </view>
+
 
   </view>
 </view>

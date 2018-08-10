@@ -169,9 +169,9 @@
 }
 
 .copy {
-   height: 99rpx;
-   width: 378rpx;
-   margin-top: 30rpx;
+   height: 100rpx;
+   width: 382rpx;
+   margin-top: 20rpx;
 }
 
 .line {

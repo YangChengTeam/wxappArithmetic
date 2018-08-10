@@ -24,8 +24,8 @@ Page({
     wx.hideShareMenu({})
     var thiz = this
     co(function* () {
-      var appInfo = app.index.appInfo
-      var ruleList = (appInfo.data.data.app_desc.split('\n'))
+      var appInfo = app.index.data.appInfo
+      var ruleList = (appInfo.app_desc.split('\n'))
       ruleList.forEach((v, k)=>{
         ruleList[k] = v.replace(`${k+1}.`, '')
       })

@@ -1,43 +1,79 @@
 /* pages/user_center/user_center.wxss */
+.help2 {
+   background: rgba(0,0,0,0.4);
+   border-radius: 30rpx;
+   height: 60rpx;
+   width: 150rpx;
+   position: fixed;
+   right: -25rpx;
+   top: 60rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   font-size: 24rpx;
+   z-index: 2;
+}
 
+.help2 image {
+   width: 30rpx;
+   height: 30rpx;
+   margin-left: 20rpx;
+}
+
+.help2 view {
+   margin-left: 10rpx;
+}
+
+.contact {
+   top: 135rpx;
+
+}
+
+.contact button {
+   position: absolute;
+   height: 60rpx;
+   width: 150rpx;
+   opacity: 0;
+   left: 0;
+   top: 0;
+}
 
 .user-related {
    display: flex;
    justify-content: center;
    align-items: center;
    width: 100%;
-   height: 342rpx;
    position: relative;
 }
 
 .user-money-take {
    position: relative;
-   width: 282rpx;
-   height: 68rpx;
+   width: 505rpx;
+   height: 105rpx;
    font-size: 30rpx;
-   margin-top: 10rpx;
+   margin-top: 40rpx;
 }
 
 .user-money-take > image {
-    width: 282rpx;
-    height: 69rpx;
+    width: 505rpx;
+    height: 105rpx;
     position: absolute;
 }
 
 .user-money-take > view {
    position: absolute;
-   width: 282rpx;
-   height: 69rpx;
+   width: 505rpx;
+   height: 105rpx;
    line-height: 68rpx;
    text-align: center;
 }
 
 .user-related > image {
    position: absolute;
-   left: 0;
-   top:0;
-   width: 100%;
-   height: 100%;
+   left: 30rpx;
+   top:80rpx;
+   width: 576rpx;
+   height: 280rpx;
 }
 
 .user-info-wrap {
@@ -45,8 +81,6 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
-    position: absolute;
     left: 0;
     top:0;
 }
@@ -56,31 +90,26 @@
    flex-direction: column;
    align-items: center;
    width: 100%;
-   height: 100%;
 }
 
 .user-head {
-   width: 104rpx;
-   height: 104rpx;
+   width: 120rpx;
+   height: 120rpx;
    border-radius: 50%;
    border: solid 4rpx rgba(217,207,232,0.8);
 }
 
 .username {
    font-size: 36rpx;
-   margin-left: 50rpx;
+   margin-top: 20rpx;
 }
 
-.user-game-info-part {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
+
 
 .user-game-info {
    display: flex;
    width: 455rpx;
-   flex-direction: row;
+   flex-direction: column;
    align-items: center;
    justify-content: space-between;
    margin-top: 20rpx;
@@ -88,18 +117,15 @@
 
 .user-game-info2 {
    display: flex;
-   width: 500rpx;
+   width: 100%;
    flex-direction: row;
    align-items: center;
    justify-content: space-between;
-   margin-top: 10rpx;
+   margin-top: 40rpx;
 }
 
 
-.gold {
-   color: #fff000;
-   font-size: 48rpx;
-}
+
 
 
 .user-game-info-item {
@@ -118,24 +144,9 @@
 }
 
 
-
-.more-header {
-  display: flex;
-  width: 100%;
-  height: 40rpx;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30rpx;
-  margin-bottom: 30rpx;
-}
-
 .menu {
    width: 100%;
-   height: 210rpx;
-   border-radius: 15rpx;
-   background-color: #fff;
-   margin-top: 30rpx;
+   margin-top: 50rpx;
    display: flex;
    flex-direction: row;
    justify-content: center;
@@ -144,55 +155,45 @@
 
 .menu-item {
    display: flex;
-   flex-direction: column;
+   flex-direction: row;
    justify-content: center;
    align-items: center;
-   width: 220rpx;
-   height: 210rpx;
+   width: 302rpx;
+   height: 100rpx;
    color: #000;
    font-size: 30rpx;
    position: relative;
+   border-radius: 50rpx;
+   background: #fff;
 }
 
 .menu-item > button {
    position: absolute;
    opacity: 0;
-   width: 220rpx;
-   height: 210rpx;
+   width: 302rpx;
+   height: 100rpx;
    left:0;
    top:0;
 }
 
 .menu-item > image {
-   width: 85rpx;
-   height: 89rpx;
+   width: 68rpx;
+   height: 68rpx;
+}
+
+.menu-item view {
+   margin-left: 15rpx;
+}
+
+.menu-item2 {
+   margin-left: 40rpx;
 }
 
 .menu-item2 > image {
-   width: 110rpx;
-   height: 88rpx;
+   width: 86rpx;
+   height: 68rpx;
 }
 
-.menu-item3 > image {
-   width: 71rpx;
-   height: 100rpx;
-}
-
-.menu-item > view {
-   margin-top: 5rpx;
-}
-
-.more-header > .line {
-   width: 140rpx;
-   height: 2rpx;
-   background-color: #fff;
-}
-
-.more-header > .title {
-   font-size: 36rpx;
-   margin-left: 30rpx;
-   margin-right: 30rpx;
-}
 
 .more-list-item {
    display: flex;
@@ -202,7 +203,8 @@
    border-radius: 15rpx;
    background-color: #fff;
    align-items: center;
-   margin-bottom: 30rpx;
+   margin-bottom: 25rpx;
+   margin-top: 25rpx;
 }
 
 .wxapp-head {
@@ -243,136 +245,3 @@
    margin-left: 20rpx;
 }
 
-image.help {
-   width: 40rpx;
-   height: 40rpx;
-}
-
-
-.mask {
-   position: fixed;
-   width: 100%;
-   height: 100%;
-   background: rgba(0,0,0,0.7);
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   top: -100%;
-   left: 0;
-   opacity: 0;
-   z-index: 10000;
-}
-
-.mask-content {
-   display: flex;
-   flex-direction: column;
-   width: 100%;
-   height: 100%;
-   align-items: center;
-   top: -100%;
-   left: 0;
-   opacity: 0;
-   position: relative;
-   
-}
-
-.mask-content > .close {
-   width: 48rpx;
-   height: 48rpx;
-   margin-top: 60rpx;
-   position: relative;
-}
-
-.mask-sign {
-   position: absolute;
-   width: 604rpx;
-   height: 258rpx;
-   left: 72rpx;
-   z-index: 1000;
-   top: 40rpx;
-}
-
-.mask-sign-list-wrap {
-   width: 540rpx;
-   height: 540rpx;
-   border-radius: 10rpx;
-   background: #fff;
-   margin-top: 280rpx;
-}
-
-.mask-sign-list {
-   width: 100%;
-   display: flex;
-   flex-direction: row;
-   justify-content: flex-start;
-   flex-wrap: wrap;
-   margin-top: 60rpx;
-}
-
-.mask-sign-item {
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   background: #0389d2;
-   width: 105rpx;
-   height: 150rpx;
-   border-radius: 10rpx;
-   font-size: 24rpx;
-   margin-right: 20rpx;
-   box-shadow: 2px 2px 5px #bcd8e8;
-}
-
-.mask-sign-item-current {
-  background: #01bdf5;
-  box-shadow: 2px 2px 5px #b1d3e5;
-}
-
-.mask-sign-item:first-child {
-  margin-left: 30rpx;
-}
-
-.mask-sign-item:nth-child(5){
-  margin-left: 30rpx;
-}
-
-.mask-sign-item:nth-child(5) , .mask-sign-item:nth-child(6), .mask-sign-item:nth-child(7){
-  margin-top: 20rpx;
-}
-
-.mask-sign-item:nth-child(7){
-   width: 230rpx;
-}
-
-.mask-sign-item > image{
-  width: 52rpx;
-  height: 52rpx;
-  margin-top: 10rpx;
-}
-
-.mask-sign-item > .day {
-  margin-top: 10rpx;
-}
-
-.mask-sign-item > .num {
-  margin-top: 5rpx;
-}
-
-.mask-sign-list-wrap > button {
-   width: 375rpx;
-   height: 90rpx;
-   border-radius: 45rpx;
-   background: linear-gradient(#01bff6, #02aeee, #0497e3); 
-   color: #fff;
-   font-size: 30rpx;
-   margin-top: 30rpx;
-   line-height: 90rpx;
-}
-
-button.signed {
-   background: #a9a9a9;
-}
-
-.min-money {
-   font-size: 22rpx;
-   color:#fff;
-}

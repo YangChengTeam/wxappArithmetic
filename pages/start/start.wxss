@@ -76,57 +76,103 @@
 }
 
 .process-info {
-   height: 80rpx;
-   color:#fff000;
-   width: 260rpx;
-   line-height: 80rpx;
-   text-align: center;
-   border-radius: 40rpx;
-   background: linear-gradient(to right, #ee4e63,#ec486d, #e94278,#e64791,#e565b1,#e067c5, #d967d9);
-   font-weight: bold;
-   margin-top: 40rpx;
-}
-
-.question-in-all {
-   font-size: 33rpx;
-   margin-top: 40rpx;
-   color: #fff;
-}
-
-.question-info {
-   position: relative;
-   width: 600rpx;
-   margin-left: 26rpx;
-   margin-top: 40rpx;
-   margin-bottom: 60rpx;
    color:#fff;
-   font-size: 48rpx;
-   font-weight: bold;
+   width: 202rpx;
+   height: 114rpx;
    text-align: center;
+   font-weight: bold;
+   margin-top: 40rpx;
+   position: relative;
 }
 
-.question-info > .m1 {
+.process-info image {
+   width: 202rpx;
+   height: 114rpx;
    position: absolute;
-   width: 274rpx;
-   height: 278rpx;
    left: 0;
    top: 0;
 }
 
-.question-info > .m3 {
+.process-info view {
+   line-height: 80rpx;
+   height: 80rpx;
    position: absolute;
-   width: 104rpx;
-   height: 224rpx;
-   left: 150rpx;
-   top: -70rpx;
+   text-align: center;
+   width: 202rpx;
+   left: 0;
+   top: 34rpx;
 }
 
-.m2 {
+.question-in-all {
+   font-size: 48rpx;
+   font-weight: bold;
+   color: #fff;
    position: absolute;
-   width: 169rpx;
-   height: 169rpx;
-   left: 52.5rpx;
-   top: 46.5rpx;
+   right: 10rpx;
+   top:80rpx;
+}
+
+.question-star {
+   display: flex;
+   flex-direction: row;
+   margin-top: 50rpx;
+}
+
+.question-star image {
+   width: 62rpx;
+   height: 58rpx;
+}
+
+.question-num {
+   display: flex;
+   flex-direction: row;
+   color: #fff;
+   font-size: 60rpx;
+   margin-top: 50rpx;
+}
+
+.question-num view{
+   width: 62rpx;
+   height: 58rpx;
+   text-align: center;
+}
+
+.question-line {
+   display: flex;
+   flex-direction: row;
+   color: #fff;
+   font-size: 60rpx;
+   margin-top: 50rpx;
+}
+
+.question-line view{
+   width: 62rpx;
+   height: 58rpx;
+   border-bottom: solid 1rpx #7b60a2; 
+   text-align: center;
+   margin-right: 3rpx;
+   padding-bottom: 15rpx;
+}
+
+.numkeys {
+   width: 513rpx;
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   margin-top: 40rpx;
+   justify-content: space-between;
+}
+
+.numkeys-item {
+   width: 150rpx;
+   height: 150rpx;
+   line-height: 150rpx;
+   text-align: center;
+   color: #000;
+   font-size: 80rpx;
+   background: #fff;
+   border-radius: 10rpx;
+   margin-top: 30rpx;
 }
 
 .mstart {
@@ -228,7 +274,7 @@
    justify-content:flex-start;
    align-items: center;
    width: 510rpx;
-   height: 550rpx;
+   height: 450rpx;
    background-color: #fff;
    border-radius: 15rpx;
    margin-top: -55rpx;
@@ -237,8 +283,8 @@
 
 
 .fail-img {
-   width: 660rpx;
-   height: 370rpx;
+   width: 610rpx;
+   height: 346rpx;
    margin-top: 70rpx;
    z-index: 100;
    position: relative;
@@ -250,12 +296,15 @@
     margin-top: 20rpx;
 }
 
-.succ  .mask-main-content {
-   height: 722rpx;
-   width: 512rpx;
+.succ .mask-main-content {
+   height: 842rpx;
+   width: 652rpx;
+   position: relative;
+   z-index: 2;
 }
+
 .succ {
-   width: 512rpx;
+   width: 652rpx;
    margin-top: 140rpx;
 }
 
@@ -263,19 +312,18 @@
    width: 48rpx;
    height: 48rpx;
    margin-top: 50rpx;
-   
 }
 
 .mask-main-content > .title {
    font-size: 32rpx;
    color: #000;
    width: 80%;
-   margin-top: 30rpx;
+   margin-top: 80rpx;
    text-align: center;
 }
 
 .succ .title {
-   margin-top: 36rpx;
+   margin-top: 180rpx;
    color: #fff;
    font-size: 40rpx;
 }
@@ -307,22 +355,22 @@
 
 .mask-main-content > .continue {
    font-size: 30rpx;
-   height: 99rpx;
-   width: 378rpx;
+   height: 100rpx;
+   width: 382rpx;
    color: #fff;
    margin-top: 20rpx;
 }
 
 .sshare {
-   height: 99rpx;
-   width: 378rpx;
+   height: 100rpx;
+   width: 382rpx;
    position: relative;
    margin-top: 20rpx;
 }
 
 .sshare > image, .sshare > button {
-   height: 99rpx;
-   width: 378rpx;
+   height: 100rpx;
+   width: 382rpx;
    position: absolute;
    left: 0;
    top: 0;
@@ -351,8 +399,8 @@
 }
 
 .mask-content > .succ-header {
-   width: 512rpx;
-   height: 722rpx;
+   width: 652rpx;
+   height: 842rpx;
    position: absolute;
    top: 0;
 }
@@ -476,4 +524,35 @@
    color: #fff;
    font-size: 26rpx;
    margin-top: 15rpx;
+}
+
+.double {
+   width: 402rpx;
+   height: 105rpx;
+   margin-top: 250rpx;
+   position: relative;
+}
+
+.double image {
+   width: 402rpx;
+   height: 105rpx;
+}
+
+.double button {
+   position: absolute;
+   left: 0;
+   top: 0;
+   width: 402rpx;
+   height: 105rpx;
+   opacity: 0;
+}
+
+.hb {
+   width: 402rpx;
+   height: 105rpx;
+   margin-top: 40rpx;
+}
+
+.last {
+   /* color:#df3a3a; */
 }

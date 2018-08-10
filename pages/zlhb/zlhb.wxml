@@ -1,0 +1,63 @@
+<!--pages/zlhb/zlhb.wxml-->
+<view class="container">
+
+  <view class="loading" hidden='{{isShowContent}}'>
+    <image src="../../assets/images/loading.png"></image>
+  </view>
+
+  <view class="help2" bindtap='navigateToRule' hidden='{{!isShowContent}}'>
+    <view>规则</view>
+  </view>
+
+  <view class="help2 index" hidden='{{!isShowContent}}' bindtap='navigateToIndex' wx:if="{{is_from_share}}">
+    <image src='../../assets/images/zlhb-home.png'></image>
+    <view>首页</view>
+  </view>
+  <view class="zlhb-content" hidden='{{!isShowContent}}'>
+    <image class="zlhb-header" src="../../assets/images/zlhb-header-bg.png"></image>
+    <rich-text class="cash-money-title">未提现
+      <strong style="font-size:48rpx;">{{userInfo.share_money}}</strong>元</rich-text>
+    <image bindtap='caseMoney' class="cash-money-btn" src='../../assets/images/zlhb-cash-btn.png'></image>
+    <view class="part1" wx:if="{{!is_get_money}}">
+      <image class="zlhb-part1-bg" src='../../assets/images/zlhb-part1-bg.png'></image>
+      <view class="max-money">最高100元现金</view>
+      <view class="zlhb-get-money">
+        <image src='../../assets/images/zlhb-get-money.png'></image>
+        <button form-type='submit' open-type='getUserInfo' bindgetuserinfo="loginToGetMoney"></button>
+
+      </view>
+    </view>
+    <view class="part2" wx:if="{{is_get_money}}">
+      <image class="zlhb-part1-bg zlhb-part2-bg" src='../../assets/images/zlhb-part2-bg.png'></image>
+      <view class="zlhb-part2-title">{{count == 0 ? "您的助力红包已全部拆开" : "您的助力红包还未拆完"}}</view>
+      <view>{{count == 0 ? "好友已完成助力" : ("还需要邀请"+count+"个好友助力才可以提现哦！")}}</view>
+      <view class="users">
+        <view wx:for="{{helpInfo.list}}" wx:for-index="index" wx:for-item="item" wx:key="id"  class="users-wrapper user{{index+1}}">
+          <image src='{{item.face ? item.face : "../../assets/images/zlhb-add.png"}}'></image>
+          <view class="nick_name">{{item.nick_name}}</view>
+          <view class="money">{{item.money ? "+" + item.money : "" }}</view>
+        </view>
+      </view>
+      <view class="zlhb-shar" wx:if="{{count}}">
+        <image src='../../assets/images/zlhb-share.png'></image>
+        <button open-type='share'></button>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="mask mask-rule" animation="{{animationDataMaskRule}}">
+  <view class="mask-content" animation="{{animationDataRule}}">
+    <view class="main-rule">
+      <view class="main-rule-wrapper">
+        <view class="header">活动规则</view>
+        <view class="rule-item" wx:for="{{ruleList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+          {{index+1}}).{{item}}
+        </view>
+      </view>
+    </view>
+
+    <image class="close" src='../../assets/images/close.png' bindtap='closeRule'></image>
+  </view>
+
+</view>

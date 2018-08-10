@@ -1,6 +1,5 @@
 <!--pages/start/start.wxml-->
 <view class="container">
-  <image class="main-bg" src='../../assets/images/main-bg.jpg'></image>
   <image class="miusc" catchtap='startMiusc' src='{{miuscImg}}' animation="{{animationDataMiuscRoate}}"></image>
    <view class="loading" hidden='{{isShowContent}}'>
        <image src="../../assets/images/loading.png"></image> 
@@ -28,22 +27,33 @@
     <view class="game-content" animation="{{gameAnimationDataGameStart}}">
       <view class="game-content-wrap">
         <rich-text class="question-in-all">
-          第
-          <b style="color:#fff000; font-size: 48rpx;">{{ currentIndex+1 }}</b>/{{count}} 道</rich-text>
+          <b style="color:#fff000;">{{ currentIndex+1 }}</b>/{{count}}</rich-text>
         <view class="process-info">
-          0:{{questionInfo.t}}
+           <image src='../../assets/images/count-down.png'></image>
+           <view class="{{questionInfo.lastStyle}}">
+              0:{{ isShowStar ? questionInfo.t: "0"+questionInfo.preTime}}
+          </view>
+        </view>
+        <view class="question-num" wx:if="{{!isShowStar}}">
+           <view  wx:for="{{nums}}" wx:for-index="index" wx:for-item="item" wx:key="id" >
+            {{item.num}}
+           </view>
         </view>
 
-        <view class="question-info animated{{questionInfo.animate2}}">
-              {{questionInfo.name}}
+        <view class="question-star" wx:if="{{isShowStar}}">
+            <image wx:for="{{nums}}" wx:for-index="index" wx:for-item="item" wx:key="id" src='{{item.img}}'></image>
         </view>
 
-        <view class="game-select animated{{questionInfo.animate}}" animation="{{animationDataSelect}}">
-          <block wx:for="{{questionInfo.options}}" wx:for-index="index" wx:for-item="item" wx:key="id">
-            <view wx:if="{{ item.name != 'null' && item.name.length > 0 }}" animation="{{item.animate }}" class="option {{item.style}}" bindtouchstart='start' bindtouchend='end' bindtouchcancel='end' bindtap='answer' data-index='{{index}}'>
-              {{item.op2}}. {{item.name}}
+        <view class="question-line">
+           <view  wx:for="{{results}}" wx:for-index="index" wx:for-item="item" wx:key="id" >
+                {{item}}
+           </view>
+        </view>
+
+        <view class="numkeys">
+            <view class="numkeys-item" wx:for="{{numkeys}}" wx:for-index="index" wx:for-item="item" wx:key="id" style='{{index == 9 || index == 11 ? "font-size: 36rpx;" : ""}}' data-index="{{index}}" bindtap='preAnswer'>
+                {{item}}
             </view>
-          </block>
         </view>
       </view>
 
@@ -53,14 +63,14 @@
 
   <view class="mask mask-succ" animation="{{animationDataMaskSucc}}">
     <view class="mask-content succ" animation="{{animationDataSucc}}">
-
       <image class="succ-header" src='../../assets/images/succ-bg.png'></image>
       <view class="mask-main-content">
-        <view class="title">恭喜您挑战成功</view>
-        <image class="avatar" src='{{avatarImg}}'></image>
-        <view class="desp">武汉常识冲关</view>
-        <view class="desp2">恭喜发财，大吉大利</view>
-        <button class="open-money" bindtap='navagateToPrizee'></button>
+        <view class="title">恭喜获得红包</view>
+        <view  class="double">
+            <image src='../../assets/images/share-double.png'></image>
+            <button open-type='share'></button>
+        </view>
+        <image class="hb" src='../../assets/images/get-hb.png' bindtap='navagateToPrizee'></image>
       </view>
       <image class="close" src='../../assets/images/close.png' bindtap='closeSucc'></image>
     </view>
@@ -70,8 +80,7 @@
     <view class="mask-content fail" animation="{{animationDataFail}}">
       <image class="fail-img" src="{{isHelp ? '../../assets/images/fail2.png' : '../../assets/images/fail1.png'}}"></image>
       <view class="mask-main-content">
-
-        <image class="fail-img2" src='../../assets/images/fail-avatar.png'></image>
+        <!-- <image class="fail-img2" src='../../assets/images/fail-avatar.png'></image> -->
         <view class="title">{{isHelp ? '不要放弃，继续挑战，相信你是可以的！' : '真可惜答错了！分享到群求助好友，可以继续答题哦~'}}</view>
         <image class="continue" wx:if="{{isHelp}}" src='../../assets/images/start-continue.png' bindtap='continuePlay'></image>
         <view class="sshare" wx:if="{{!isHelp}}">
@@ -89,9 +98,7 @@
       <view class="main-share">
         <image class="share-img" src="../../assets/images/share-bg.png"></image>
         <view class="share-part">
-
           <image class="share-more" src="../../assets/images/share-more.png"></image>
-
           <view class="share-desp">分享到群,即可获得挑战机会</view>
           <view class="share-desp">今日分享过的群，不会得挑战机会哟</view>
         </view>
@@ -104,12 +111,9 @@
       </view>
 
       <image class="close" src='../../assets/images/close.png' bindtap='closeShare'></image>
-
-      
-
     </view>
     
   </view>
   
-<ad wx:if="{{isOver}}" class=".ad" unit-id="adunit-34d2bd30ecd52694"></ad>
+<!-- <ad wx:if="{{isOver}}" class=".ad" unit-id="adunit-34d2bd30ecd52694"></ad> -->
 </view>

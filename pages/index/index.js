@@ -12,18 +12,12 @@ Page({
   data: {
     isShowContent: false,
     gameStart_animationData: {},
-    rank_animationData: {},
+    share_animationData: {},
     prize_animationData: {},
-    invateFriend_animationData: {},
     more_animationData: {},
     rule_animationData: {},
-    animationDataGzh: {},
-    animationDataMaskGzh: {},
-    animationDataMaskShare: {},
-    animationDataShare: {},
     animationDataSucc: {},
     animationDataMaskSucc: {},
-
     userInfo: {
       money: 0,
       playable_num: 0,
@@ -31,9 +25,28 @@ Page({
       played_num: 0,
     },
     isLogin: false,
-    gzhImg: '../../assets/images/gzgzh-1.png',
-    arrowImg: '../../assets/images/gzgzh-arrow-1.png',
-    
+    appInfo: {},
+    status: false,
+    mini: 0,
+    adInfo: []
+  },
+  previewImg(e) {
+    wx.previewImage({
+      urls: [e.currentTarget.dataset.img],
+    })
+  },
+  loginToZlhb(res){
+    console.log('loginToZlhb')
+    let thiz = this
+    if (res.detail && res.detail.userInfo) {
+      thiz.login('/pages/zlhb/zlhb')
+    }
+  },
+  natiageToMiniProgram(e) {
+    console.log(e.currentTarget.dataset.appid)
+    wx.navigateToMiniProgram({
+      appId: e.currentTarget.dataset.appid,
+    })
   },
   onLoad: function () {
     let thiz = this
@@ -41,9 +54,31 @@ Page({
     wx.showShareMenu({
       withShareTicket: true
     })
-    thiz.loadData(thiz)
+    if(app.isLogin){
+      thiz.setData({
+        isLogin: app.isLogin,
+        userInfo: app.userInfo,
+        isShowContent: true,
+        appInfo: app.appInfo,
+        status: app.appInfo.status
+      })
+      if (app.userInfo.is_send == 1){
+         app.id = app.userInfo.money_id
+         this.toogleSucc(1)
+      }
+    } else {
+      thiz.loadData(thiz)
+    }
+
+    try {
+      var res = wx.getSystemInfoSync() 
+      this.setData({
+        mini: app.compareVersion(res.SDKVersion, '2.0.7')
+      })
+    } catch (e2) {
+    }
   },
-  loadData(thiz){
+  loadData(thiz) {
     co(function* () {
       var [status, appInfo] = yield [kkservice.authPermission("scope.userInfo"), yield kkservice.getAppInfo()]
       wx.stopPullDownRefresh()
@@ -56,7 +91,12 @@ Page({
           })
         }, 1000)
       }
-      thiz.appInfo = appInfo
+      appInfo = appInfo.data.data
+      thiz.setData({
+        appInfo: appInfo,
+        status: (appInfo.status == 1),
+        adInfo: appInfo.ad_arr && appInfo.ad_arr.length > 0 ? appInfo.ad_arr[0] : {}
+      })
     })
   },
   login(url, callback) {
@@ -70,7 +110,7 @@ Page({
     }
     let thiz = this
     co(function* () {
-      if (!thiz.refreshing){
+      if (!thiz.refreshing) {
         wx.showLoading({
           title: '正在登录...',
         })
@@ -78,14 +118,14 @@ Page({
       thiz.refreshing = false
       if (yield kkservice.login()) {
         let userInfo = yield kkservice.getUserInfo()
-
+        userInfo = userInfo.data.data
         thiz.setData({
           isLogin: true,
-          userInfo: userInfo.data.data,
+          userInfo: userInfo,
           isShowContent: true
         })
-        app.index.data.userInfo = userInfo.data.data
-        if (app.index.data.userInfo.is_send == 1) {
+        if (userInfo.is_send == 1) {
+          app.id = userInfo.money_id
           thiz.toogleSucc(1)
         }
         if (url) {
@@ -99,36 +139,6 @@ Page({
         }
       }
     })
-  },
-  gif() {
-    let a = 0,
-      b = 0
-    var thiz = this
-    if (this.atimer) {
-      clearInterval(this.atimer)
-    }
-    this.atimer = setInterval(function () {
-      if (a > 3) {
-        a = 0
-      }
-      if (b > 1) {
-        b = 0
-      }
-      thiz.setData({
-        gzhImg: `../../assets/images/gzgzh-${++a}.png`,
-      })
-      thiz.setData({
-        arrowImg: `../../assets/images/gzgzh-arrow-${++b}.png`,
-      })
-    }, 300)
-  },
-  onHide() {
-    if (this.atimer) {
-      clearInterval(this.atimer)
-    }
-  },
-  onShow() {
-    this.gif()
   },
   onPullDownRefresh: function () {
     let thiz = this
@@ -157,15 +167,13 @@ Page({
     if (res.detail && res.detail.userInfo) {
       thiz.login('/pages/start/start')
     }
-
-
   },
   openShare() {
     this.sharing = true
     this.toogleShare(1.0)
   },
   closeShare() {
-    this.toogleShare(0)
+     this.toogleShare(0)
   },
   toogleShare(opacity) {
     var animation = wx.createAnimation({
@@ -174,7 +182,6 @@ Page({
     })
     this.animation = animation
     animation.opacity(opacity).top(opacity == 0 ? "-100%" : 0).step()
-
     var animationMask = wx.createAnimation({
       duration: 0,
       timingFunction: 'ease',
@@ -185,9 +192,28 @@ Page({
       animationDataShare: animation.export(),
       animationDataMaskShare: animationMask.export()
     })
+
+
+
   },
-  closeSucc(e) {
-    this.toogleSucc(0)
+  loginToMore(res) {
+    console.log('loginToMore')
+    let thiz = this
+    if (res.detail && res.detail.userInfo) {
+      thiz.login('/pages/user_center/user_center')
+    }
+  },
+  navigateToRule() {
+    wx.navigateTo({
+      url: '/pages/rule/rule',
+    })
+  },
+  loginToCash(res) {
+    console.log('loginToCash')
+    let thiz = this
+    if (res.detail && res.detail.userInfo) {
+      thiz.login('/pages/user_center/user_center')
+    }
   },
   toogleSucc(opacity) {
     var animation = wx.createAnimation({
@@ -208,37 +234,44 @@ Page({
       animationDataMaskSucc: animationMask.export()
     })
   },
-  navigateToRank() {
-    wx.navigateTo({
-      url: '/pages/rank/rank',
-    })
-  },
-  navigateToPrize() {
-    wx.navigateTo({
-      url: '/pages/money-record/moneyRecord',
-    })
-  },
-  loginToMore(res) {
-    console.log('loginToMore')
+  navagateToPrizee() {
+    if (this.opening) return
+    this.opening = true
     let thiz = this
-    if (res.detail && res.detail.userInfo) {
-      thiz.login('/pages/user_center/user_center')
-    }
-  },
-  navigateToRule() {
-    wx.navigateTo({
-      url: '/pages/rule/rule',
+
+    co(function* () {
+      wx.showLoading({
+        title: '领取中...',
+        mask: true
+      })
+
+      let res = yield kkservice.getRedBag(app.id)
+      wx.hideLoading()
+      if (res && res.data) {
+        if (res.data.code == 1) {
+          thiz.moneyMusicPlay()
+          app.money = res.data.data.change_money
+          app.index.data.userInfo.money = res.data.data.f_money
+          app.index.setData({
+            userInfo: app.index.data.userInfo
+          })
+          setTimeout(function () {
+            thiz.toogleSucc(0)
+            wx.redirectTo({
+              url: '/pages/openmoney/openmoney',
+            })
+          }, 800)
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+          })
+        }
+      }
+      thiz.opening = false
     })
   },
-  navigateToUC(e){
-    wx.navigateTo({
-      url: '/pages/user_center/user_center',
-    })
-  },
-  navigateToCash(e) {
-    wx.navigateTo({
-      url: '/pages/cash/cash',
-    })
+  closeSucc(e) {
+    this.toogleSucc(0)
   },
   action(e, s) {
     var index = e.currentTarget.dataset.index
@@ -250,54 +283,25 @@ Page({
     animation.scale(s, s).step()
     if (index == 0) {
       this.setData({
-          gameStart_animationData: this.animation
+        gameStart_animationData: this.animation
       })
     } else if (index == 1) {
       this.setData({
-        rank_animationData: this.animation
-      })
-    } else if (index == 2) {
-      this.setData({
-        prize_animationData: this.animation
+        share_animationData: this.animation
       })
     } else if (index == 3) {
       this.setData({
-        invateFriend_animationData: this.animation
+        prize_animationData: this.animation
       })
     } else if (index == 4) {
       this.setData({
         more_animationData: this.animation
       })
-    } else if (index == 5) {
+    } else if (index == 2) {
       this.setData({
         rule_animationData: this.animation
       })
     }
-  },
-  openGzh() {
-    this.toogleGzh(1.0)
-  },
-  closeGzh() {
-    this.toogleGzh(0)
-  },
-  toogleGzh(opacity) {
-    var animation = wx.createAnimation({
-      duration: 500,
-      timingFunction: 'ease',
-    })
-    this.animation = animation
-    animation.opacity(opacity).top(opacity == 0 ? "-100%" : 0).step()
-
-    var animationMask = wx.createAnimation({
-      duration: 0,
-      timingFunction: 'ease',
-    })
-    this.animationMask = animationMask
-    animationMask.opacity(opacity).top(opacity == 0 ? "-100%" : 0).step()
-    this.setData({
-      animationDataGzh: animation.export(),
-      animationDataMaskGzh: animationMask.export()
-    })
   }
   ,
   start(e) {
@@ -310,8 +314,11 @@ Page({
     return {
       title: this.shareTitle,
     }
-  }, shareSucc(iv, ed, callback, lp) {
+  }, shareSucc(iv, ed, callback, lp, is_double, money_token) {
     let thiz = this
+    if(thiz.closeShare){
+       thiz.closeShare()
+    }
     co(function* () {
       let sessionRes = yield kkpromise.checkSession()
       if (sessionRes.code != "0" && sessionRes.errMsg != "checkSession:ok") {
@@ -323,7 +330,7 @@ Page({
           return
         }
       }
-      let res = yield kkservice.share(iv, ed, kkconfig.global.session_key, lp)
+      let res = yield kkservice.share(iv, ed, kkconfig.global.session_key, lp, is_double, money_token)
       if (res.data && res.data.code == 1) {
         thiz.data.userInfo.playable_num = res.data.data.playable_num
         thiz.setData({
@@ -343,8 +350,7 @@ Page({
       thiz.sharing = false
     })
   },
-  commonShare(shareRes, title, icon, callback, lp = 0) {
-    this.closeShare()
+  commonShare(shareRes, title, icon, callback, lp = 0, is_double = 0, money_token) {
     title = title.replace('{0}', app.index.data.userInfo.nick_name)
     return {
       title: title,
@@ -352,7 +358,7 @@ Page({
       imageUrl: icon,
       success: function (res) {
         if (lp >= 0 && shareRes.from == "button") {
-          kkcommon.share(res.shareTickets[0], callback, lp)
+          kkcommon.share(res.shareTickets[0], callback, lp, is_double, money_token)
         }
       },
       fail() {
@@ -366,61 +372,9 @@ Page({
       }
     }
   },
-  playMusic(src) {
-    const innerAudioContext = wx.createInnerAudioContext()
-    this.innerAudioContext = innerAudioContext
-    this.innerAudioContext.volume = 1
-    innerAudioContext.src = src
-    innerAudioContext.play()
-  },
-  moneyMusicPlay() {
-    this.playMusic('/assets/audio/money.mp3')
-  },
-  navagateToPrizee() {
-    setTimeout(() => {
-      if (this.data.userInfo.is_send == 0) {
-        wx.showToast({
-          title: '每日红包已领取',
-          icon: 'none'
-        })
-        return
-      }
-      let thiz = this
-      co(function* () {
-        wx.showLoading({
-          title: '领取中...',
-          mask: true
-        })
-        let res = yield kkservice.getRedBag(thiz.data.userInfo.money_id, app.formId)
-        wx.hideLoading()
-        if (res && res.data) {
-          if (res.data.code == 1) {
-            app.type = 1
-            app.mtype = 1
-            thiz.moneyMusicPlay()
-            app.index.data.userInfo.is_send = 0
-            app.index.data.userInfo.money = res.data.data.f_money
-            app.money = res.data.data.change_money
-            app.index.setData({
-              userInfo: app.index.data.userInfo
-            })
-            thiz.toogleSucc(0)
-            wx.navigateTo({
-              url: '/pages/openmoney/openmoney',
-            })
-          } else {
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'none'
-            })
-          }
-        }
-      })
-    }, 200)
-  },
   onShareAppMessage(shareRes) {
     let thiz = this
-    return this.commonShare(shareRes, app.index.appInfo.data.data.share_title[0], app.index.appInfo.data.data.ico[0], (iv, ed) => {
+    return this.commonShare(shareRes, app.index.data.appInfo.share_title[0], app.index.data.appInfo.share_ico[0], (iv, ed) => {
       thiz.shareSucc(iv, ed, undefined, thiz.sharing ? 0 : -1)
     }, thiz.sharing ? 0 : -1)
   }

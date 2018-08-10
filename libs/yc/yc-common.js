@@ -41,11 +41,11 @@ function storageToday(key, callback) {
   }
 }
 
-function share(shareTicket, callback, lp) {
+function share(shareTicket, callback, lp, is_double = 0, money_token) {
   wx.getShareInfo({
     shareTicket: shareTicket,
     success(res) {
-      callback(res.iv, res.encryptedData, lp)
+      callback(res.iv, res.encryptedData, lp, is_double, money_token)
     }
   })
 }

@@ -1,4 +1,7 @@
 /* pages/complain/complain.wxss */
+page {
+   height: 100%;
+}
 
 .complain-content {
    background-color: #eee;

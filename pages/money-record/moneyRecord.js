@@ -15,15 +15,15 @@ Page({
   data: {
     recordList: [],
     isShowContent: false,
-    animationDataSign: {},
-    animationDataMaskSign: {},
+    animationDataSucc: {},
+    animationDataMaskSucc: {},
     avatarImg: '',
     "type": 2 
   },
-  closeSign() {
-    this.toogleSign(0)
+  closeSucc() {
+    this.toogleSucc(0)
   },
-  toogleSign(opacity) {
+  toogleSucc(opacity) {
     var animation = wx.createAnimation({
       duration: 500,
       timingFunction: 'ease',
@@ -38,8 +38,8 @@ Page({
     this.animationMask = animationMask
     animationMask.opacity(opacity).top(opacity == 0 ? "-100%" : 0).step()
     this.setData({
-      animationDataSign: animation.export(),
-      animationDataMaskSign: animationMask.export()
+      animationDataSucc: animation.export(),
+      animationDataMaskSucc: animationMask.export()
     })
   },
   onLoad: function (options) {
@@ -68,7 +68,7 @@ Page({
        avatarImg: app.index.data.userInfo.face,
        "type": app.type
     })
-    this.toogleSign(1)
+    this.toogleSucc(1)
   },
   playMusic(src) {    
     const innerAudioContext = wx.createInnerAudioContext()
@@ -97,11 +97,14 @@ Page({
             app.index.setData({
                 userInfo: app.index.data.userInfo
             })
+            app.user_center.setData({
+                userInfo: app.index.data.userInfo
+            })
             thiz.data.recordList[app.listindex].status = 1
             thiz.setData({
               recordList: thiz.data.recordList
             }) 
-            thiz.toogleSign(0)
+            thiz.toogleSucc(0)
             wx.navigateTo({
               url: '/pages/openmoney/openmoney',
             }) 

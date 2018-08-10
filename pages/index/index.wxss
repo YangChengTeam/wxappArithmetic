@@ -2,282 +2,158 @@
 
 .bg-header {
   width: 750rpx;
-  height: 306rpx;
+  height: 355rpx;
   position: absolute;
   left: 0;
   top: 0;
 }
 
-.user-related {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   width: 100%;
-   height: 222rpx;
-   position: relative;
-   margin-top: 306rpx;
+.zlhb {
+    position: absolute;
+    right: 0;
+    top: 260rpx;
+    width: 200rpx;
+    height: 76rpx;
 }
 
-
-.user-related > .login {
-   width: 102rpx;
-   height: 102rpx;
-   left: 30rpx;
-   top: 30rpx;
-   position: absolute;
-   opacity: 0;
+zlhb-wrapper {
+    width: 200rpx;
+    height: 76rpx;
+    position: relative;
 }
 
-.user-related > .nologin {
-   width: 100%;
-   height: 100%;
-   left: 0rpx;
-   top: 0rpx;
-   position: absolute;
-   opacity: 0;
-}
-
-.user-related > image {
-   position: absolute;
-   left: 0;
-   top:0;
-   width: 100%;
-   height: 100%;
-}
-
-.user-info-wrap {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
+.zlhb-wrapper image,.zlhb-wrapper form, .zlhb-wrapper button {
+    width: 200rpx;
+    height: 76rpx;
     position: absolute;
     left: 0;
-    top:0;
+    top: 0;
 }
 
-.user-info {
+.zlhb-wrapper button {
+   opacity: 0;
+}
+
+.main-content-wrapper {
+   margin-top: 355rpx;
    display: flex;
-   flex-direction: row;
-   margin-left: 35rpx;
-   margin-top: 15rpx;
+   justify-content: flex-start;
    align-items: center;
+   flex-direction: column;
    width: 100%;
-   height: 108rpx;
-}
-
-.user-info-desc {
-   margin-left: 40rpx;
-}
-
-
-image.help {
-  
-   width: 40rpx;
-   height: 40rpx;
- 
-}
-
-.user-head {
-   width: 104rpx;
-   height: 104rpx;
-   border-radius: 50%;
-   border: solid 4rpx rgba(217,207,232,0.8);
-}
-
-.username {
-   font-size: 30rpx;
-}
-
-.user-game-info {
-   display: flex;
-   flex-direction: row;
-   font-size: 24rpx;
-   justify-content: space-between;
-   
-}
-
-.user-info-prize {
-    display: flex;
-    flex-direction: row;
-    margin-top: 15rpx;
-}
-
-.user-prize-bg {
-  display: flex;
-   width: 320rpx;
-   height: 60rpx;
-   border-radius: 10rpx;
-   background: rgba(0,0,0,0.2);
-   margin-left: 30rpx;
-  
-   flex-direction: row;
-   font-size: 24rpx;
-   align-items: center;
-}
-
-
-
-.user-prize-bg > image {
-   width: 47rpx;
-   height: 47rpx;
-   margin-left: 16rpx;
-}
-
-.user-money-title {
-   margin-left: 16rpx;
-}
-
-.user-money {
-  margin-left: 16rpx;
-  color: #fdce0f;
-}
-
-.user-money-take {
-   position: relative;
-   width: 182rpx;
-   height: 69rpx;
-   font-size: 30rpx;
-   margin-left: 50rpx;
-}
-
-.user-money-take > image {
-    width: 186rpx;
-    height: 67rpx;
-    position: absolute;
-}
-
-
-.user-score {
-   margin-left: 60rpx;
-}
-
-.game-related {
-   display: flex;
-   flex-direction: row;
-   width: 100%;
-   height: 202rpx;
-   margin-top: 26rpx;
-   justify-content: space-between;
-
 }
 
 .game-start {
-   width: 317rpx;
-   height: 100%;
    position: relative;
+   width: 535rpx;
+   height: 120rpx;
+   margin-bottom: 10rpx;
 }
 
-.game-start button, .game-start form  {
-   width: 100%;
-   height: 100%;
+.game-start > image,.game-start > form, .game-start  button  {
+   width: 535rpx;
+   height: 120rpx;
    position: absolute;
+   left: 0;
+}
+
+.game-start  button {
    opacity: 0;
 }
 
-.game-start > image {
-   width: 100%;
-   height: 100%;
-   left:0;
-   top:0;
-   position: absolute;
-}
-
-.game-challenge-times {
-   position: absolute;
-   left:22rpx;
-   top:100rpx;
-   font-size: 24rpx;
-}
-
-.game-excite {
+.other-games {
+   width: 535rpx;
+   height: 152rpx;
    display: flex;
-   flex-direction: column;
    justify-content: space-between;
-   width: 317rpx;
+   margin-top: 30rpx;
 }
 
-.game-excite > image {
-    width: 100%;
-    height: 202rpx;
-}
-
-.game-prize {
-    width: 100%;
-    height: 182rpx;
-    position: relative;
-}
-
-.game-prize > image {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-}
-
-.game-prize-text {
-   position: absolute;
-   left:22rpx;
-   top:80rpx;
-   font-size: 24rpx;
-}
-
-.invite {
-   width: 100%;
-   height: 172rpx;
-   margin-top: 26rpx;
+.other-game-item {
    position: relative;
+   width: 152rpx;
+   height: 152rpx;
+   overflow: hidden;
 }
 
-.invite > image {
-   width: 100%;
-   height: 100%;
+.other-game-item .bg {
+   width: 152rpx;
+   height: 152rpx;
+   z-index: 2;
    position: absolute;
 }
 
-.invite-text {
-  position: absolute;
-  left: 22rpx;
-  top: 90rpx;
-  font-size: 24rpx;
+.other-game-item .img {
+   width: 144rpx;
+   height: 144rpx;
+   z-index: 1;
+   position: absolute;
+   left: 4rpx;
+   top:4rpx;
+   border-radius: 15rpx;
 }
 
-.invite > button {
+.menu {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-top: 40rpx;
+}
+
+.menu-wrapper {
+   width: 535rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu image {
+    width: 134rpx;
+    height: 134rpx;
+}
+
+.menu .line {
    width: 100%;
-   height: 100%;
+   height: 80rpx;
    position: absolute;
-   opacity: 0;
+   top:50rpx;
+   left: 0;
+   z-index: -1;
 }
 
 .more {
-   display: flex;
-   flex-direction: row;
-   margin-top: 26rpx;
-   width: 100%;
-   height: 172rpx;
-   justify-content: space-between;
+   position: relative;
+   width: 134rpx;
 }
 
-.more > image {
-   width: 317rpx;
-   height: 100%;
+.more image, .more form , .more button {
+   width: 134rpx;
+   height: 134rpx;
+   
 }
 
-.more-usercenter {
-    position: relative;
-    width: 319rpx;
-    height: 184rpx;
-}
-
-.more-usercenter > image , .more-usercenter > button {
-   width: 317rpx;
-   height: 172rpx;
-   position: absolute;
+.more form , .more button { 
    left: 0;
    top: 0;
+   position: absolute;
 }
 
-.more-usercenter > button {
+.more button {
    opacity: 0;
 }
+
+.menu-item {
+   font-size: 28rpx;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.menu-item > view {
+   margin-top: 20rpx;
+}
+
 
 .mask {
    position: fixed;
@@ -287,44 +163,25 @@ image.help {
    display: flex;
    flex-direction: column;
    align-items: center;
-   top: -100%;
-   left: 0;
-   opacity: 0;
+   top:0;
+   left:0;
    z-index: 10000;
 }
 
 .mask-content {
    display: flex;
    flex-direction: column;
-   width: 100%;
+   width: 510rpx;
    height: 100%;
    align-items: center;
    top: -100%;
-   left: 0;
    opacity: 0;
    position: relative;
-   
 }
 
-.mask-content > .gzhbg {
-   width: 552rpx;
-   height: 682rpx;
-   margin-top: 180rpx;
-}
-
-.mask .arrow {
-   width: 88rpx;
-   height: 120rpx;
-   position: absolute;
-   right: 105rpx;
-   top: 20rpx;
-}
-
-.mask-content > .close {
-   width: 48rpx;
-   height: 48rpx;
-   margin-top: 60rpx;
-   position: relative;
+.mask-share {
+   left: 0;
+   top: -100%;
 }
 
 .main-share {
@@ -337,8 +194,6 @@ image.help {
    margin-top: 140rpx;
    position: relative;
 }
-
-
 
 .share-part {
    display: flex;
@@ -416,31 +271,88 @@ image.help {
    margin-top: 15rpx;
 }
 
+.mask-content > .close {
+   width: 48rpx;
+   height: 48rpx;
+   margin-top: 50rpx;
+}
+
+.mini2 {
+  position: absolute;
+  width:100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+.mask {
+   position: fixed;
+   width: 100%;
+   height: 100%;
+   background: rgba(0,0,0,0.7);
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   top:0;
+   left:0;
+}
+
+.mask-content {
+   display: flex;
+   flex-direction: column;
+   width: 510rpx;
+   height: 100%;
+   align-items: center;
+   top: -100%;
+   opacity: 0;
+   position: relative;
+}
+
+.mask-succ {
+   opacity: 0;
+   top: -100%;
+}
+
 .mask-main-content {
    display: flex;
    flex-direction: column;
    justify-content:flex-start;
    align-items: center;
    width: 510rpx;
-   height: 572rpx;
+   height: 450rpx;
    background-color: #fff;
    border-radius: 15rpx;
-   margin-top: -60rpx;
+   margin-top: -55rpx;
+}
+
+.succ > .mask-main-content {
+  margin-top: 0;
+  background: rgba(0,0,0,0.0);
+  z-index: 100;
+}
+
+.mask-content > .succ-header {
+   width: 652rpx;
+   height: 842rpx;
+   position: absolute;
+   top: 0;
 }
 
 
-.succ  .mask-main-content {
-   height: 722rpx;
-   width: 512rpx;
+.succ .mask-main-content {
+   height: 842rpx;
+   width: 652rpx;
+   position: relative;
+   z-index: 2;
 }
 
 .succ {
-   width: 512rpx;
+   width: 652rpx;
    margin-top: 140rpx;
 }
 
 .succ .title {
-   margin-top: 36rpx;
+   margin-top: 180rpx;
    color: #fff;
    font-size: 40rpx;
 }
@@ -463,45 +375,30 @@ image.help {
    color: #ecc47f;
 }
 
-.succ > .mask-main-content {
-  margin-top: 0;
-  background: rgba(0,0,0,0.0);
-  z-index: 100;
+
+.double {
+   width: 402rpx;
+   height: 105rpx;
+   margin-top: 250rpx;
+   position: relative;
 }
 
-.mask-content > .succ-header {
-   width: 512rpx;
-   height: 722rpx;
+.double image {
+   width: 402rpx;
+   height: 105rpx;
+}
+
+.double button {
    position: absolute;
+   left: 0;
    top: 0;
-}
-
-.mask > .win-header {
-   width: 750rpx;
-   height: 500rpx;
-   position: absolute;
-   z-index: -1;
-   top:170rpx;
-   left: 0rpx;
-  
-}
-
-.mask-succ {
-   opacity: 0;
-   top: -100%;
-}
-
-.mask-content > .close {
-   width: 48rpx;
-   height: 48rpx;
-   margin-top: 60rpx;
-   
-}
-
-.open-money {
-   margin-top: 40rpx;
-   width: 182rpx;
-   height: 182rpx;
+   width: 402rpx;
+   height: 105rpx;
    opacity: 0;
 }
 
+.hb {
+   width: 402rpx;
+   height: 105rpx;
+   margin-top: 300rpx;
+}

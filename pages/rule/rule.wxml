@@ -1,6 +1,5 @@
 <!--pages/rule/rule.wxml-->
 <view class="container">
-  <image class="main-bg" src='../../assets/images/main-bg.jpg'></image>
   <view class="main-content">
     <view class="rule-list">
       <view class="rule-list-item" wx:for="{{ruleList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
@@ -13,6 +12,6 @@
       <!-- <image src="../../assets/images/report.png"></image> -->
       <view>投诉</view>
     </view>
-    <view class="version">软件版本: 1.0.1 基础库版本: {{sv}}</view>
+    <view class="version">软件版本: 1.0.0 基础库版本: {{sv}}</view>
   </view>
 </view>

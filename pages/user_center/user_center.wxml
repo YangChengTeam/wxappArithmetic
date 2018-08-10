@@ -1,78 +1,92 @@
 <!--pages/user_center/user_center.wxml-->
 <view class="container">
-      <image class="main-bg" src='../../assets/images/main-bg.jpg'></image>
-      <view class="loading" hidden='{{isShowContent}}'>
-       <image src="../../assets/images/loading.png"></image> 
-</view>
-       <view class='main-content' hidden='{{!isShowContent}}'>
-       <view class="user-related">
-               <image src="../../assets/images/user-center-bg.png"></image>
-               <view class="user-info-wrap">
-               <view class="user-info">
-                <view class="user-game-info">
-                  <view class="user-game-info-part">
-                  <image class="user-head" src="{{ isLogin ? userInfo.face : '../../assets/images/avatar.png' }}"></image>
-                  <view class="username">{{userInfo.nick_name}}</view>
-                  </view>
-                               <image bindtap='navigateToRule' class="help" src='../../assets/images/help.png'></image>
-                  </view>
-                  
-                  <view class="user-game-info2">  
-                       <view class="user-game-info-item"><rich-text class="num">{{userInfo.playable_num}}<b style='font-size:24rpx;'>次</b></rich-text> <view>剩余次数</view></view>
-                       <view class="user-game-info-item"><rich-text class="num gold" style='font-size:48rpx;'>{{userInfo.money}}<b style='font-size:24rpx; color: #fff;'>元</b></rich-text><view>赏金</view></view>
-                       <view class="user-game-info-item"><rich-text class="num ">{{userInfo.played_num}}<b style='font-size:24rpx;'>次</b></rich-text><view>挑战次数</view></view>
-                  </view>  
-                  <view class="user-money-take">
-                       <image src='../../assets/images/user-money-take2.png' bindtap='navigateToCash'></image>
-                    </view> 
-                    <!-- <view class="min-money">({{cashTip}})</view>  -->
-               </view>
-             </view>
-             
-     </view>
-     <view class="menu">
-        <view class="menu-item">
-            <image src="../../assets/images/menu-share.png"></image>
-            <view>炫耀战绩</view>
-            <button open-type='share'></button>
-        </view>
-        <view class="menu-item menu-item2" bindtap='openTakeMoneyRecord'>
-            <image src="../../assets/images/menu-hongbao.png"></image>
-            <view>红包记录</view> 
-        </view>
-        <view class="menu-item menu-item3">
-            <image src="../../assets/images/menu-contact.png"></image>
-            <view>联系客服</view>
-            <button open-type='contact' session-from="king"></button>
-        </view>
-     </view>
-     
-     <view class="more-header">
-        <view class="line"></view>
-        <view class="title">更多智力挑战</view>
-        <view class="line"></view>
-     </view> 
+  <view class="loading" hidden='{{isShowContent}}'>
+    <image src="../../assets/images/loading.png"></image>
+  </view>
 
-     <view class="more-list">
-           <view class="more-list-item"  wx:for="{{moreList}}" wx:for-index="index" wx:for-item="item" wx:key="id" >
-                          <image class="wxapp-head" src="{{item.img}}"></image>
-                          <view class="wxapp-info" data-appid="{{item.url}}">
-                              <view class="wxapp-name">{{item.name}}</view>
-                              <view class="wxapp-desp">{{item.desc}}
-                          </view>
-                          </view>
-                          <block wx:if="{{item.is_bind}}">
-                          <view wx:if="{{mini==-1}}" class="mini" bindtap='natiageToMiniProgram' data-appid="{{item.url}}">{{item.button_name}}</view>
-                          <navigator wx:if="{{mini>-1}}" class="mini" target="miniProgram" app-id='{{item.url}}' appId='{{item.url}}' >{{item.button_name}}</navigator> </block>
-                          <block wx:else>
-                          <view class="mini" bindtap='previewImg' data-img="{{item.xcx_img}}">{{item.button_name}}</view>
-                          </block>
+  <view class="help2" bindtap='navigateToComplain' hidden='{{!isShowContent}}'>
+    <image src='../../assets/images/help2.png'></image>
+    <view>投拆</view>
+  </view>
+
+  <view class="help2 contact" hidden='{{!isShowContent}}'>
+    <image src='../../assets/images/menu-contact.png'></image>
+    <view>客服</view>
+    <button open-type='contact'></button>
+  </view>
+
+  <view class='main-content' hidden='{{!isShowContent}}'>
+    <view class="user-related">
+      <image src="../../assets/images/user-center-bg.png"></image>
+      <view class="user-info-wrap">
+        <view class="user-info">
+          <view class="user-game-info">
+            <image class="user-head" src="{{ isLogin ? userInfo.face : '../../assets/images/avatar.png' }}"></image>
+            <view class="username">{{userInfo.nick_name}}</view>
+
+          </view>
+          <view class="user-game-info2">
+            <view class="user-game-info-item">
+              <rich-text class="num">{{userInfo.playable_num}}
+                <b style='font-size:24rpx;'>次</b>
+              </rich-text>
+              <view>剩余次数</view>
             </view>
-            <view style='height:240rpx; width:100%;'></view>
-     </view>
+            <view class="user-game-info-item">
+              <rich-text class="num">{{userInfo.money}}
+                <b style='font-size:24rpx;'>元</b>
+              </rich-text>
+              <view>当前赏金</view>
+            </view>
+
+            <view class="user-game-info-item">
+              <rich-text class="num ">{{userInfo.played_num}}
+                <b style='font-size:24rpx;'>次</b>
+              </rich-text>
+              <view>挑战次数</view>
+            </view>
+          </view>
+          <view class="user-money-take">
+            <image src='../../assets/images/user-money-take2.png' bindtap='navigateToCash'></image>
+          </view>
+          <!-- <view class="min-money">({{cashTip}})</view>  -->
+        </view>
+      </view>
+
+    </view>
+    <view class="menu">
+      <view class="menu-item">
+        <image src="../../assets/images/menu-share.png"></image>
+        <view>炫耀战绩</view>
+        <button open-type='share'></button>
+      </view>
+      <view class="menu-item menu-item2" bindtap='openTakeMoneyRecord'>
+        <image src="../../assets/images/menu-hongbao.png"></image>
+        <view>红包记录</view>
+      </view>
+
+    </view>
+
+    <view class="more-list">
+      <view class="more-list-item" wx:for="{{moreList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+        <image class="wxapp-head" src="{{item.img}}"></image>
+        <view class="wxapp-info" data-appid="{{item.url}}">
+          <view class="wxapp-name">{{item.name}}</view>
+          <view class="wxapp-desp">{{item.desc}}
+          </view>
+        </view>
+        <block wx:if="{{item.is_bind}}">
+          <view wx:if="{{mini==-1}}" class="mini" bindtap='natiageToMiniProgram' data-appid="{{item.url}}">{{item.button_name}}</view>
+          <navigator wx:if="{{mini>-1}}" class="mini" target="miniProgram" app-id='{{item.url}}' appId='{{item.url}}'>{{item.button_name}}</navigator>
+        </block>
+        <block wx:else>
+          <view class="mini" bindtap='previewImg' data-img="{{item.xcx_img}}">{{item.button_name}}</view>
+        </block>
+      </view>
+      <!-- <view style='height:240rpx; width:100%;'></view> -->
+    </view>
 
   </view>
-   <ad wx:if='{{isShowContent}}' class="ad" unit-id="adunit-eb8cccaa6d62db24"></ad>
+  <!-- <ad wx:if='{{isShowContent}}' class="ad" unit-id="adunit-eb8cccaa6d62db24"></ad> -->
 
 </view>
-

@@ -30,6 +30,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    app.user_center = this
     app.index.isStart = false
     wx.showShareMenu({
       withShareTicket: true
@@ -37,16 +38,16 @@ Page({
     try {
       var res = wx.getSystemInfoSync()
       this.setData({
-          mini: this.compareVersion(res.SDKVersion, '2.0.7')
+          mini: app.compareVersion(res.SDKVersion, '2.0.7')
       })
     } catch (e2) {
     }
     var thiz = this
     this.setData({
-      status: app.index.appInfo.data.data.status
+      status: app.index.data.appInfo.status
     })
     co(function*() {
-      var appInfo = app.index.appInfo
+      var appInfo = app.index.data.appInfo
       wx.hideLoading()
       if (parseFloat(app.index.data.userInfo.allow_change_money) > parseFloat(app.index.data.userInfo.money)) {
         thiz.data.cashTip = `最低提现金额为${app.index.data.userInfo.allow_change_money}元`
@@ -57,7 +58,7 @@ Page({
         isLogin: true,
       }, () => {
         thiz.setData({
-          moreList: appInfo.data.data.more_app_info,
+          moreList: appInfo.more_app_info,
           userInfo: app.index.data.userInfo,
           cashTip: thiz.data.cashTip
         })
@@ -90,53 +91,20 @@ Page({
        urls: [e.currentTarget.dataset.img],
      })
   },
+  navigateToComplain() {
+    wx.navigateTo({
+      url: '/pages/complain/complain',
+    })
+  },
+
   natiageToMiniProgram(e) {
     wx.navigateToMiniProgram({
       appId: e.currentTarget.dataset.appid,
     })
   },
-
-  compareVersion(v1, v2) {
-    v1 = v1.split('.')
-    v2 = v2.split('.')
-    var len = Math.max(v1.length, v2.length)
-
-    while (v1.length < len) {
-      v1.push('0')
-    }
-    while (v2.length < len) {
-      v2.push('0')
-    }
-
-    for (var i = 0; i < len; i++) {
-      var num1 = parseInt(v1[i])
-      var num2 = parseInt(v2[i])
-
-      if (num1 > num2) {
-        return 1
-      } else if (num1 < num2) {
-        return -1
-      }
-    }
-
-    return 0
-  }
-  ,
   navigateToCash(e) {
     wx.navigateTo({
       url: '/pages/cash/cash',
-    })
-  },
-  onShareAppMessage: function(shareRes) {
-    let thiz = this
-    return app.index.commonShare(shareRes, app.index.appInfo.data.data.share_title[0], app.index.appInfo.data.data.ico[0], (iv, ed) => {
-      app.index.shareSucc(iv, ed, (u) => {
-        if (u) {
-          thiz.setData({
-            userInfo: u
-          })
-        }
-      }, -1)
     })
   }
 })

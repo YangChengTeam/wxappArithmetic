@@ -42,12 +42,18 @@ Page({
     questionInfo: {},
     currentIndex: 0,
     rightNumber: 0,
+    
 
     startImg: '../../assets/images/mstart.png',
     isOver: false,
     isFinal: false,
-    isHelp: false,
+    isHelp: true,
     avatarImg: '',
+
+    isShowStar: false,
+    nums: [],
+    results: [],
+    numkeys: [1, 2, 3, 4, 5, 6, 7, 8, 9, "删除", 0, "清除"]
   },
 
   /**
@@ -57,9 +63,9 @@ Page({
     wx.showShareMenu({
       withShareTicket: true
     })
-    if (app.index.appInfo && app.index.appInfo.data && app.index.appInfo.data.data && app.index.appInfo.data.data.question_num) {
+    if (app.index.data.appInfo && app.index.data.appInfo.question_num) {
       this.setData({
-        count: app.index.appInfo.data.data.question_num
+        count: app.index.data.appInfo.question_num
       })
     }
   },
@@ -72,7 +78,7 @@ Page({
       return
     }
 
-    if (app.index.appInfo.data.data.status != 1) {
+    if (app.index.data.appInfo.status != 1) {
       this.setData({
         isHelp: true
       })
@@ -95,12 +101,23 @@ Page({
         if (questionInfo.t < 10) {
           questionInfo.t = "0" + questionInfo.t;
         }
-        questionInfo.options.forEach(function (v) {
-          v.op2 = v.op.toUpperCase()
-        })
+        
+        questionInfo.preTime = 3
+        questionInfo.aIndex = 0
+        let nums = questionInfo.question.split("")
+        thiz.data.results = []
+        nums.forEach(v => {
+          thiz.data.nums.push({
+            "num": v,
+            "img": "../../assets/images/star.png"
+          })
+          thiz.data.results.push("")
+        })    
         thiz.setData({
           questionInfo: questionInfo,
-          isShowContent: true
+          isShowContent: true,
+          nums: thiz.data.nums,
+          results: thiz.data.results
         })
         thiz.countdownAnimate()
         thiz.question_ids = thiz.data.questionInfo.id + ","
@@ -147,7 +164,7 @@ Page({
       this.titleAudioContext.stop()
     }
   },
-  playMusic(src, loop = false, titleMp3 = false) {
+  playMusic(src, loop = false, last = false) {
     this.stopMusic()
     if (this.data.musicStatus != "on") {
       return
@@ -158,6 +175,11 @@ Page({
     } else {
       this.innerAudioContext = innerAudioContext
     }
+
+    if(last){
+      this.lastAudioContext = innerAudioContext
+    }
+    
     innerAudioContext.src = src
     innerAudioContext.loop = loop
     innerAudioContext.play()
@@ -172,13 +194,25 @@ Page({
     this.playMusic('/assets/audio/readygo.wav')
   },
   backgroundMusicPlay() {
-    this.playMusic('https://wx1.bshu.com/static/mp3/background.wav', true)
+    // this.playMusic('/assets/audio/background.wav', true)
   },
   rightMusicPlay() {
     this.playMusic('/assets/audio/right.wav')
   },
   errorMusicPlay() {
     this.playMusic('/assets/audio/error.wav')
+  },
+  nextMusicPlay() {
+    this.playMusic('/assets/audio/next.mp3')
+  },
+  delMusicPlay() {
+    this.playMusic('/assets/audio/del.mp3')
+  },
+  clearMusicPlay() {
+    this.playMusic('/assets/audio/clear.mp3')
+  },
+  last3MusicPlay() {
+    this.playMusic('/assets/audio/last.mp3', false, true)
   },
   failMusicPlay() {
     setTimeout(() => {
@@ -190,37 +224,37 @@ Page({
   },
   countdownAnimate() {
     var thiz = this
-    var animation3 = wx.createAnimation({
-      duration: 1000,
-      timingFunction: 'ease',
-    })
-    this.animation3 = animation3
-    animation3.opacity(1).scale(0.5).step()
-    animation3.opacity(0).step()
+    // var animation3 = wx.createAnimation({
+    //   duration: 1000,
+    //   timingFunction: 'ease',
+    // })
+    // this.animation3 = animation3
+    // animation3.opacity(1).scale(0.5).step()
+    // animation3.opacity(0).step()
 
-    var animation2 = wx.createAnimation({
-      duration: 1000,
-      timingFunction: 'ease',
-    })
-    this.animation2 = animation2
-    animation2.opacity(1).scale(0.5).step()
-    animation2.opacity(0).step()
+    // var animation2 = wx.createAnimation({
+    //   duration: 1000,
+    //   timingFunction: 'ease',
+    // })
+    // this.animation2 = animation2
+    // animation2.opacity(1).scale(0.5).step()
+    // animation2.opacity(0).step()
 
-    var animation1 = wx.createAnimation({
-      duration: 1000,
-      timingFunction: 'ease',
-    })
-    this.animation1 = animation1
-    animation1.opacity(1).scale(0.5).step()
-    animation1.opacity(0).step()
+    // var animation1 = wx.createAnimation({
+    //   duration: 1000,
+    //   timingFunction: 'ease',
+    // })
+    // this.animation1 = animation1
+    // animation1.opacity(1).scale(0.5).step()
+    // animation1.opacity(0).step()
 
-    var animationDataStart = wx.createAnimation({
-      duration: 1000,
-      timingFunction: 'ease',
-    })
-    this.animationDataStart = animationDataStart
-    animationDataStart.opacity(1).scale(0.4).step()
-    animationDataStart.opacity(0).step()
+    // var animationDataStart = wx.createAnimation({
+    //   duration: 1000,
+    //   timingFunction: 'ease',
+    // })
+    // this.animationDataStart = animationDataStart
+    // animationDataStart.opacity(1).scale(0.4).step()
+    // animationDataStart.opacity(0).step()
 
     var gameAnimationDataGameStart = wx.createAnimation({
       duration: 1000,
@@ -251,52 +285,50 @@ Page({
     this.animationDataSelect = animationDataSelect
     animationDataSelect.opacity(1).top(0).step()
 
+    // setTimeout(() => {
+    //   this.coutedownMusicPlay()
+    //   thiz.setData({
+    //     animationData3: thiz.animation3.export()
+    //   })
+    // }, 500)
+
+    // setTimeout(() => {
+    //   thiz.setData({
+    //     animationData2: thiz.animation2.export()
+    //   })
+    // }, 1500)
+
+    // setTimeout(() => {
+    //   thiz.setData({
+    //     animationData1: thiz.animation1.export()
+    //   })
+    // }, 2500)
+
+    // setTimeout(() => {
+    //   thiz.setData({
+    //     animationDataStart: thiz.animationDataStart.export()
+    //   })
+    //   this.readygoMusicPlay()
+    // }, 3500)
+
+    thiz.setData({
+      gameAnimationDataGameStart: thiz.gameAnimationDataGameStart.export(),
+      timeAnimationDataGameStart: thiz.timeAnimationDataGameStart.export(),
+      animationDataSelect: thiz.animationDataSelect.export(),
+      animationDataStartDesp: thiz.animationDataStartDesp.export(),
+    })
     setTimeout(() => {
-      this.coutedownMusicPlay()
-      thiz.setData({
-        animationData3: thiz.animation3.export()
-      })
+      this.preCountDown()
+      this.backgroundMusicPlay()
     }, 500)
-
-    setTimeout(() => {
-      thiz.setData({
-        animationData2: thiz.animation2.export()
-      })
-    }, 1500)
-
-    setTimeout(() => {
-      thiz.setData({
-        animationData1: thiz.animation1.export()
-      })
-    }, 2500)
-
-    setTimeout(() => {
-      thiz.setData({
-        animationDataStart: thiz.animationDataStart.export()
-      })
-      this.readygoMusicPlay()
-    }, 3500)
-
-    setTimeout(() => {
-      thiz.setData({
-        gameAnimationDataGameStart: thiz.gameAnimationDataGameStart.export(),
-        timeAnimationDataGameStart: thiz.timeAnimationDataGameStart.export(),
-        animationDataSelect: thiz.animationDataSelect.export(),
-        animationDataStartDesp: thiz.animationDataStartDesp.export(),
-      })
-    }, 4500)
-
-    setTimeout(() => {
-      this.countDown()
-    }, 5500)
   },
+  
   invisiable() {
     this.data.musicStatus = "off"
     this.stopMusic()
     if (this.loopInnerAudioContext) {
       this.loopInnerAudioContext.stop()
     }
-
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -317,6 +349,7 @@ Page({
       })
     }
   },
+
   action(e, s) {
     var index = e.currentTarget.dataset.index
     var animation = wx.createAnimation({
@@ -341,21 +374,81 @@ Page({
   end(e) {
     this.action(e, 1.0)
   },
-  answer(e) {
+  preAnswer(e) {
+    if (!this.data.isShowStar){
+       return
+    }
+    let index = e.currentTarget.dataset.index
+    if(index == 9){
+       this.delMusicPlay()
+       if(this.data.questionInfo.aIndex == 0){
+          return
+       }
+       
+       --this.data.questionInfo.aIndex
+       this.data.results[this.data.questionInfo.aIndex] = ""
+       this.data.nums[this.data.questionInfo.aIndex].img = '../../assets/images/star.png'
+       this.setData({
+         results: this.data.results,
+         nums: this.data.nums
+       })
+    } else if(index == 11){
+      this.clearMusicPlay()
+      this.data.questionInfo.aIndex = 0
+      for(let i = 0; i < this.data.results.length; i++){
+          this.data.results[i] = ""
+          this.data.nums[i].img = '../../assets/images/star.png'
+      }
+      this.setData({
+        results: this.data.results,
+        nums: this.data.nums
+      })
+    } else {
+      if (this.data.questionInfo.aIndex >= this.data.nums.length) {
+           this.delMusicPlay()
+           return
+      }
+      console.log(index)
+      if(index > 9){
+         index = 0
+      } else {
+         index = index + 1
+      }
+      this.data.results[this.data.questionInfo.aIndex] = index
+      if (index == this.data.nums[this.data.questionInfo.aIndex].num){
+        this.rightMusicPlay()
+        this.data.nums[this.data.questionInfo.aIndex].img = '../../assets/images/right-star.png'
+      } else {
+        this.errorMusicPlay()
+        this.data.nums[this.data.questionInfo.aIndex].img = '../../assets/images/error-star.png'
+      }
+      this.setData({
+        results: this.data.results,
+        nums: this.data.nums
+      })
+      if (this.data.questionInfo.aIndex >= this.data.nums.length) {
+        this.data.questionInfo.aIndex = this.data.nums.length -1
+      } else {
+        this.data.questionInfo.aIndex++
+      }
+      if (this.data.results.join("") == this.data.questionInfo.question) {
+        this.answer()
+      }
+    }
+  },
+  answer() {
     if (this.isAnswer) return
     this.isAnswer = true
     if (this.data.isOver) return
-    this.data.questionInfo.mp3 = ""
     let thiz = this
-    let index = (e.currentTarget.dataset.index)
-    let option = this.data.questionInfo.options[index]
+    let option = {}
     co(function* () {
       wx.showLoading({
         title: '请稍后...',
         mask: true
       })
-      var res = yield kkservice.getAnswerMoney(option.op, thiz.data.questionInfo.id)
-
+      var res = yield kkservice.getAnswerMoney(thiz.data.results.join(""), thiz.data.questionInfo.id,
+      thiz.data.questionInfo.question_token)
       wx.hideLoading()
       thiz.isAnswer = false
       if (res.data && res.data.code == 1) {
@@ -367,13 +460,7 @@ Page({
           app.money = res.data.data.get_money
         }
       }
-
       if (option.is_answer === 1) {
-        thiz.data.questionInfo.options.forEach(function (v, k) {
-          if (k == index) {
-            v.style = ' right'
-          }
-        })
         console.log(thiz.data.questionInfo)
         thiz.setData({
           questionInfo: thiz.data.questionInfo,
@@ -383,12 +470,7 @@ Page({
           }, 10)
         })
 
-      } else {
-        thiz.data.questionInfo.options.forEach(function (v, k) {
-          if (k == index) {
-            v.style = ' error'
-          }
-        })
+      } else {   
         console.log(thiz.data.questionInfo.options)
         thiz.setData({
           questionInfo: thiz.data.questionInfo,
@@ -440,7 +522,7 @@ Page({
   },
   succ() {
     let thiz = this
-    this.rightMusicPlay()
+    this.nextMusicPlay()
     this.resetCountDown()
     if (this.data.isFinal || this.data.currentIndex + 1 >= this.data.count) {
       this.issucc = true
@@ -454,6 +536,8 @@ Page({
         rightNumber: ++thiz.data.rightNumber,
         avatarImg: app.index.data.userInfo.face
       })
+      thiz.is_double = 1
+      thiz.money_token = thiz.answerData.money_token
       thiz.toogleSucc(1)
       return
     }
@@ -486,19 +570,31 @@ Page({
       if (questionInfo.t < 10) {
         questionInfo.t = "0" + questionInfo.t;
       }
+      questionInfo.aIndex = 0
       thiz.question_ids += questionInfo.id + ","
-      questionInfo.options.forEach(function (v) {
-        v.op2 = v.op.toUpperCase()
-      })
+      questionInfo.preTime = 3
+      let nums = questionInfo.question.split("")
+      thiz.data.nums = []
+      thiz.data.results = []
+      nums.forEach(v => {
+        thiz.data.nums.push({
+           "num": v,
+          "img": "../../assets/images/star.png"
+        })
+        thiz.data.results.push("")
+      })    
       thiz.data.questionInfo = questionInfo
       setTimeout(() => {
         ++thiz.data.currentIndex
-        questionInfo.animate = ' fadeIn'
+        questionInfo.animate = ' fadeIn'  
         thiz.setData({
           questionInfo: questionInfo,
-          currentIndex: thiz.data.currentIndex
-        })
-        thiz.countDown()
+          nums: thiz.data.nums,
+          results: thiz.data.results,
+          currentIndex: thiz.data.currentIndex,
+          isShowStar: false
+        })   
+        thiz.preCountDown()
       }, 10)
     } else {
       thiz.getQuestion()
@@ -578,6 +674,7 @@ Page({
       if (res && res.data) {
         if (res.data.code == 1) {
           thiz.moneyMusicPlay()
+          app.money = res.data.data.change_money
           app.index.data.userInfo.money = res.data.data.f_money
           app.index.setData({
             userInfo: app.index.data.userInfo
@@ -606,14 +703,37 @@ Page({
       }
     })
   },
-  countDown(questionInfo) {
+  preCountDown() {
+    this.pretimer = setInterval(() => {
+      if (this.data.questionInfo.preTime <= 0) {
+            this.setData({
+               isShowStar: true
+            })
+            this.countDown()
+            clearInterval(this.pretimer)
+            return
+      }
+      this.last3MusicPlay()
+      this.data.questionInfo.preTime -= 1
+      this.setData({
+        questionInfo: this.data.questionInfo
+      })
+    }, 1000)
+  },
+  countDown() {
+    this.readygoMusicPlay()
     this.timer = setInterval(() => {
-      if (this.data.isOver) return
+      if (this.data.isOver) return   
       if (this.data.questionInfo.t <= 0) {
         this.data.isOver = true
         this.emptyQuestion()
         this.fail()
+        clearInterval(this.timer)
         return
+      }
+      if (this.data.questionInfo.t <= 6) {
+        this.data.questionInfo.lastStyle = "last"
+        this.last3MusicPlay()
       }
       this.data.questionInfo.t -= 1
       if (this.data.questionInfo.t < 10) {
@@ -662,19 +782,20 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (shareRes) {
-    let title = app.index.appInfo.data.data.share_title[0]
-    let icon = app.index.appInfo.data.data.ico[0]
+    let appInfo = app.index.data.appInfo
+    let title = appInfo.share_title[0]
+    let icon = appInfo.share_ico[0]
     let thiz = this
     let lp = -1
 
     if (!this.sharing) {
       if (shareRes.from == "button") {
-        title = app.index.appInfo.data.data.share_title[1]
-        icon = app.index.appInfo.data.data.ico[1]
+        title = appInfo.share_title[1]
+        icon = appInfo.share_ico[1]
       }
       if (thiz.issucc) {
-        title = app.index.appInfo.data.data.share_title[2]
-        icon = app.index.appInfo.data.data.ico[2]
+        title = appInfo.share_title[2]
+        icon = appInfo.share_ico[2]
       }
       if (this.fail) {
         lp = 1
@@ -682,11 +803,18 @@ Page({
     } else {
       lp = 0
     }
+    if (thiz.is_double){
+      title = appInfo.share_title[3]
+      icon = appInfo.share_ico[3]
+    }
     return app.index.commonShare(shareRes, title, icon, (iv, ed) => {
       app.index.shareSucc(iv, ed, (u) => {
         if (!thiz.sharing) {
           if (thiz.isfail) {
             thiz.help()
+          }
+          if (thiz.money_token){
+            thiz.navagateToPrizee()
           }
           thiz.toogleFail(0)
         } else {
@@ -696,8 +824,8 @@ Page({
             })
           }
         }
-      }, lp)
-    }, lp)
+      }, lp, thiz.is_double, thiz.money_token)
+    }, lp, thiz.is_double, thiz.money_token)
   },
   help() {
     this.data.isOver = false

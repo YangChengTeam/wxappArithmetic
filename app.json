@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/index/index",
+    "pages/index/index",  
+    "pages/zlhb/zlhb",
     "pages/cash-record/cashRecord",
     "pages/cash/cash",
     "pages/openmoney/openmoney",
-   
     "pages/start/start",
     "pages/rank/rank",
     "pages/prize/prize",
@@ -12,13 +12,12 @@
     "pages/user_center/user_center",
     "pages/complain/complain",
     "pages/money-record/moneyRecord"
-    
   ],
   "window": {
     "backgroundTextStyle": "dark",
-    "backgroundColor": "#321d6c",
-    "navigationBarBackgroundColor": "#321d6c",
-    "navigationBarTitleText": "武汉常识",
+    "backgroundColor": "#300a67",
+    "navigationBarBackgroundColor": "#300a67",
+    "navigationBarTitleText": "数字记忆王",
     "navigationBarTextStyle": "white"
   }
 }
