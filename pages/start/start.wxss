@@ -170,7 +170,7 @@
    text-align: center;
    color: #000;
    font-size: 80rpx;
-   background: #fff;
+   background: #ccc;
    border-radius: 10rpx;
    margin-top: 30rpx;
 }
@@ -267,6 +267,9 @@
    top: 50rpx;
    left: 30rpx;
 }
+
+
+
 
 .mask-main-content {
    display: flex;

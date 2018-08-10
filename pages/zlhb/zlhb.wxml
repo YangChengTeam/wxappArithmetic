@@ -1,4 +1,3 @@
-<!--pages/zlhb/zlhb.wxml-->
 <view class="container">
 
   <view class="loading" hidden='{{isShowContent}}'>
@@ -15,24 +14,16 @@
   </view>
   <view class="zlhb-content" hidden='{{!isShowContent}}'>
     <image class="zlhb-header" src="../../assets/images/zlhb-header-bg.png"></image>
-    <rich-text class="cash-money-title">未提现
-      <strong style="font-size:48rpx;">{{userInfo.share_money}}</strong>元</rich-text>
+    <rich-text class="cash-money-title">已拆开未提现
+      <strong style="font-size:48rpx;font-weight: bold;">{{userInfo.share_money}}</strong>元</rich-text>
     <image bindtap='caseMoney' class="cash-money-btn" src='../../assets/images/zlhb-cash-btn.png'></image>
-    <view class="part1" wx:if="{{!is_get_money}}">
-      <image class="zlhb-part1-bg" src='../../assets/images/zlhb-part1-bg.png'></image>
-      <view class="max-money">最高100元现金</view>
-      <view class="zlhb-get-money">
-        <image src='../../assets/images/zlhb-get-money.png'></image>
-        <button form-type='submit' open-type='getUserInfo' bindgetuserinfo="loginToGetMoney"></button>
 
-      </view>
-    </view>
-    <view class="part2" wx:if="{{is_get_money}}">
+    <view class="part2">
       <image class="zlhb-part1-bg zlhb-part2-bg" src='../../assets/images/zlhb-part2-bg.png'></image>
-      <view class="zlhb-part2-title">{{count == 0 ? "您的助力红包已全部拆开" : "您的助力红包还未拆完"}}</view>
-      <view>{{count == 0 ? "好友已完成助力" : ("还需要邀请"+count+"个好友助力才可以提现哦！")}}</view>
+      <view class="zlhb-part2-title">{{count == 0 ? "助力邀请已完成" : "您的助力红包还未全部拆开"}}</view>
+      <view>{{count == 0 ? "点击↑【提现】赶快将您的助力红包领取了吧！" : ("还需要邀请"+count+"个好友拆开红包才可以提现哦！")}}</view>
       <view class="users">
-        <view wx:for="{{helpInfo.list}}" wx:for-index="index" wx:for-item="item" wx:key="id"  class="users-wrapper user{{index+1}}">
+        <view wx:for="{{helpInfo.list}}" wx:for-index="index" wx:for-item="item" wx:key="id" class="users-wrapper user{{index+1 !=helpInfo.list.length ? 1 : '' }}">
           <image src='{{item.face ? item.face : "../../assets/images/zlhb-add.png"}}'></image>
           <view class="nick_name">{{item.nick_name}}</view>
           <view class="money">{{item.money ? "+" + item.money : "" }}</view>
@@ -56,8 +47,23 @@
         </view>
       </view>
     </view>
-
     <image class="close" src='../../assets/images/close.png' bindtap='closeRule'></image>
   </view>
 
+</view>
+
+<view class="mask mask-hb" animation="{{animationDataMaskHb}}">
+  <view class="mask-content" animation="{{animationDataHb}}">
+    <view class="part1">
+      <image class="zlhb-part1-bg" src='../../assets/images/zlhb-part1-bg.png'></image>
+      <view class="max-money">最高100元现金</view>
+      <view class="zlhb-get-money">
+        <image src='../../assets/images/zlhb-get-money.png'></image>
+        <form bindsubmit='submit' report-submit>
+        <button form-type='submit' open-type='getUserInfo' bindgetuserinfo="loginToGetMoney"></button>
+        </form>
+      </view>
+    </view>
+    <image class="close" src='../../assets/images/close.png' bindtap='closeHb'></image>
+  </view>
 </view>

@@ -31,8 +31,8 @@ Page({
       this.setData({
          avatarImg: app.index.data.userInfo.face,
          money: app.money,
-         type: app.type,
-         mtype: app.mtype
+         type: app.type ? app.type : 0,
+         mtype: app.mtype ? app.mtype : 0,
       })
   },
   backIndex(e){

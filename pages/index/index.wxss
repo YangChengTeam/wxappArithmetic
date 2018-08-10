@@ -285,50 +285,9 @@ zlhb-wrapper {
   top: 0;
 }
 
-.mask {
-   position: fixed;
-   width: 100%;
-   height: 100%;
-   background: rgba(0,0,0,0.7);
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   top:0;
-   left:0;
-}
-
-.mask-content {
-   display: flex;
-   flex-direction: column;
-   width: 510rpx;
-   height: 100%;
-   align-items: center;
-   top: -100%;
-   opacity: 0;
-   position: relative;
-}
-
-.mask-succ {
+.mask-hb {
    opacity: 0;
    top: -100%;
-}
-
-.mask-main-content {
-   display: flex;
-   flex-direction: column;
-   justify-content:flex-start;
-   align-items: center;
-   width: 510rpx;
-   height: 450rpx;
-   background-color: #fff;
-   border-radius: 15rpx;
-   margin-top: -55rpx;
-}
-
-.succ > .mask-main-content {
-  margin-top: 0;
-  background: rgba(0,0,0,0.0);
-  z-index: 100;
 }
 
 .mask-content > .succ-header {
@@ -338,67 +297,56 @@ zlhb-wrapper {
    top: 0;
 }
 
-
-.succ .mask-main-content {
+.mask-main-content {
+   display: flex;
+   flex-direction: column;
+   justify-content:flex-start;
+   align-items: center;
    height: 842rpx;
    width: 652rpx;
-   position: relative;
-   z-index: 2;
 }
 
-.succ {
-   width: 652rpx;
-   margin-top: 140rpx;
+.part1 {
+  width: 522rpx;
+  height: 662rpx;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 140rpx;
 }
 
-.succ .title {
-   margin-top: 180rpx;
-   color: #fff;
-   font-size: 40rpx;
+.zlhb-part1-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 522rpx;
+  height: 662rpx;
 }
 
-.succ .avatar {
-   width: 180rpx;
-   height: 180rpx;
-   margin-top: 20rpx;
-   border-radius: 50%;
+.max-money {
+  position: relative;
+  margin-top: 340rpx;
+  z-index: 2;
+  font-size: 30rpx;
 }
 
-.succ .desp {
-   font-size: 30rpx;
-   margin-top: 20rpx;
+.zlhb-get-money {
+  position: relative;
+  margin-top: 50rpx;
+  width: 402rpx;
+  height: 106rpx;
+  z-index: 2;
 }
 
-.succ .desp2 {
-   font-size: 36rpx;
-   margin-top: 10rpx;
-   color: #ecc47f;
-}
-
-
-.double {
-   width: 402rpx;
-   height: 105rpx;
-   margin-top: 250rpx;
-   position: relative;
-}
-
-.double image {
-   width: 402rpx;
-   height: 105rpx;
-}
-
-.double button {
+.zlhb-get-money image, .zlhb-get-money button {
    position: absolute;
    left: 0;
    top: 0;
    width: 402rpx;
-   height: 105rpx;
-   opacity: 0;
+   height: 106rpx;
 }
 
-.hb {
-   width: 402rpx;
-   height: 105rpx;
-   margin-top: 300rpx;
-}
+ .zlhb-get-money button {
+    opacity: 0;
+ }

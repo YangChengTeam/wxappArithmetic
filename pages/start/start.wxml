@@ -51,7 +51,7 @@
         </view>
 
         <view class="numkeys">
-            <view class="numkeys-item" wx:for="{{numkeys}}" wx:for-index="index" wx:for-item="item" wx:key="id" style='{{index == 9 || index == 11 ? "font-size: 36rpx;" : ""}}' data-index="{{index}}" bindtap='preAnswer'>
+            <view class="numkeys-item" wx:for="{{numkeys}}" wx:for-index="index" wx:for-item="item" wx:key="id" style='{{index == 9 || index == 11 ? "font-size: 36rpx;" : ""}}{{isShowStar ? "background:#fff;" : ""}}' data-index="{{index}}" bindtap='preAnswer'>
                 {{item}}
             </view>
         </view>

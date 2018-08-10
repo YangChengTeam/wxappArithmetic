@@ -95,102 +95,63 @@
    align-items: center;
    width: 652rpx;
    height: 842rpx;
-   background-color: #fff;
-   border-radius: 15rpx;
-   margin-top: -60rpx;
+   top: -100%;
+   opacity: 0;
 }
 
-.succ  .mask-main-content {
-    width: 652rpx;
-    height: 842rpx;
-}
-
-.succ {
-   width: 652rpx;
-   margin-top: 140rpx;
-}
-
-
-
-.succ .title {
-   margin-top: 180rpx;
-   color: #fff;
-   font-size: 40rpx;
-}
-
-.succ .avatar {
-   width: 180rpx;
-   height: 180rpx;
-   margin-top: 20rpx;
-   border-radius: 50%;
-}
-
-.succ .desp {
-   font-size: 30rpx;
-   margin-top: 20rpx;
-}
-
-.succ .desp2 {
-   font-size: 36rpx;
-   margin-top: 10rpx;
-   color: #ecc47f;
-}
-
-.succ > .mask-main-content {
-  margin-top: 0;
-  background: rgba(0,0,0,0.0);
-  z-index: 100;
-}
-
-.mask-content > .succ-header {
-   width: 652rpx;
-   height: 842rpx;
-   position: absolute;
-   top: 0;
-}
-
-.mask-succ {
+.mask-hb {
    opacity: 0;
    top: -100%;
 }
 
-.mask-content > .close {
-   width: 48rpx;
-   height: 48rpx;
-   margin-top: 60rpx;
-   
+.part1 {
+  width: 522rpx;
+  height: 662rpx;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 140rpx;
 }
 
-.open-money {
-   margin-top: 40rpx;
-   width: 182rpx;
-   height: 182rpx;
-   opacity: 0;
+.zlhb-part1-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 522rpx;
+  height: 662rpx;
 }
 
-.double {
-   width: 402rpx;
-   height: 105rpx;
-   margin-top: 250rpx;
-   position: relative;
+.max-money {
+  position: relative;
+  margin-top: 340rpx;
+  z-index: 2;
+  font-size: 30rpx;
 }
 
-.double image {
-   width: 402rpx;
-   height: 105rpx;
+.zlhb-get-money {
+  position: relative;
+  margin-top: 50rpx;
+  width: 402rpx;
+  height: 106rpx;
+  z-index: 2;
 }
 
-.double button {
+.zlhb-get-money image, .zlhb-get-money button {
    position: absolute;
    left: 0;
    top: 0;
    width: 402rpx;
-   height: 105rpx;
-   opacity: 0;
+   height: 106rpx;
 }
 
-.hb {
-   width: 402rpx;
-   height: 105rpx;
-   margin-top: 320rpx;
+.zlhb-get-money button {
+    opacity: 0;
+}
+
+
+.mask-content > .close {
+   width: 48rpx;
+   height: 48rpx;
+   margin-top: 50rpx;
 }

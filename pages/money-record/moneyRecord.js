@@ -15,15 +15,15 @@ Page({
   data: {
     recordList: [],
     isShowContent: false,
-    animationDataSucc: {},
-    animationDataMaskSucc: {},
+    animationDataHb: {},
+    animationDataMaskHb: {},
     avatarImg: '',
     "type": 2 
   },
-  closeSucc() {
-    this.toogleSucc(0)
+  closeHb() {
+    this.toogleHb(0)
   },
-  toogleSucc(opacity) {
+  toogleHb(opacity) {
     var animation = wx.createAnimation({
       duration: 500,
       timingFunction: 'ease',
@@ -38,8 +38,8 @@ Page({
     this.animationMask = animationMask
     animationMask.opacity(opacity).top(opacity == 0 ? "-100%" : 0).step()
     this.setData({
-      animationDataSucc: animation.export(),
-      animationDataMaskSucc: animationMask.export()
+      animationDataHb: animation.export(),
+      animationDataMaskHb: animationMask.export()
     })
   },
   onLoad: function (options) {
@@ -68,7 +68,7 @@ Page({
        avatarImg: app.index.data.userInfo.face,
        "type": app.type
     })
-    this.toogleSucc(1)
+    this.toogleHb(1)
   },
   playMusic(src) {    
     const innerAudioContext = wx.createInnerAudioContext()
@@ -93,7 +93,7 @@ Page({
           if(res.data.code == 1){
             thiz.moneyMusicPlay() 
             app.mtype = 1
-            app.index.data.userInfo.money = res.data.data.f_money
+            app.index.data.userInfo.money = (res.data.data.f_money).toFixed(2)
             app.index.setData({
                 userInfo: app.index.data.userInfo
             })
@@ -104,7 +104,7 @@ Page({
             thiz.setData({
               recordList: thiz.data.recordList
             }) 
-            thiz.toogleSucc(0)
+            thiz.toogleHb(0)
             wx.navigateTo({
               url: '/pages/openmoney/openmoney',
             }) 

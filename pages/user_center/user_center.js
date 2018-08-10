@@ -106,5 +106,13 @@ Page({
     wx.navigateTo({
       url: '/pages/cash/cash',
     })
+  },
+  onShareAppMessage(shareRes) {
+    let thiz = this
+    let lp =  -1
+    let i = parseInt(Math.random() * 2)
+    return app.index.commonShare(shareRes, app.index.data.appInfo.share_title[i], app.index.data.appInfo.share_ico[i], (iv, ed) => {
+      app.index.shareSucc(iv, ed, undefined, lp)
+    }, lp)
   }
 })

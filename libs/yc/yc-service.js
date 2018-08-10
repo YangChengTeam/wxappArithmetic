@@ -230,19 +230,21 @@ function emptyQuestion() {
   })()
 }
 
-function userHelp(share_user_id) {
+function userHelp(form_id, share_user_id) {
   return co.wrap(function* () {
     return yield kknet.post(kkconfig.userHelpUrl, {
+      form_id: form_id,
       share_user_id: share_user_id
     })
   })()
 }
 
 
-function userRedBag(share_user_id) {
+function userRedBag(form_id, share_user_id) {
   return co.wrap(function* () {
     return yield kknet.post(kkconfig.userRedBagUrl, {
-      share_user_id: share_user_id
+      share_user_id: share_user_id,
+      form_id: form_id
     })
   })()
 }

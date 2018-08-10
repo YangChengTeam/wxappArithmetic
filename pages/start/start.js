@@ -7,7 +7,7 @@ const co = require('../../libs/co')
 const kkgen = require('../../libs/yc/yc-arithmetic-gen.js')
 const kkservice = require("../../libs/yc/yc-service.js")
 const offset = 4
-
+const preTime = 3
 var questions = []
 Page({
 
@@ -102,7 +102,7 @@ Page({
           questionInfo.t = "0" + questionInfo.t;
         }
         
-        questionInfo.preTime = 3
+        questionInfo.preTime = preTime
         questionInfo.aIndex = 0
         let nums = questionInfo.question.split("")
         thiz.data.results = []
@@ -178,8 +178,7 @@ Page({
 
     if(last){
       this.lastAudioContext = innerAudioContext
-    }
-    
+    }  
     innerAudioContext.src = src
     innerAudioContext.loop = loop
     innerAudioContext.play()
@@ -317,10 +316,8 @@ Page({
       animationDataSelect: thiz.animationDataSelect.export(),
       animationDataStartDesp: thiz.animationDataStartDesp.export(),
     })
-    setTimeout(() => {
-      this.preCountDown()
-      this.backgroundMusicPlay()
-    }, 500)
+    this.preCountDown()
+    this.backgroundMusicPlay()
   },
   
   invisiable() {
@@ -572,7 +569,7 @@ Page({
       }
       questionInfo.aIndex = 0
       thiz.question_ids += questionInfo.id + ","
-      questionInfo.preTime = 3
+      questionInfo.preTime = preTime
       let nums = questionInfo.question.split("")
       thiz.data.nums = []
       thiz.data.results = []
@@ -675,7 +672,7 @@ Page({
         if (res.data.code == 1) {
           thiz.moneyMusicPlay()
           app.money = res.data.data.change_money
-          app.index.data.userInfo.money = res.data.data.f_money
+          app.index.data.userInfo.money = (res.data.data.f_money).toFixed(2)
           app.index.setData({
             userInfo: app.index.data.userInfo
           })
@@ -713,7 +710,12 @@ Page({
             clearInterval(this.pretimer)
             return
       }
-      this.last3MusicPlay()
+      // if (this.data.questionInfo.preTime > 2){
+      //   this.last3MusicPlay()
+      // }
+      if (this.data.questionInfo.preTime == 2){
+        this.readygoMusicPlay()
+      }
       this.data.questionInfo.preTime -= 1
       this.setData({
         questionInfo: this.data.questionInfo
@@ -721,7 +723,6 @@ Page({
     }, 1000)
   },
   countDown() {
-    this.readygoMusicPlay()
     this.timer = setInterval(() => {
       if (this.data.isOver) return   
       if (this.data.questionInfo.t <= 0) {
@@ -752,7 +753,7 @@ Page({
   },
   openShare() {
     this.sharing = true
-    this.toogleShare(1.0)
+    this.toogleShare(1)
   },
   closeShare() {
     wx.navigateBack({

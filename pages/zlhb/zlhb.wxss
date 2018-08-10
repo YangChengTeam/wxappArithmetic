@@ -29,12 +29,12 @@ page {
 
 .part1 {
   width: 522rpx;
-  height: 462rpx;
+  height: 662rpx;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 30rpx;
+  margin-top: 140rpx;
 }
 
 .zlhb-part1-bg {
@@ -42,25 +42,25 @@ page {
   left: 0;
   top: 0;
   width: 522rpx;
-  height: 462rpx;
+  height: 662rpx;
 }
 
 .max-money {
   position: relative;
-  margin-top: 230rpx;
+  margin-top: 340rpx;
   z-index: 2;
   font-size: 30rpx;
 }
 
 .zlhb-get-money {
   position: relative;
-  margin-top: 30rpx;
+  margin-top: 50rpx;
   width: 402rpx;
   height: 106rpx;
   z-index: 2;
 }
 
-.zlhb-get-money image, .zlhb-get-money button {
+.zlhb-get-money image, .zlhb-get-money form, .zlhb-get-money button {
    position: absolute;
    left: 0;
    top: 0;
@@ -84,7 +84,7 @@ page {
 .part2 > view {
   position: relative;
   z-index: 2;
-  font-size: 30rpx;
+  font-size: 28rpx;
   margin-left: 40rpx;
   margin-right: 40rpx;
 }
@@ -93,6 +93,8 @@ page {
   margin-top: 40rpx;
   color: #ecc47f;
   margin-bottom: 10rpx;
+  font-weight: bold;
+  font-size: 30rpx;
 }
 
 .users {
@@ -108,7 +110,7 @@ page {
   width: 92rpx;
   flex-direction: column;
   align-items: center;
-  height: 180rpx;
+  height: 200rpx;
 }
 
 .users-wrapper  > image {
@@ -120,7 +122,9 @@ page {
 .nick_name {
    color: #fff;
    font-size: 22.45rpx;
+   height: 30rpx;
    margin-top: 5rpx;
+   overflow-y: hidden;
 }
 
 .money {
@@ -143,7 +147,6 @@ page {
   align-self: center;
   position: relative;
   z-index: 2;
-  margin-top: 20rpx;
 }
 
 .zlhb-shar image, .zlhb-shar button {

@@ -101,17 +101,15 @@
     
   </view>
 
-  <view class="mask mask-succ" animation="{{animationDataMaskSucc}}">
-    <view class="mask-content succ" animation="{{animationDataSucc}}">
-      <image class="succ-header" src='../../assets/images/succ-bg.png'></image>
-      <view class="mask-main-content">
-        <view class="title">恭喜获得红包</view>
-        <!-- <view  class="double">
-            <image src='../../assets/images/share-double.png'></image>
-            <button open-type='share'></button>
-        </view> -->
-        <image class="hb" src='../../assets/images/get-hb.png' bindtap='navagateToPrizee'></image>
+<view class="mask mask-hb" animation="{{animationDataMaskHb}}">
+  <view class="mask-content" animation="{{animationDataHb}}">
+    <view class="part1">
+      <image class="zlhb-part1-bg" src='../../assets/images/zlhb-part1-bg.png'></image>
+      <view class="max-money">每日签到红包</view>
+      <view class="zlhb-get-money" bindtap='navagateToPrizee'>
+        <image src='../../assets/images/zlhb-get-money.png'></image>
       </view>
-      <image class="close" src='../../assets/images/close.png' bindtap='closeSucc'></image>
     </view>
+    <image class="close" src='../../assets/images/close.png' bindtap='closeHb'></image>
   </view>
+</view>
