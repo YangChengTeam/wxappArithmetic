@@ -114,5 +114,10 @@ Page({
     return app.index.commonShare(shareRes, app.index.data.appInfo.share_title[i], app.index.data.appInfo.share_ico[i], (iv, ed) => {
       app.index.shareSucc(iv, ed, undefined, lp)
     }, lp)
+  },
+  onShow(e) {
+    wx.onUserCaptureScreen(function (res) {
+      app.screenShot()
+    })
   }
 })

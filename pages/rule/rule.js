@@ -98,5 +98,10 @@ Page({
       title: app.index.shareTitle,
       path: "pages/index/index"
     }
+  },
+  onShow(e) {
+    wx.onUserCaptureScreen(function (res) {
+      app.screenShot()
+    })
   }
 })

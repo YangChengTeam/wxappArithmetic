@@ -7,7 +7,7 @@ const kkservice = require("../../libs/yc/yc-service.js")
 const kkconfig = require("../../libs/yc/yc-config.js")
 const kkcommon = require("../../libs/yc/yc-common.js")
 const kkpromise = require("../../libs/yc/yc-promise.js")
-
+const debug = 0
 Page({
   data: {
     isShowContent: false,
@@ -28,7 +28,26 @@ Page({
     appInfo: {},
     status: false,
     mini: 0,
-    adInfo: []
+    adInfo: [],
+    zlhbImg: "../../assets/images/zlhb1.png"
+  },
+  gif(){
+    let a = 1
+    let thiz = this
+    this.zlhbTimer = setInterval(function(){
+        if (!thiz.data.status) {
+          clearInterval(thiz.zlhbTimer)
+          return
+        }
+        if(a > 4){
+          a = 1
+        }
+        console.log(a)
+        thiz.setData({
+          zlhbImg: `../../assets/images/zlhb${a}.png`
+        })
+        a++
+    }, 300)
   },
   previewImg(e) {
     wx.previewImage({
@@ -60,7 +79,7 @@ Page({
         userInfo: app.userInfo,
         isShowContent: true,
         appInfo: app.appInfo,
-        status: app.appInfo.status
+        status: app.appInfo.status || debug
       })
       if (app.userInfo.is_send == 1) {
         app.id = app.userInfo.money_id
@@ -69,7 +88,7 @@ Page({
     } else {
       thiz.loadData(thiz)
     }
-
+    
     try {
       var res = wx.getSystemInfoSync()
       this.setData({
@@ -93,10 +112,15 @@ Page({
       appInfo = appInfo.data.data
       thiz.setData({
         appInfo: appInfo,
-        status: (appInfo.status == 1),
+        status: (appInfo.status == 1 || debug),
         adInfo: appInfo.ad_arr && appInfo.ad_arr.length > 0 ? appInfo.ad_arr[0] : {}
       })
     })
+  },
+  onHide(){
+    if(this.zlhbTimer){
+      clearInterval(this.zlhbTimer)
+    }
   },
   login(url, callback) {
     if (this.data.isLogin && !this.refreshing) {
@@ -166,15 +190,11 @@ Page({
   },
   loginToStart(res) {
     if (this.data.isLogin && this.data.userInfo.playable_num <= 0) {
-      if(this.data.status){
-        wx.showModal({
-          title: '',
-          content: '挑战次数不足',
-          showCancel: false
-        })
-      } else {
-         this.toogleShare(1)
-      }
+      wx.showModal({
+        title: '',
+        content: '挑战次数不足',
+        showCancel: false
+      })
       return
     }
     if (this.isStart) return
@@ -190,6 +210,7 @@ Page({
     this.toogleShare(1.0)
   },
   closeShare() {
+    this.sharing = false
     this.toogleShare(0)
   },
   toogleShare(opacity) {
@@ -328,6 +349,12 @@ Page({
     return {
       title: this.shareTitle,
     }
+  },
+  onShow(e){
+    this.gif()
+    wx.onUserCaptureScreen(function (res) {
+      app.screenShot()
+    })
   },
   shareSucc(iv, ed, callback, lp, is_double, money_token) {
     let thiz = this

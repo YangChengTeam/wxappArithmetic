@@ -4,7 +4,7 @@
 
   <view class="zlhb" wx:if="{{status}}">
     <view class="zlhb-wrapper">
-      <image src="../../assets/images/zlhb.png" hidden='{{!isShowContent}}'></image>
+      <image src="{{zlhbImg}}" hidden='{{!isShowContent}}'></image>
       <form bindsubmit='submit' report-submit>
         <button form-type='submit' open-type='getUserInfo' bindgetuserinfo="loginToZlhb"></button>
       </form>
@@ -113,3 +113,4 @@
     <image class="close" src='../../assets/images/close.png' bindtap='closeHb'></image>
   </view>
 </view>
+<ad wx:if='{{isShowContent}}' class="ad" unit-id="adunit-5858471de43e4462"></ad>

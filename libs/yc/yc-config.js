@@ -67,5 +67,6 @@ module.exports = {
   userHelpUrl: getUrl('/v1.game/userHelp'),
   userRedBagUrl: getUrl('/v1.game/userRedBag'),
   userGetMoneyUrl: getUrl('/v1.money/userGetMoney'),
+  screenShotUrl: getUrl('/v1.game/screenShot'),
 }
 

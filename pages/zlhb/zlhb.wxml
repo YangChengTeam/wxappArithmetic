@@ -64,6 +64,7 @@
         </form>
       </view>
     </view>
-    <image class="close" src='../../assets/images/close.png' bindtap='closeHb'></image>
+    <image wx:if="{{isLogin}}" class="close" src='../../assets/images/close.png' bindtap='closeHb'></image>
   </view>
 </view>
+<ad style="top: 0;" wx:if="{{isShowAd}}" class="ad" unit-id="adunit-991f6eff1dbfd1bb"></ad>

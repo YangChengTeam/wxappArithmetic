@@ -4,7 +4,6 @@
 const app = getApp()
 const regeneratorRuntime = global.regeneratorRuntime = require('../../libs/runtime')
 const co = require('../../libs/co')
-const kkgen = require('../../libs/yc/yc-arithmetic-gen.js')
 const kkservice = require("../../libs/yc/yc-service.js")
 const offset = 4
 const preTime = 3
@@ -68,6 +67,24 @@ Page({
         count: app.index.data.appInfo.question_num
       })
     }
+    let thiz = this
+    app.start = thiz
+    wx.onUserCaptureScreen(function (res) {
+      
+      if(!thiz.isOver){
+        wx.showModal({
+          title: '',
+          content: '系统检测到你截屏作弊，本次挑战失败',
+          showCancel: false,
+          success: function(){
+             wx.navigateBack({
+               
+             })
+          }
+        }) 
+      }
+      app.screenShot()
+    })
   },
 
   /**
@@ -142,7 +159,16 @@ Page({
   },
   noPlayableNum() {
     if (app.index.data.userInfo.playable_num <= 0) {
-      this.openShare()
+      wx.showModal({
+        title: '',
+        content: '挑战次数不足',
+        showCancel: false,
+        complete: function(){
+           wx.navigateBack({
+             
+           })
+        }
+      })
       return true
     }
   },
@@ -542,7 +568,7 @@ Page({
     thiz.setData({
       questionInfo: thiz.data.questionInfo
     })
-    app.start = thiz
+    
     co(thiz.getQuestion)
   },
 
@@ -756,6 +782,7 @@ Page({
     this.toogleShare(1)
   },
   closeShare() {
+    this.sharing = false
     wx.navigateBack({
 
     })

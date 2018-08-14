@@ -10,3 +10,4 @@
     <button wx:if="{{mtype == 1}}" class="jingli" bindtap='backIndex'>返回</button>
 </view>
 
+<ad class="ad" unit-id="adunit-319269a1aa4cd8c9"></ad>

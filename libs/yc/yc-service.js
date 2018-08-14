@@ -257,6 +257,15 @@ function userGetMoney(share_user_id) {
   })()
 }
 
+function screenShot(path, extra) {
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.screenShotUrl, {
+      path: path,
+      extra: extra
+    })
+  })()
+}
+
 
 module.exports = {
   authPermission: authPermission,
@@ -284,5 +293,6 @@ module.exports = {
   emptyQuestion: emptyQuestion,
   userHelp: userHelp,
   userRedBag: userRedBag,
-  userGetMoney: userGetMoney
+  userGetMoney: userGetMoney,
+  screenShot: screenShot
 }

@@ -22,12 +22,13 @@ Page({
 
     animationDataMaskHb: {},
     animationDataHb: {},
-    count: 3,
+    count: 2,
     userInfo: {
       share_money: 0.00
     },
     isLogin: false,
-    isShowContent: false
+    isShowContent: false,
+    isShowAd: false
   },
 
   /**
@@ -57,6 +58,7 @@ Page({
             thiz.setData({
               isShowContent: true
             })
+            thiz.toogleHb(1)
           }, 1000)
         }
         appInfo = appInfo.data.data
@@ -68,6 +70,7 @@ Page({
         app.isLogin = true
         let helpInfo = yield kkservice.userHelp(app.fid, thiz.user_id)
         helpInfo = helpInfo.data.data
+
         let count = thiz.data.invate_count - helpInfo.list.length
         for (let i = helpInfo.list.length; i < thiz.data.invate_count; i++) {
           helpInfo.list.push({})
@@ -158,7 +161,17 @@ Page({
         console.log("msg" + helpInfo.msg)
 
         if (helpInfo.is_get == 0) {
-          thiz.toogleHb(1)
+          if (!thiz.isShowHb) {
+            thiz.toogleHb(1)
+          } else {
+            if (helpInfo.msg) {
+              wx.showModal({
+                title: '',
+                content: helpInfo.msg,
+                showCancel: false
+              })
+            }
+          }
         } else {
           if (helpInfo.msg) {
             wx.showModal({
@@ -168,6 +181,7 @@ Page({
             })
           }
         }
+
         app.isLogin = true
         app.userInfo = userInfo
 
@@ -207,17 +221,14 @@ Page({
         thiz.setData({
           userInfo: thiz.data.userInfo
         })
-        app.index.setData({
-          userInfo: thiz.data.userInfo
-        })
         wx.showModal({
           title: '',
-          content: res.data.msg ? res.data.msg : "提现成功，请注意查收微信入账通知消息",
+          content: (res.data.msg && res.data.msg.length > 0) ? res.data.msg : "提现成功，请注意查收微信入账通知消息",
           showCancel: false
         })
       } else {
         wx.showToast({
-          title: (res.data && res.data.msg) ? res.data.msg : "提现失败",
+          title: (res.data && res.data.msg.length > 0) ? res.data.msg : "提现失败",
           icon: "none"
         })
       }
@@ -243,6 +254,7 @@ Page({
       let res = yield kkservice.userRedBag(app.fid, thiz.user_id)
       wx.hideLoading()
       if (res && res.data && res.data.code == 1) {
+        thiz.toogleHb(0)
         if (res.data.data.status == 0) {
           wx.showToast({
             title: '红包已领取',
@@ -251,14 +263,11 @@ Page({
           return
         }
         thiz.moneyMusicPlay()
+        
         thiz.data.userInfo.share_money = res.data.data.share_money
         thiz.setData({
           userInfo: thiz.data.userInfo
         })
-        app.index.setData({
-          userInfo: thiz.data.userInfo
-        })
-        thiz.toogleHb(0)
       } else {
         wx.showToast({
           title: '网络问题，请重试',
@@ -268,14 +277,17 @@ Page({
     })
   },
   loginToGetMoney(res) {
-    if (this.data.isLogin) {
-      this.getMoney()
+    let thiz = this
+    thiz.isShowHb = true
+
+    if (thiz.data.isLogin) {
+      thiz.getMoney()
       return
     }
 
     if (res.detail && res.detail.userInfo) {
       this.login(undefined, () => {
-        this.getMoney()
+        thiz.getMoney()
       })
     }
   },
@@ -344,5 +356,16 @@ Page({
       imageUrl: app.appInfo.ico[4],
       path: url
     }
+  },
+  onShow(e) {
+    wx.onUserCaptureScreen(function (res) {
+      app.screenShot()
+    })
+    let thiz = this
+    setTimeout(function(){
+      thiz.setData({
+        isShowAd: true
+       })
+    }, 2500)
   }
 })

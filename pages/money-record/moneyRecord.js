@@ -116,5 +116,10 @@ Page({
           }
        }
      })
+  },
+  onShow(e) {
+    wx.onUserCaptureScreen(function (res) {
+      app.screenShot()
+    })
   }
 })

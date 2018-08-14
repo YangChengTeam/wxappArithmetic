@@ -162,5 +162,10 @@ Page({
     wx.navigateTo({
       url: '/pages/start/start',
     })
+  },
+  onShow(e) {
+    wx.onUserCaptureScreen(function (res) {
+      app.screenShot()
+    })
   }
 })

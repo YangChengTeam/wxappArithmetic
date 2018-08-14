@@ -83,10 +83,10 @@
           <view class="mini" bindtap='previewImg' data-img="{{item.xcx_img}}">{{item.button_name}}</view>
         </block>
       </view>
-      <!-- <view style='height:240rpx; width:100%;'></view> -->
+      <view style='height:240rpx; width:100%;'></view>
     </view>
 
   </view>
-  <!-- <ad wx:if='{{isShowContent}}' class="ad" unit-id="adunit-eb8cccaa6d62db24"></ad> -->
+  <ad wx:if='{{isShowContent}}' class="ad" unit-id="adunit-44720a94ff121daf"></ad>
 
 </view>
