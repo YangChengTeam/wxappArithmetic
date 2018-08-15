@@ -68,6 +68,9 @@
     </view>
 
     <view class="more-list">
+    <view class="ad" style='position: relative; left: 0; margin-top:25rpx; border-radius:15rpx; overflow:hidden; height: 180rpx; width: 652rpx;'>
+      <ad wx:if='{{isShowContent}}' unit-id="adunit-44720a94ff121daf"></ad>
+  </view>
       <view class="more-list-item" wx:for="{{moreList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
         <image class="wxapp-head" src="{{item.img}}"></image>
         <view class="wxapp-info" data-appid="{{item.url}}">
@@ -83,10 +86,9 @@
           <view class="mini" bindtap='previewImg' data-img="{{item.xcx_img}}">{{item.button_name}}</view>
         </block>
       </view>
-      <view style='height:240rpx; width:100%;'></view>
     </view>
 
   </view>
-  <ad wx:if='{{isShowContent}}' class="ad" unit-id="adunit-44720a94ff121daf"></ad>
 
+  
 </view>

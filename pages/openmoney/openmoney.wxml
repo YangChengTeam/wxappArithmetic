@@ -9,5 +9,6 @@
     <button wx:if="{{mtype != 1}}" class="jingli" bindtap='startGame'>继续游戏</button>
     <button wx:if="{{mtype == 1}}" class="jingli" bindtap='backIndex'>返回</button>
 </view>
-
-<ad class="ad" unit-id="adunit-319269a1aa4cd8c9"></ad>
+<view class="ad">
+  <ad unit-id="adunit-319269a1aa4cd8c9"></ad>
+</view>

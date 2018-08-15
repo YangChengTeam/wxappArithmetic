@@ -7,7 +7,7 @@ const kkservice = require("../../libs/yc/yc-service.js")
 const kkconfig = require("../../libs/yc/yc-config.js")
 const kkcommon = require("../../libs/yc/yc-common.js")
 const kkpromise = require("../../libs/yc/yc-promise.js")
-const debug = 0
+const debug = 1
 Page({
   data: {
     isShowContent: false,
@@ -35,11 +35,7 @@ Page({
   gif(){
     let a = 1
     let thiz = this
-    this.zlhbTimer = setInterval(function(){
-        if (!thiz.data.status) {
-          clearInterval(thiz.zlhbTimer)
-          return
-        }
+    this.zlhbTimer = setInterval(function(){ 
         if(a > 4){
           a = 1
         }
@@ -117,6 +113,7 @@ Page({
         adInfo: appInfo.ad_arr && appInfo.ad_arr.length > 0 ? appInfo.ad_arr[0] : {},
         more_app_info: appInfo.ad_arr.splice(1)
       })
+      
     })
   },
   onHide(){

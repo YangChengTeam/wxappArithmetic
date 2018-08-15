@@ -114,6 +114,7 @@
     </view>
     
   </view>
-  
-<ad wx:if="{{isOver}}" class="ad" unit-id="adunit-5bbe4c44de92a233"></ad>
+  <view class="ad" style='bottom: 120rpx;'>
+<ad wx:if="{{isOver}}" unit-id="adunit-5bbe4c44de92a233"></ad>
+</view>
 </view>

@@ -1,4 +1,5 @@
 /**app.wxss**/
+
 page {
   width: 100%;
   background-color: #300a67;
@@ -7,11 +8,11 @@ page {
 }
 
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
 }
 
 .main-bg {
@@ -23,25 +24,24 @@ page {
   z-index: -1;
 }
 
-.main-content {    
-    width: 652rpx;
-    height: 100%;
+.main-content {
+  width: 652rpx;
+  height: 100%;
 }
 
 button, button::after {
-    border: none;
+  border: none;
 }
 
 .loading {
-   width: 100%;
-   height: 100%;
-   display: flex;
-   align-items: flex-start;
-   justify-content: center;
-   position: absolute;
-   left: 0;
-   top: 0;
-   
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .loading > image {
@@ -51,9 +51,10 @@ button, button::after {
 }
 
 .ad {
-   position: fixed;
-   width: 100%;
-   bottom: 0rpx;
-   left: 0;
-   z-index: 10001;
+  position: fixed;
+  width: 660rpx;
+  height: 180rpx;
+  left: 45rpx;
+  bottom: 0rpx;
+  z-index: 9000;
 }

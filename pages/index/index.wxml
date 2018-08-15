@@ -113,4 +113,6 @@
     <image class="close" src='../../assets/images/close.png' bindtap='closeHb'></image>
   </view>
 </view>
-<ad wx:if='{{isShowContent}}' class="ad" unit-id="adunit-5858471de43e4462"></ad>
+<view class="ad">
+  <ad wx:if='{{isShowContent}}'  unit-id="adunit-5858471de43e4462"></ad>
+</view>
