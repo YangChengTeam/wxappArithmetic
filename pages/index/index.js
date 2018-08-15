@@ -28,8 +28,9 @@ Page({
     appInfo: {},
     status: false,
     mini: 0,
-    adInfo: [],
-    zlhbImg: "../../assets/images/zlhb1.png"
+    adInfo: {},
+    zlhbImg: "../../assets/images/zlhb1.png",
+    more_app_info: []
   },
   gif(){
     let a = 1
@@ -113,7 +114,8 @@ Page({
       thiz.setData({
         appInfo: appInfo,
         status: (appInfo.status == 1 || debug),
-        adInfo: appInfo.ad_arr && appInfo.ad_arr.length > 0 ? appInfo.ad_arr[0] : {}
+        adInfo: appInfo.ad_arr && appInfo.ad_arr.length > 0 ? appInfo.ad_arr[0] : {},
+        more_app_info: appInfo.ad_arr.splice(1)
       })
     })
   },

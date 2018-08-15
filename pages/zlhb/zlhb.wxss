@@ -188,7 +188,7 @@ page {
   width: 150rpx;
   position: fixed;
   left: -25rpx;
-  top: 120rpx;
+  top: 250rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -217,7 +217,7 @@ page {
   top: -100%;
   opacity: 0;
   left: 0;
-  z-index: 10000;
+  z-index: 10002;
 }
 
 .mask-content {

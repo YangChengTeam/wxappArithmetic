@@ -26,8 +26,8 @@
       <button form-type='submit' open-type='share' bindgetuserinfo="loginToStart"></button>
     </view>
     <view class="other-games">
-      <view class="other-game-item" wx:for="{{appInfo.more_app_info}}" wx:for-index="index" wx:for-item="item" wx:key="id">
-        <block wx:if="{{item.is_bind}}">
+      <view class="other-game-item" wx:for="{{more_app_info}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+        <block wx:if="{{item.url}}">
           <view wx:if="{{mini == -1}}" class="bg mini" bindtap='natiageToMiniProgram' data-appid="{{item.url}}">
             <image class="bg" src='../../assets/images/other-game-bg.png'></image>
           </view>
