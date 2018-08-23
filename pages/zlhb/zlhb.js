@@ -116,6 +116,7 @@ Page({
   },
   onPullDownRefresh: function () {
     let thiz = this
+    thiz.isCashing = false
     thiz.refreshing = true
     thiz.loadData({
       id: thiz.user_id,
@@ -199,13 +200,17 @@ Page({
   },
   // userGetMoney: userGetMoney
   caseMoney() {
-    console.log(this.data.helpInfo.status)
+    if (this.isCashing) {
+      return
+    }
+    this.isCashing = true
     if (this.data.helpInfo.status != 1) {
       wx.showModal({
         title: '提现失败',
         content: `还需邀请${this.data.count}位好友完成助力任务！`,
         showCancel: false
       })
+      this.isCashing = false
       return
     }
     let thiz = this

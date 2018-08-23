@@ -83,12 +83,17 @@ Page({
     })
   },
   submitCash(e) {
+    if(this.isCashing){
+       return
+    }
+    this.isCashing = true
     let money = parseFloat(this.data.currentMoney)
     if (isNaN(money) || parseFloat(money) < 0.01) {
       wx.showToast({
         title: '输入的格式不正确',
         icon: 'none'
       })
+      this.isCashing = false
       return
     }
     if (money > parseFloat(app.index.data.userInfo.money)) {
@@ -96,6 +101,7 @@ Page({
         title: '提现金额大于赏金',
         icon: 'none'
       })
+      this.isCashing = false
       return
     }
     money = money.toFixed(2)
@@ -109,6 +115,7 @@ Page({
         mask: true
       })
       var res = yield kkservice.changeMoney(money)
+      this.isCashing = false
       wx.hideLoading()
       if (res && res.data) {
         if (res.data.code == 1) {
