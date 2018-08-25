@@ -32,7 +32,7 @@ const status = {
 const net = {
   defaultParams: {
     app_type: 'wx',
-    app_id: 42
+    app_id: 46
   }
 }
 

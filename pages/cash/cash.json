@@ -2,5 +2,10 @@
   "backgroundColor": "#f5f5f5",
   "navigationBarBackgroundColor": "#fff",
   "navigationBarTitleText": "赏金提现",
-  "navigationBarTextStyle": "black"
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "tab": "/components/tab/tab",
+    "dialog": "/components/dialog/dialog",
+    "nav": "/components/nav/nav"
+  }
 }

@@ -2,9 +2,9 @@
 
 page {
   width: 100%;
-  background-color: #300a67;
+  background-color: #fff;
   color: white;
-  height: 98.3%;
+  height: 100%;
 }
 
 .container {
@@ -15,17 +15,8 @@ page {
   height: 100%;
 }
 
-.main-bg {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 750rpx;
-  height: 1220rpx;
-  z-index: -1;
-}
-
 .main-content {
-  width: 652rpx;
+  width: 100%;
   height: 100%;
 }
 
@@ -45,10 +36,11 @@ button, button::after {
 }
 
 .loading > image {
-  width: 498rpx;
-  height: 318rpx;
-  margin-top: 200rpx;
+  width: 456rpx;
+  height: 384rpx;
+  margin-top: 300rpx;
 }
+
 
 .ad {
   position: fixed;

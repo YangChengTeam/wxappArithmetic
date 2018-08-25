@@ -44,6 +44,7 @@ Page({
   onLoad: function (options) {
     wx.hideShareMenu({})
     var thiz = this
+    app.setNavInfo("提现记录", "#fff", 2)
     co(function* () {
       var recordList = yield kkservice.moneyList()
       console.log(recordList)

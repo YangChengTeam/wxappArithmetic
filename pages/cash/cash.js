@@ -12,41 +12,29 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
-    animationDataSign: {},
-    animationDataMaskSign: {},
-    userInfo: {
-
-    },
-    currentMoney: '',
-    code: '',
+  data: { 
     ruleList: [],
-    cashTip: ""
+    isShowContent: false
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     let thiz = this
+
+    app.setNavInfo("", "rgba(0,0,0,0)", 2, "/pages/index/index")
     co(function* () {
-      var appInfo = app.index.data.appInfo
-      var ruleList = (appInfo.change_money_rule.split('\n'))
+      let res = yield kkservice.getAppInfo()
+      let appInfo = res.data.data
+      let ruleList = (appInfo.change_money_rule.split('\n'))
       ruleList.forEach((v, k) => {
-        ruleList[k] = v.replace(`${k + 1}.`, '')
+          ruleList[k] = v.replace(`${k + 1}.`, '')
       })
-      if (parseFloat(app.index.data.userInfo.allow_change_money) > parseFloat(app.index.data.userInfo.money)) {
-        thiz.data.cashTip = `最低提现金额为${app.index.data.userInfo.allow_change_money}元`
-      } else {
-        thiz.data.cashTip = `满${app.index.data.userInfo.allow_change_money}元可提现`
-      }
       thiz.setData({
         ruleList: ruleList,
-        userInfo: app.index.data.userInfo,
-        cashTip: thiz.data.cashTip
+        isShowContent: true
       })
     })
-
-
   },
 
   /**
@@ -54,33 +42,6 @@ Page({
    */
   onReady: function () {
 
-  },
-  closeSign() {
-    this.toogleSign(0)
-  },
-  toogleSign(opacity) {
-    var animation = wx.createAnimation({
-      duration: 500,
-      timingFunction: 'ease',
-    })
-    this.animation = animation
-    animation.opacity(opacity).top(opacity == 0 ? "-100%" : 0).step()
-
-    var animationMask = wx.createAnimation({
-      duration: 0,
-      timingFunction: 'ease',
-    })
-    this.animationMask = animationMask
-    animationMask.opacity(opacity).top(opacity == 0 ? "-100%" : 0).step()
-    this.setData({
-      animationDataSign: animation.export(),
-      animationDataMaskSign: animationMask.export()
-    })
-  },
-  getAllMoney(e) {
-    this.setData({
-      currentMoney: app.index.data.userInfo.money
-    })
   },
   submitCash(e) {
     if(this.isCashing){
@@ -151,28 +112,9 @@ Page({
       url: '/pages/cash-record/cashRecord',
     })
   },
-  copyCode(e) {
-    wx.setClipboardData({
-      data: this.data.code,
-      success: function (res) {
-        wx.showToast({
-          title: '复制成功',
-          icon: 'none'
-        })
-      }
-    })
-  },
-  checkMoney(e) {
-    this.data.currentMoney = e.detail.value
-  },
-  redirectToGame(e) {
-    wx.navigateTo({
-      url: '/pages/start/start',
-    })
-  },
-  onShow(e) {
-    wx.onUserCaptureScreen(function (res) {
-      app.screenShot()
+  redirectToIndex(e) {
+    wx.redirectTo({
+      url: '/pages/index/index',
     })
   }
 })

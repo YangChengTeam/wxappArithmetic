@@ -3,41 +3,37 @@ const regeneratorRuntime = global.regeneratorRuntime = require('/libs/runtime')
 const co = require('/libs/co')
 const kkservice = require("/libs/yc/yc-service.js")
 App({
-  onLaunch: function () {
+  onLaunch: function() {
     let thiz = this
-    wx.onUserCaptureScreen(function (res) {
-         thiz.screenShot()
+    thiz.tabIndex = 0
+    wx.onUserCaptureScreen(function(res) {
+      thiz.screenShot()
     })
   },
-  screenShot(){
+  setNavInfo(title, background, back = 0, redirectPath=''){
+    this.title = title
+    this.background = background
+    this.back = back
+    this.redirectPath = redirectPath
+  },
+  screenShot() {
     let thiz = this
     let pages = getCurrentPages()
     let page = pages[pages.length - 1]
     let path = page.route
     let extra = ""
-    if (path.indexOf("index") != -1){
-        if(thiz.index.sharing){
-          extra = "正在分享"
-        }
-    }
-    if (path.indexOf("start") != -1) { 
-      if(!thiz.start.isOver){
-        extra = "作弊"
-      }
-      if (thiz.start.sharing) {
-        extra = "正在分享"
-      }
-    }
     kkservice.screenShot(path, extra)
   },
   compareVersion(v1, v2) {
     v1 = v1.split('.')
     v2 = v2.split('.')
+
     var len = Math.max(v1.length, v2.length)
 
     while (v1.length < len) {
       v1.push('0')
     }
+
     while (v2.length < len) {
       v2.push('0')
     }
@@ -52,7 +48,16 @@ App({
         return -1
       }
     }
-
     return 0
+  },
+  getMini() {
+    let mini = -1
+    try {
+      let res = wx.getSystemInfoSync()
+      mini = this.compareVersion(res.SDKVersion, '2.0.7')
+    } catch (e) {
+
+    }
+    return mini
   }
 })

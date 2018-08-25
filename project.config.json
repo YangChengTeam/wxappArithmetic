@@ -1,16 +1,16 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.94",
-	"appid": "wx574eeb995f999f9a",
-	"projectname": "jyw",
+	"libVersion": "2.2.3",
+	"appid": "wx0d62a9b3731a4d2d",
+	"projectname": "appStore",
 	"condition": {
 		"search": {
 			"current": -1,

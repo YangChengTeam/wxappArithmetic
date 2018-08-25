@@ -1,0 +1,6 @@
+<!--compoents/dialog/dialog.js.wxml-->
+<view class="mask" animation="{{animationDataMask}}">
+     <view class="mask-content" animation="{{animationData}}">
+          <slot></slot>
+     </view>
+</view>

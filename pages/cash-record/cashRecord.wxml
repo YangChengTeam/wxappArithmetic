@@ -1,58 +1,25 @@
 <!--pages/cash-record/cashRecord.wxml-->
 <view class="container">
-     <view class="loading" hidden='{{isShowContent}}'>
-       <image src="../../assets/images/loading.png"></image> 
-</view>
-
-<view class="record-list" hidden='{{!isShowContent}}'>
-  <view class="record-list-item" wx:for="{{recordList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
-    <view class="info">
-      <rich-text class="money"><b style='font-size:40rpx;'>{{item.money}}</b>元</rich-text> 
-      <view class="time">{{item.add_time}}</view>
-    </view>
-    <view wx:if="{{item.status == 9}}" class="get">已领取</view>
-    <view class="user-money-take" wx:if="{{item.status == 0}}">
-      <image src='../../assets/images/user-money-take.png' bindtap='getCode' data-code="{{item.uniqid}}"></image>
-    </view>
+  <view class="loading" hidden='{{isShowContent}}'>
+    <image src="../../assets/images/loading.png"></image>
   </view>
-  <view class="record-footer"></view>
-</view>
- <view class="mask" animation="{{animationDataMaskSign}}">
-    <view class="mask-content" animation="{{animationDataSign}}">
-      <image src='../../assets/images/copy-up.png' class="up" ></image>
-      <view class="mask-content-wrap">
-          <image src='../../assets/images/cash-code-bg.png' class="code-copy-bg" ></image>
-          <view class="mask-content-wrap2">
-          <view class="title">复制提现码，申请提现</view>
-          <view class="code">{{code}}</view>
-          <image src='../../assets/images/copy-code.png' class="copy" bindtap='copyCode'></image>
-          <view class="line">
-          <view class="part1"  style='justify-content: center;'>
-          <image class="part" src='../../assets/images/md1.png'></image>
-          </view>
-          <view class="part1">
-             <view class="desp" style='margin-left: 30rpx;'>1、点击右上角</view>
-             <image class="dot" src='../../assets/images/md0.png'></image>
-             <view class="desp">，选择</view>
-             <image style='width:176rpx; height:25rpx;' src='../../assets/images/md2.png'></image>
-          </view>
-          <view class="part1">
-             <view class="desp" style='margin-left: 30rpx;'>2、点击相关公众号 ，选择</view>
-             <image style='width:152rpx; height:25rpx;' src='../../assets/images/md3.png'></image>
-          </view>
-         <view class="part1">
-             <view class="desp" style='margin-left: 30rpx;'>3、关注公众号，点击</view> 
-              <image style='width:152rpx; height:25rpx;' src='../../assets/images/md4.png'></image>
-          </view>
-          <view class="part1">
-             <view class="desp" style='margin-left: 30rpx;'>4、将提制的提现码发送给公众号即可</view>
-             </view>
-             </view>
-          </view>
+
+  <view class="record-content" hidden='{{!isShowContent}}'>
+    <nav></nav>
+    <view class="record-list">
+
+      <view class="record-list-item" wx:for="{{recordList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+        <view class="info">
+          <rich-text class="money">
+            <b style='font-size:40rpx;'>{{item.money}}</b>元</rich-text>
+          <view class="time">{{item.add_time}}</view>
+        </view>
+        <view wx:if="{{item.status == 9}}" class="get">已领取</view>
+        <view class="user-money-take" wx:if="{{item.status == 0}}">
+          <image src='../../assets/images/user-money-take.png' bindtap='getCode' data-code="{{item.uniqid}}"></image>
+        </view>
       </view>
-      <image class="close" src='../../assets/images/close.png' bindtap='closeSign'></image>
+      <view class="record-footer"></view>
     </view>
-
-
   </view>
 </view>

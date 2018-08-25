@@ -1,5 +1,4 @@
 {
-  "navigationBarTitleText": "提现记录",
   "usingComponents": {
     "tab": "/components/tab/tab",
     "dialog": "/components/dialog/dialog",

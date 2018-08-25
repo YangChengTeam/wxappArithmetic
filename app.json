@@ -1,22 +1,19 @@
 {
   "pages": [
-    "pages/index/index",  
+    "pages/cash/cash",
+    "pages/index/index",
     "pages/zlhb/zlhb",
     "pages/cash-record/cashRecord",
-    "pages/cash/cash",
-    "pages/openmoney/openmoney",
-    "pages/start/start",
-    "pages/rank/rank",
     "pages/rule/rule",
-    "pages/user_center/user_center",
     "pages/complain/complain",
-    "pages/money-record/moneyRecord"
+    "pages/cooperation/cooperation"
   ],
   "window": {
     "backgroundTextStyle": "dark",
-    "backgroundColor": "#300a67",
-    "navigationBarBackgroundColor": "#300a67",
-    "navigationBarTitleText": "数字记忆王",
-    "navigationBarTextStyle": "white"
+    "backgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "微程序榜",
+    "navigationBarTextStyle": "black" ,
+    "navigationStyle": "custom"
   }
 }

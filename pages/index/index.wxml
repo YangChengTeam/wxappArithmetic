@@ -1,118 +1,160 @@
 <!--index.wxml-->
-<view class="container">
-  <image class="bg-header" src="../../assets/images/index-header.png" hidden='{{!isShowContent}}'></image>
-
-  <view class="zlhb" wx:if="{{status}}">
-    <view class="zlhb-wrapper">
-      <image src="{{zlhbImg}}" hidden='{{!isShowContent}}'></image>
-      <form bindsubmit='submit' report-submit>
-        <button form-type='submit' open-type='getUserInfo' bindgetuserinfo="loginToZlhb"></button>
-      </form>
+<view class="container" hidden='{{index == 1}}'>
+  <view class="share" hidden='{{!isShowContent}}'>
+    <view class="share-wrapper">
+      <image src="{{shareImg}}"></image>
+      <button form-type='submit' open-type='share'></button>
     </view>
   </view>
   <view class="loading" hidden='{{isShowContent}}'>
     <image src="../../assets/images/loading.png"></image>
   </view>
   <view class="main-content-wrapper" hidden='{{!isShowContent}}'>
-    <view animation="{{gameStart_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="0" bindtouchcancel='end' class="game-start">
-      <image src="../../assets/images/game-start.png"></image>
-      <form bindsubmit='submit' report-submit>
-        <button form-type='submit' open-type='getUserInfo' bindgetuserinfo="loginToStart"></button>
-      </form>
-    </view>
-
-    <view animation="{{share_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="1" bindtouchcancel='end' class="game-start" wx:if="{{status}}">
-      <image src="../../assets/images/share.png"></image>
-      <button form-type='submit' open-type='share' bindgetuserinfo="loginToStart"></button>
-    </view>
-    <view class="other-games">
-      <view class="other-game-item" wx:for="{{more_app_info}}" wx:for-index="index" wx:for-item="item" wx:key="id">
-        <block wx:if="{{item.url}}">
-          <view wx:if="{{mini == -1}}" class="bg mini" bindtap='natiageToMiniProgram' data-appid="{{item.url}}">
-            <image class="bg" src='../../assets/images/other-game-bg.png'></image>
-          </view>
-          <navigator wx:if="{{mini >-1 }}" class="bg mini" target="miniProgram" app-id='{{item.url}}' appId='{{item.url}}'>
-            <image class="img" src='../../assets/images/other-game-bg.png'></image>
-          </navigator>
-        </block>
-        <block wx:else>
-          <view class="bg mini" bindtap='previewImg' data-img="{{item.xcx_img}}">
-            <image class="bg" src='../../assets/images/other-game-bg.png'></image>
-          </view>
-        </block>
-        <image class="img" src='{{item.img}}'></image>
-      </view>
-    </view>
-
-    <view class="menu">
-      <image class="line" src="../../assets/images/menu-cross-line.png"></image>
-      <view class="menu-wrapper">
-        <view class="menu-item">
-        <image animation="{{rule_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="2" bindtouchcancel='end' class="rule" src="../../assets/images/game-rule.png" bindtap='navigateToRule'></image>
-        <view>规则</view>
-        </view>
-        <view class="more menu-item">
-        <image animation="{{prize_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="3" bindtouchcancel='end' class="prize" src="../../assets/images/game-prize.png"></image>  
-         <view>提现</view>
-         <form bindsubmit='submit' report-submit>
-            <button form-type='submit' open-type='getUserInfo' bindgetuserinfo="loginToCash"></button>
-          </form>
-         </view>
-        <view animation="{{more_animationData}}" bindtouchstart='start' bindtouchend='end' data-index="4" bindtouchcancel='end' class="more menu-item">
-          <image src="../../assets/images/more.png"></image>
-          <view>更多好玩</view>
-          <block wx:if="{{adInfo.url}}">
-          <view wx:if="{{mini == -1}}" class="mini2" bindtap='natiageToMiniProgram' data-appid="{{adInfo.url}}">
-          </view>
-          <navigator wx:if="{{mini >-1 }}" class="mini2" target="miniProgram" app-id='{{adInfo.url}}' appId='{{adInfo.url}}'>
-          </navigator>
-        </block>
-         <block wx:else>
-          <view class="mini2" bindtap='previewImg' data-img="{{adInfo.xcx_img}}">
-          </view>
-        </block>
-        </view>
-      </view>
-    </view>
-  </view>
-
-
-</view>
-
-<view class="mask mask-share" animation="{{animationDataMaskShare}}">
-    <view class="mask-content share" animation="{{animationDataShare}}">
-      <view class="main-share">
-        <image class="share-img" src="../../assets/images/share-bg.png"></image>
-        <view class="share-part">
-          <image class="share-more" src="../../assets/images/share-more.png"></image>
-          <view class="share-desp">分享到群,即可获得挑战机会</view>
-          <view class="share-desp">今日分享过的群，不会得挑战机会哟</view>
-        </view>
-        <view class="share-part2">
-         <view class="share-part2-wrapper">
-          <image src='../../assets/images/share-btn.png'></image>
-          <button open-type='share'></button>
-          </view>
-        </view>
-      </view>
-
-      <image class="close" src='../../assets/images/close.png' bindtap='closeShare'></image>
-    </view>
     
+    <scroll-view scroll-y style='height: 100%; width: 100%;' >
+      <nav></nav>
+      <swiper indicator-dots indicator-color="rgba(0, 0, 0, .3)">
+        <swiper-item wx:for="{{appInfo.banner}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+          <block wx:if="{{item.type==3}}">
+            <image src='{{item.img}}' bindtap='previewImg' data-img="{{item.xcx_img}}"></image>
+          </block>
+          <block wx:if="{{item.type==2}}">
+            <image src='{{item.img}}' wx:if="{{mini==-1}}" bindtap='natiageToMiniProgram' data-appid="{{item.url}}"></image>
+            <navigator wx:if="{{mini>-1}}" target="miniProgram" app-id='{{item.url}}' appId='{{item.url}}'>
+              <image src='{{item.img}}'></image>
+            </navigator>
+          </block>
+          <block wx:if="{{item.type==1}}">
+            <image src='{{item.img}}'></image>
+            <button data-url="{{item.url}}" open-type='getUserInfo' bindgetuserinfo="doToPath"></button>
+          </block>
+        </swiper-item>
+      </swiper>
+      <view class="top-list">
+        <view class="top-item" wx:for="{{appInfo.ad_arr}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+          <block wx:if="{{item.type==3}}">
+            <image src='{{item.img}}' bindtap='previewImg' data-img="{{item.xcx_img}}"></image>
+          </block>
+          <block wx:if="{{item.type==2}}">
+            <image src='{{item.img}}' wx:if="{{mini==-1}}" bindtap='natiageToMiniProgram' data-appid="{{item.url}}"></image>
+            <navigator wx:if="{{mini>-1}}" target="miniProgram" app-id='{{item.url}}' appId='{{item.url}}'>
+              <image src='{{item.img}}'></image>
+            </navigator>
+          </block>
+          <block wx:if="{{item.type==1}}">
+            <view class="top-item-wrapper">
+              <image src='{{item.img}}' data-url="{{item.url}}" bindtap='natiageToPath'></image>
+              <button data-url="{{item.url}}" open-type='getUserInfo' bindgetuserinfo="doToPath"></button>
+            </view>
+          </block>
+        </view>
+      </view>
+      <view class="more-list">
+        <view class="more-list-item" wx:for="{{appInfo.more_app_info}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+          <image class="wxapp-head" src="{{item.img}}"></image>
+          <view class="wxapp-info" data-appid="{{item.url}}">
+            <view class="wxapp-name">{{item.name}}</view>
+            <view class="wxapp-desp">{{item.desc}}
+            </view>
+          </view>
+          <view class="wxapp-go">
+            <rich-text>{{item.click_num}}
+              <strong style="color:#000;">人在玩</strong>
+            </rich-text>
+            <block wx:if="{{item.type==3}}">
+              <view class="mini" bindtap='previewImg' data-img="{{item.xcx_img}}">
+                <image src='../../assets/images/btn-go.png'></image>
+                <view>{{item.button_name}}</view>
+              </view>
+            </block>
+            <block wx:if="{{item.type==2}}">
+              <view wx:if="{{mini==-1}}" class="mini" bindtap='natiageToMiniProgram' data-appid="{{item.url}}">
+                <image src='../../assets/images/btn-go.png'></image>
+                <view>{{item.button_name}}</view>
+              </view>
+              <navigator wx:if="{{mini>-1}}" class="mini" target="miniProgram" app-id='{{item.url}}' appId='{{item.url}}'>
+                <image src='../../assets/images/btn-go.png'></image>
+                <view>{{item.button_name}}</view>
+              </navigator>
+            </block>
+            <block wx:if="{{item.type==1}}">
+              <view class="mini" bindtap='natiageToPath' data-url="{{item.url}}">
+                <image src='../../assets/images/btn-go.png'></image>
+                <view>{{item.button_name}}</view>
+                <button data-url="{{item.url}}" open-type='getUserInfo' bindgetuserinfo="doToPath"></button>
+              </view>
+            </block>
+          </view>
+        </view>
+      </view>
+      <view style='height:150rpx; width:100%;'></view>
+    </scroll-view>
   </view>
 
-<view class="mask mask-hb" animation="{{animationDataMaskHb}}">
-  <view class="mask-content" animation="{{animationDataHb}}">
-    <view class="part1">
-      <image class="zlhb-part1-bg" src='../../assets/images/zlhb-part1-bg.png'></image>
-      <view class="max-money">每日签到红包</view>
-      <view class="zlhb-get-money" bindtap='navagateToPrizee'>
-        <image src='../../assets/images/zlhb-get-money.png'></image>
+</view>
+
+
+
+<!--pages/user_center/user_center.wxml-->
+<view class="container" hidden='{{index==0}}' style='background: #f5f5f5'>
+  <scroll-view scroll-y style='height: 100%; width: 100%;'>
+    <view class='main-content' hidden='{{!isShowContent}}'>
+      <view class="user-related">
+        <image src="../../assets/images/user-info-bg.png"></image>
+        <view class="user-info">
+          <image class="user-head" src="{{userInfo.face}}"></image>
+          <view class="username">{{userInfo.nick_name}}</view>
+        </view>
+      </view>
+      <view class="menu">
+        <view class="menu-item" bindtap='navigateToCashRecord'>
+          <image class="icon" src="../../assets/images/cash-ico.png"></image>
+          <view>提现记录</view>
+          <image class="arrow" src="../../assets/images/arrow-right.png"></image>
+        </view>
+
+        <view class="menu-item" bindtap='navigateToCooperation'>
+          <image class="icon" src="../../assets/images/cooperation.png"></image>
+          <view>合作收录</view>
+          <image class="arrow" src="../../assets/images/arrow-right.png"></image>
+        </view>
+
+        <view class="menu-item">
+          <image class="icon" src="../../assets/images/contact.png"></image>
+          <view>意见反馈</view>
+          <image class="arrow" src="../../assets/images/arrow-right.png"></image>
+          <button open-type='contact'></button>
+        </view>
+
+        <view class="menu-item" bindtap='navigateToMakeMoney'>
+          <image class="icon" src="../../assets/images/make-money.png"></image>
+          <view>赚钱任务</view>
+          <image class="arrow" src="../../assets/images/arrow-right.png"></image>
+        </view>
+
       </view>
     </view>
-    <image class="close" src='../../assets/images/close.png' bindtap='closeHb'></image>
-  </view>
+  </scroll-view>
 </view>
-<view class="ad">
-  <ad wx:if='{{isShowContent}}'  unit-id="adunit-5858471de43e4462"></ad>
+
+
+<view class="tab" hidden='{{!isShowContent}}'>
+  <view class="main-tab">
+    <block wx:for="{{tabInfos}}" wx:key="text" wx:for-index="cindex" wx:for-item="item">
+      <view class="tab-item tab-item{{cindex}} {{item.selected}}" data-index='{{cindex}}' bindtap='tab'>
+        <image src="{{cindex == index ? item.selectedIconPath :item.iconPath }}"></image>
+        <view class="text">{{item.text}}</view>
+        <button wx:if="{{cindex == 1}}" class="login" open-type='getUserInfo' bindgetuserinfo="doLogin">登录</button>
+      </view>
+    </block>
+  </view>
+  <view class="cover">
+    <view class="semi-circle"></view>
+  </view>
+  <view class="cover">
+    <view class="cover2"></view>
+  </view>
+  <view class="cover">
+    <image bindtap='natiageToZlhb' src='../../assets/images/tab-center.png'></image>
+  </view>
 </view>
