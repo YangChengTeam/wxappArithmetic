@@ -4,7 +4,6 @@
   "navigationBarTitleText": "赏金提现",
   "navigationBarTextStyle": "black",
   "usingComponents": {
-    "tab": "/components/tab/tab",
     "dialog": "/components/dialog/dialog",
     "nav": "/components/nav/nav"
   }

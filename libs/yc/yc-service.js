@@ -202,10 +202,10 @@ function getRedBag(money_id, form_id) {
   })()
 }
 
-function changeMoney(money) {
+function changeMoney(money_code) {
   return co.wrap(function* () {
     return yield kknet.post(kkconfig.changeMoneyUrl, {
-      money: money
+      money_code: money_code
     })
   })()
 }
@@ -257,6 +257,18 @@ function userGetMoney(share_user_id) {
   })()
 }
 
+function appCooperateImg(filePath) {
+  return co.wrap(function* () {
+    return yield kknet.uploadFile(kkconfig.appCooperateImgUrl, filePath)
+  })()
+}
+
+function appCooperate(data) {
+  return co.wrap(function* () {
+    return yield kknet.post(kkconfig.appCooperateUrl, data)
+  })()
+}
+
 function screenShot(path, extra) {
   return co.wrap(function* () {
     return yield kknet.post(kkconfig.screenShotUrl, {
@@ -294,5 +306,7 @@ module.exports = {
   userHelp: userHelp,
   userRedBag: userRedBag,
   userGetMoney: userGetMoney,
-  screenShot: screenShot
+  screenShot: screenShot,
+  appCooperateImg: appCooperateImg,
+  appCooperate: appCooperate
 }

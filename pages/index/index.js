@@ -20,21 +20,21 @@ Page({
     shareImg: "../../assets/images/share_1.png",
     index: 0,
     tabInfos: [{
-        text: '精选',
-        iconPath: '../../assets/images/tab-index.png',
-        selectedIconPath: '../../assets/images/tab-index-selected.png',
-      },
-      {
-        text: '我的',
-        iconPath: '../../assets/images/tab-my.png',
-        selectedIconPath: '../../assets/images/tab-my-selected.png',
-      }
+      text: '精选',
+      iconPath: '../../assets/images/tab-index.png',
+      selectedIconPath: '../../assets/images/tab-index-selected.png',
+    },
+    {
+      text: '我的',
+      iconPath: '../../assets/images/tab-my.png',
+      selectedIconPath: '../../assets/images/tab-my-selected.png',
+    }
     ]
   },
   gif() {
     let a = 1
     let thiz = this
-    this.shareTimer = setInterval(function() {
+    this.shareTimer = setInterval(function () {
       if (a > 4) {
         a = 1
       }
@@ -55,7 +55,7 @@ Page({
       appId: e.currentTarget.dataset.appid,
     })
   },
-  onLoad: function() {
+  onLoad: function () {
     let thiz = this
     app.setNavInfo("微程序榜", "#fff")
     app.index = this
@@ -70,6 +70,7 @@ Page({
     })
 
     if (app.isLogin) {
+      console.log(app.appInfo)
       thiz.setData({
         isLogin: true,
         userInfo: app.userInfo,
@@ -87,18 +88,20 @@ Page({
       thiz.loadData(thiz)
     }
   },
-  tab(e) {  
-     let index = e.currentTarget.dataset.index
-     if(index == app.tabIndex) return
-     app.tabIndex = index
-     this.setData({
-        index: index
-     })
+  tab(e) {
+    let index = e.currentTarget.dataset.index
+    if (index == app.tabIndex) return
+    app.tabIndex = index
+    this.setData({
+      index: index
+    })
   },
   loadData(thiz) {
-    co(function*() {
+    co(function* () {
       var [status, appInfo] = yield [kkservice.authPermission("scope.userInfo"), yield kkservice.getAppInfo()]
       wx.stopPullDownRefresh()
+      appInfo = appInfo.data.data
+      app.appInfo = appInfo
       if (status == kkconfig.status.authStatus.authOK) {
         thiz.login()
       } else {
@@ -108,7 +111,7 @@ Page({
           })
         }, 300)
       }
-      appInfo = appInfo.data.data
+      
       thiz.setData({
         appInfo: appInfo,
         status: (appInfo.status == 1 || debug)
@@ -131,7 +134,7 @@ Page({
       return
     }
     let thiz = this
-    co(function*() {
+    co(function* () {
       if (!thiz.refreshing) {
         wx.showLoading({
           title: '正在登录...',
@@ -145,7 +148,6 @@ Page({
         userInfo = userInfo.data.data
 
         app.userInfo = userInfo
-        app.appInfo = thiz.data.appInfo
         app.isLogin = true
 
         thiz.setData({
@@ -166,7 +168,7 @@ Page({
       }
     })
   },
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
     let thiz = this
     thiz.refreshing = true
     thiz.loadData(thiz)
@@ -186,16 +188,16 @@ Page({
   },
   doLogin(res) {
     let thiz = this
-    if(app.tabIndex == 1) return
+    if (app.tabIndex == 1) return
     app.tabIndex = 1
-    if(app.isLogin){
-       thiz.setData({
-          index: 1
-       })
-       return
+    if (app.isLogin) {
+      thiz.setData({
+        index: 1
+      })
+      return
     }
     if (res.detail && res.detail.userInfo) {
-      thiz.login(undefined, ()=>{
+      thiz.login(undefined, () => {
         thiz.setData({
           index: 1
         })
@@ -208,7 +210,7 @@ Page({
   },
   onShow(e) {
     this.gif()
-    wx.onUserCaptureScreen(function(res) {
+    wx.onUserCaptureScreen(function (res) {
       app.screenShot()
     })
   },
@@ -217,7 +219,7 @@ Page({
     if (thiz.closeShare) {
       thiz.closeShare()
     }
-    co(function*() {
+    co(function* () {
       let sessionRes = yield kkpromise.checkSession()
       if (sessionRes.code != "0" && sessionRes.errMsg != "checkSession:ok") {
         if (!(yield kkservice.login())) {
@@ -254,7 +256,7 @@ Page({
       title: title,
       path: "pages/index/index",
       imageUrl: icon,
-      success: function(res) {
+      success: function (res) {
         if (lp >= 0 && shareRes.from == "button") {
           kkcommon.share(res.shareTickets[0], callback, lp, is_double, money_token)
         }
@@ -281,30 +283,45 @@ Page({
       thiz.shareSucc(iv, ed, (undefined), lp)
     }, lp)
   }
-
-
   ,
-  navigateToCashRecord(e) {
-    wx.navigateTo({
-      url: '/pages/cash-record/cashRecord',
-    })
+  loginToCashRecord(res) {
+    if (app.isLogin) {
+      wx.navigateTo({
+        url: '/pages/cash-record/cashRecord',
+      })
+      return
+    }
+    if (res.detail && res.detail.userInfo) {
+      this.login('/pages/cash-record/cashRecord')
+    }
   },
-  navigateToCooperation(e) {
-    wx.navigateTo({
-      url: '/pages/cooperation/cooperation',
-    })
+  loginToCooperation(res) {
+    if (app.isLogin) {
+      wx.navigateTo({
+        url: '/pages/cooperation/cooperation',
+      })
+      return
+    }
+    if (res.detail && res.detail.userInfo) {
+      this.login('/pages/cooperation/cooperation')
+    }
   },
-  navigateToMakeMoney(e) {
+  navigateToMakeMoney(res) {
     wx.showModal({
       title: '',
       content: '敬请期待，开发中',
       showCancel: false
     })
-  }
-  ,
-  natiageToZlhb() {
-    wx.navigateTo({
-      url: '/pages/zlhb/zlhb',
-    })
+  },
+  loginToZlhb(res) {
+    if (app.isLogin) {
+      wx.navigateTo({
+        url: '/pages/zlhb/zlhb',
+      })
+      return
+    }
+    if (res.detail && res.detail.userInfo) {
+      this.login('/pages/zlhb/zlhb')
+    }
   }
 })

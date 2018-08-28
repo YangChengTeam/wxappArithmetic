@@ -32,6 +32,24 @@ function get(url, data){
     })
 }
 
+function uploadFile(url, filePath, data){
+  var defaultParams = kkconfig.net.defaultParams
+  data = {
+    ...data,
+    ...defaultParams
+    , t: new Date().getTime()
+  }
+  console.log(data)
+  return kkpromise.uploadFile({
+    url: url,
+    name: 'file',
+    header: getHeader(data),
+    filePath: filePath,
+    formData: data,
+    method: 'POST'
+  })
+}
+
 function post(url, data){
    var defaultParams = kkconfig.net.defaultParams
     data = {
@@ -49,5 +67,6 @@ function post(url, data){
 
 module.exports = {
    get: get,
-   post: post
+   post: post,
+   uploadFile: uploadFile
 }

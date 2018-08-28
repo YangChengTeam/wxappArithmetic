@@ -10,23 +10,23 @@
     <image src="../../assets/images/loading.png"></image>
   </view>
   <view class="main-content-wrapper" hidden='{{!isShowContent}}'>
-    
-    <scroll-view scroll-y style='height: 100%; width: 100%;' >
+
+    <scroll-view scroll-y style='height: 100%; width: 100%;'>
       <nav></nav>
       <swiper indicator-dots indicator-color="rgba(0, 0, 0, .3)">
         <swiper-item wx:for="{{appInfo.banner}}" wx:for-index="index" wx:for-item="item" wx:key="id">
           <block wx:if="{{item.type==3}}">
-            <image src='{{item.img}}' bindtap='previewImg' data-img="{{item.xcx_img}}"></image>
+            <image class="swiper-item-img" src='{{item.img}}' bindtap='previewImg' data-img="{{item.xcx_img}}"></image>
           </block>
           <block wx:if="{{item.type==2}}">
-            <image src='{{item.img}}' wx:if="{{mini==-1}}" bindtap='natiageToMiniProgram' data-appid="{{item.url}}"></image>
-            <navigator wx:if="{{mini>-1}}" target="miniProgram" app-id='{{item.url}}' appId='{{item.url}}'>
-              <image src='{{item.img}}'></image>
+            <image class="swiper-item-img" src='{{item.img}}' wx:if="{{mini==-1}}" bindtap='natiageToMiniProgram' data-appid="{{item.url}}"></image>
+            <navigator class="swiper-item-nav" wx:if="{{mini>-1}}" target="miniProgram" app-id='{{item.url}}' appId='{{item.url}}'>
+              <image class="swiper-item-img" src='{{item.img}}'></image>
             </navigator>
           </block>
           <block wx:if="{{item.type==1}}">
-            <image src='{{item.img}}'></image>
-            <button data-url="{{item.url}}" open-type='getUserInfo' bindgetuserinfo="doToPath"></button>
+            <image class="swiper-item-img" src='{{item.img}}'></image>
+            <button class="swiper-item-btn" data-url="{{item.url}}" open-type='getUserInfo' bindgetuserinfo="doToPath"></button>
           </block>
         </swiper-item>
       </swiper>
@@ -43,7 +43,7 @@
           </block>
           <block wx:if="{{item.type==1}}">
             <view class="top-item-wrapper">
-              <image src='{{item.img}}' data-url="{{item.url}}" bindtap='natiageToPath'></image>
+              <image src='{{item.img}}' data-url="{{item.url}}"></image>
               <button data-url="{{item.url}}" open-type='getUserInfo' bindgetuserinfo="doToPath"></button>
             </view>
           </block>
@@ -78,7 +78,7 @@
               </navigator>
             </block>
             <block wx:if="{{item.type==1}}">
-              <view class="mini" bindtap='natiageToPath' data-url="{{item.url}}">
+              <view class="mini" data-url="{{item.url}}">
                 <image src='../../assets/images/btn-go.png'></image>
                 <view>{{item.button_name}}</view>
                 <button data-url="{{item.url}}" open-type='getUserInfo' bindgetuserinfo="doToPath"></button>
@@ -90,10 +90,7 @@
       <view style='height:150rpx; width:100%;'></view>
     </scroll-view>
   </view>
-
 </view>
-
-
 
 <!--pages/user_center/user_center.wxml-->
 <view class="container" hidden='{{index==0}}' style='background: #f5f5f5'>
@@ -102,21 +99,28 @@
       <view class="user-related">
         <image src="../../assets/images/user-info-bg.png"></image>
         <view class="user-info">
-          <image class="user-head" src="{{userInfo.face}}"></image>
-          <view class="username">{{userInfo.nick_name}}</view>
+          <view class="user-head" wx:if="{{!isLogin}}">
+            <open-data type="userAvatarUrl"></open-data>
+          </view>
+          <view wx:if="{{!isLogin}}" class="username">
+            <open-data type="userNickName"></open-data>
+          </view>
+          <image wx:if="{{isLogin}}" class="user-head" src="{{userInfo.face}}"></image>
+          <view wx:if="{{isLogin}}" class="username">{{userInfo.nick_name}}</view>
         </view>
       </view>
       <view class="menu">
-        <view class="menu-item" bindtap='navigateToCashRecord'>
+        <view class="menu-item">
           <image class="icon" src="../../assets/images/cash-ico.png"></image>
           <view>提现记录</view>
           <image class="arrow" src="../../assets/images/arrow-right.png"></image>
+          <button open-type='getUserInfo' bindgetuserinfo="loginToCashRecord"></button>
         </view>
-
-        <view class="menu-item" bindtap='navigateToCooperation'>
+        <view class="menu-item">
           <image class="icon" src="../../assets/images/cooperation.png"></image>
           <view>合作收录</view>
           <image class="arrow" src="../../assets/images/arrow-right.png"></image>
+          <button open-type='getUserInfo' bindgetuserinfo="loginToCooperation"></button>
         </view>
 
         <view class="menu-item">
@@ -144,7 +148,6 @@
       <view class="tab-item tab-item{{cindex}} {{item.selected}}" data-index='{{cindex}}' bindtap='tab'>
         <image src="{{cindex == index ? item.selectedIconPath :item.iconPath }}"></image>
         <view class="text">{{item.text}}</view>
-        <button wx:if="{{cindex == 1}}" class="login" open-type='getUserInfo' bindgetuserinfo="doLogin">登录</button>
       </view>
     </block>
   </view>
@@ -155,6 +158,11 @@
     <view class="cover2"></view>
   </view>
   <view class="cover">
-    <image bindtap='natiageToZlhb' src='../../assets/images/tab-center.png'></image>
+    <view class="tab-zlhb">
+          <image src='../../assets/images/tab-center.png'></image>
+         <button open-type='getUserInfo' bindgetuserinfo="loginToZlhb"></button>
+    </view>
+   
+  
   </view>
 </view>

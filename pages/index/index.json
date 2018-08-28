@@ -1,7 +1,6 @@
 {
     "backgroundTextStyle": "dark",
     "usingComponents": {
-      "tab": "/components/tab/tab",
       "dialog": "/components/dialog/dialog",
       "nav": "/components/nav/nav"
     }

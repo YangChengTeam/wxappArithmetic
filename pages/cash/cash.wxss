@@ -57,6 +57,20 @@
    line-height: 90rpx;
    border-radius: 8rpx;
    margin-top: 40rpx;
+   position: relative;
+}
+
+.cash-submit image, .cash-submit button {
+   position: absolute;
+   left: 0;
+   top: 0;
+   width: 564rpx;
+   height: 104rpx;
+}
+
+
+.cash-submit button {
+   opacity: 0;
 }
 
 .other {

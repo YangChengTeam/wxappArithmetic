@@ -4,22 +4,18 @@
     <image src="../../assets/images/loading.png"></image>
   </view>
 
-  <view class="record-content" hidden='{{!isShowContent}}'>
+  <scroll-view scroll-y class="record-content" hidden='{{!isShowContent}}'>
     <nav></nav>
     <view class="record-list">
-
       <view class="record-list-item" wx:for="{{recordList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
         <view class="info">
           <rich-text class="money">
             <b style='font-size:40rpx;'>{{item.money}}</b>元</rich-text>
           <view class="time">{{item.add_time}}</view>
         </view>
-        <view wx:if="{{item.status == 9}}" class="get">已领取</view>
-        <view class="user-money-take" wx:if="{{item.status == 0}}">
-          <image src='../../assets/images/user-money-take.png' bindtap='getCode' data-code="{{item.uniqid}}"></image>
-        </view>
+        <view wx:if="{{item.status == 9}}" class="get">已提现</view>
       </view>
       <view class="record-footer"></view>
     </view>
-  </view>
+  </scroll-view> 
 </view>

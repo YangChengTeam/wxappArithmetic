@@ -12,99 +12,129 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: { 
+  data: {
     ruleList: [],
-    isShowContent: false
+    isShowContent: false,
+    money_code: ""
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     let thiz = this
 
     app.setNavInfo("", "rgba(0,0,0,0)", 2, "/pages/index/index")
-    co(function* () {
-      let res = yield kkservice.getAppInfo()
+    co(function*() {
+      let [status, res] = yield [kkservice.authPermission("scope.userInfo"), yield kkservice.getAppInfo()]
       let appInfo = res.data.data
+      app.appInfo = appInfo
+      if (status == kkconfig.status.authStatus.authOK) {
+        thiz.login()
+      }
+
       let ruleList = (appInfo.change_money_rule.split('\n'))
       ruleList.forEach((v, k) => {
-          ruleList[k] = v.replace(`${k + 1}.`, '')
+        ruleList[k] = v.replace(`${k + 1}.`, '')
       })
+
       thiz.setData({
         ruleList: ruleList,
         isShowContent: true
       })
+
     })
   },
+  getMoneyCode(e) {
+    this.data.money_code = e.detail.value
+  },
+  loginToCash(res) {
+    let thiz = this
+    if (!thiz.money_code || thiz.money_code.substr(0, 1) != "T" || thiz.money_code.length < 17) {
+      wx.showModal({
+        title: '',
+        content: '提现码不正确',
+        showCancel: false
+      })
+      return
+    }
+    if (app.isLogin) {
+      this.submitCash()
+      return
+    }
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+    if (res.detail && res.detail.userInfo) {
+      thiz.login(() => {
+        thiz.submitCash()
+      })
+    }
+  },
+  login(callback) {
+    let thiz = this
+    co(function*() {
+      if (!thiz.refreshing) {
+        wx.showLoading({
+          title: '正在登录...',
+        })
+      }
+      thiz.refreshing = false
+      if (yield kkservice.login()) {
+        let userInfo = yield kkservice.getUserInfo()
+        wx.hideLoading()
 
+        userInfo = userInfo.data.data
+
+        app.userInfo = userInfo
+        app.isLogin = true
+
+        if (callback) {
+          callback()
+        }
+      }
+    })
   },
   submitCash(e) {
-    if(this.isCashing){
-       return
-    }
-    this.isCashing = true
-    let money = parseFloat(this.data.currentMoney)
-    if (isNaN(money) || parseFloat(money) < 0.01) {
-      wx.showToast({
-        title: '输入的格式不正确',
-        icon: 'none'
-      })
-      this.isCashing = false
-      return
-    }
-    if (money > parseFloat(app.index.data.userInfo.money)) {
-      wx.showToast({
-        title: '提现金额大于赏金',
-        icon: 'none'
-      })
-      this.isCashing = false
-      return
-    }
-    money = money.toFixed(2)
-    this.setData({
-      currentMoney: money
+    wx.showModal({
+      title: '',
+      content: '是否提现',
+      cancelText: "取消",
+      
     })
+
+    if (this.isCashing) {
+      return
+    }
     let thiz = this
-    co(function* () {
+
+    this.isCashing = true
+
+    co(function*(res) {
       wx.showLoading({
         title: '提现中...',
         mask: true
       })
-      var res = yield kkservice.changeMoney(money)
-      this.isCashing = false
+      var res = yield kkservice.changeMoney(thiz.money_code)
+      thiz.isCashing = false
       wx.hideLoading()
-      if (res && res.data) {
-        if (res.data.code == 1) {
-          thiz.setData({
-            code: res.data.data.change_code
-          })
-          thiz.toogleSign(1)
-          app.index.data.userInfo.money = res.data.data.f_money
-          app.index.setData(
-            {
-              userInfo: app.index.data.userInfo
-            }
-          )
-          app.user_center.setData({
-            userInfo: app.index.data.userInfo
-          })
-          return
-        }
-        wx.showToast({
-          title: res.data.msg,
-          icon: 'none'
+      let msg = ''
+      if (res && res.data && res.data.code == 1) {
+        msg = res.data.msg
+        this.setData({
+          money_code: ""
         })
+        wx.showModal({
+          title: '',
+          content: msg,
+          showCancel: false
+        })
+        return
       } else {
-        wx.showToast({
-          title: '网络错误',
-          icon: 'none'
-        })
+        msg = res && res.data && res.data.msg ? res.data.msg : '网络错误'
       }
+      wx.showModal({
+        title: '',
+        content: msg,
+        showCancel: false
+      })
     })
   },
   navigateToCaseRecord(e) {

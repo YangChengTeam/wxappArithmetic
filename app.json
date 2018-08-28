@@ -2,11 +2,11 @@
   "pages": [
     "pages/cash/cash",
     "pages/index/index",
+    "pages/cooperation/cooperation",
     "pages/zlhb/zlhb",
     "pages/cash-record/cashRecord",
     "pages/rule/rule",
-    "pages/complain/complain",
-    "pages/cooperation/cooperation"
+    "pages/complain/complain"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -14,6 +14,7 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "微程序榜",
     "navigationBarTextStyle": "black" ,
-    "navigationStyle": "custom"
+    "navigationStyle": "custom",
+    "disableScroll": true
   }
 }

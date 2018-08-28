@@ -36,6 +36,7 @@ Component({
         } else if (res.model.indexOf('iPhone') !== -1) {
           totalTopHeight = 64
         }
+        app.totalTopHeight = totalTopHeight
         app.statusBarHeight = res.statusBarHeight
         app.titleBarHeight = totalTopHeight - res.statusBarHeight
         thiz.setData({

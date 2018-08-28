@@ -59,7 +59,7 @@ module.exports = {
   getAnswerMoneyUrl: getUrl("/v1.questions/commonAnswer"),
 
   getRedBagUrl: getUrl('/v1.money/getRedBag'),
-  changeMoneyUrl: getUrl('/v1.money/changeMoney'),
+  changeMoneyUrl: getUrl('/v1.money/xcxCodeChangeMoney'),
   redBagListUrl: getUrl('/v1.money/redBagList'),
   moneyListUrl: getUrl('/v1.money/moneyList'),
   emptyQuestionUrl: getUrl('/v1.questions/emptyQuestion'),
@@ -68,5 +68,7 @@ module.exports = {
   userRedBagUrl: getUrl('/v1.game/userRedBag'),
   userGetMoneyUrl: getUrl('/v1.money/userGetMoney'),
   screenShotUrl: getUrl('/v1.game/screenShot'),
+  appCooperateImgUrl: getUrl('/v1.game/appCooperateImg'),
+  appCooperateUrl: getUrl('/v1.game/appCooperate')
 }
 

@@ -4,5 +4,9 @@
   "navigationBarBackgroundColor": "#ab2b22",
   "navigationBarTitleText": "助力红包",
   "navigationBarTextStyle": "white",
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "dialog": "/components/dialog/dialog",
+    "nav": "/components/nav/nav"
+  }
 }

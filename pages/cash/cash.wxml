@@ -9,10 +9,13 @@
     <image class="bg2" src="../../assets/images/cash-bg2.png"></image>
     <nav></nav>
     <view class="cash">
-      <input type='text' bindinput="checkMoney" placeholder='请输入提现码'></input>
+      <input type='text' bindinput="getMoneyCode" placeholder='请输入提现码' value='{{money_code}}'></input>
     </view>
-    <image src="../../assets/images/cash-btn.png" class="cash-submit" bindtap='submitCash'></image>
 
+    <view class="cash-submit">
+      <image src="../../assets/images/cash-btn.png"></image>
+      <button open-type='getUserInfo' bindgetuserinfo="loginToCash"></button>
+    </view>
     <view class="other">
       <image src="../../assets/images/cash-more.png" class="cash-record" bindtap='redirectToIndex'></image>
       <image src="../../assets/images/cash-record.png" class="continue" bindtap='navigateToCaseRecord'></image>

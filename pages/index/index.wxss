@@ -48,24 +48,25 @@ swiper {
 
 swiper-item {
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   position: relative;
 }
 
-swiper image, swiper button {
-  position: absolute;
-  left: 20;
-  top: 0;
+.swiper-item-img, .swiper-item-btn, .swiper-item-nav {
   width: 710rpx;
   height: 280rpx;
 }
 
-swiper button {
+.swiper-item-btn {
   opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
-swiper image {
+swiper-item image {
   border-radius: 10rpx;
 }
 
@@ -154,6 +155,8 @@ swiper image {
   font-size: 24rpx;
   color: #999;
   margin-top: 4rpx;
+  height: 70rpx;
+  overflow: hidden;
 }
 
 .wxapp-go {
@@ -229,6 +232,7 @@ swiper image {
   border-radius: 50%;
   border: solid 5rpx #fff;
   margin-top: 125rpx;
+  overflow: hidden;
 }
 
 .username {
@@ -361,8 +365,7 @@ swiper image {
   border-radius: 50%;
   height: 120rpx;
   width: 120rpx;
-  border: solid #e5e9f4 1rpx;
-  position: absolute;
+  border: solid #e5e9f4 1.5rpx;
   background: #fff;
 }
 
@@ -373,9 +376,28 @@ swiper image {
   margin-top: 54rpx;
 }
 
-.cover image {
+.tab-zlhb {
   width: 175rpx;
   height: 120rpx;
-  margin-left: -8rpx;
-  margin-top: 10rpx;
+  position: relative;
 }
+
+.tab-zlhb image, .tab-zlhb button {
+  width: 175rpx;
+  height: 120rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.tab-zlhb image {
+   left: -3rpx;
+   top: 10rpx;
+}
+
+.tab-zlhb button {
+   opacity: 0;
+}
+
+
+

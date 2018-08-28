@@ -13,7 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    invate_count: 2,
+    invate_count: 5,
     share_userid: "",
     is_from_share: false,
     ruleList: [],
@@ -22,19 +22,26 @@ Page({
 
     animationDataMaskHb: {},
     animationDataHb: {},
-    count: 2,
-    userInfo: {
-      share_money: 0.00
-    },
+    count: 5,
     isLogin: false,
     isShowContent: false,
-    isShowAd: false
+    isShowAd: false,
+    totalTopHeight: 68,
+    bgWidth: 0,
+    helpInfo: {},
+    wxapplist: [],
+    mini: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let mini = app.getMini()
+    this.setData({
+      mini: mini,
+      totalTopHeight: app.totalTopHeight
+    }) 
     this.loadData(options)
   },
   loadData(options) {
@@ -45,7 +52,11 @@ Page({
     console.log("fid:" + app.fid)
     let is_from_share = this.index == 1 ? true : false
     let thiz = this
-
+    if (this.index){
+      app.setNavInfo("助力红包", "#d40004", 1, "/pages/index/index")
+    } else {
+      app.setNavInfo("助力红包", "#d40004", 1)
+    }
     co(function* () {
       let status, appInfo, userInfo, helpInfo
       if (is_from_share) {
@@ -70,23 +81,26 @@ Page({
         app.isLogin = true
         let helpInfo = yield kkservice.userHelp(app.fid, thiz.user_id)
         helpInfo = helpInfo.data.data
-
+        thiz.helpInfo = helpInfo
+        let bgWidth = (helpInfo.list.length * 0.2)
         let count = thiz.data.invate_count - helpInfo.list.length
         for (let i = helpInfo.list.length; i < thiz.data.invate_count; i++) {
           helpInfo.list.push({})
         }
-        userInfo.share_money = helpInfo.share_money
         wx.stopPullDownRefresh()
         thiz.setData({
           isLogin: true,
-          userInfo: userInfo,
           isShowContent: true,
           helpInfo: helpInfo,
-          count: count > 0 ? count : 0
+          bgWidth: 270 * bgWidth,
+          count: count > 0 ? count : 0,
+          time: thiz.getLastTime()
         })
         console.log("msg" + helpInfo.msg)
         if (helpInfo.is_get == 0) {
-          thiz.toogleHb(1)
+          setTimeout(()=>{
+            thiz.toogleHb(1)
+          }, 1000)   
         } else {
           if (helpInfo.msg) {
             wx.showModal({
@@ -103,12 +117,33 @@ Page({
         ruleList[k] = v.replace(`${k + 1}.`, '')
       })
       console.log("is_from_share" + is_from_share)
+      thiz.countDowning = true
+      thiz.countDown()
       thiz.setData({
         ruleList: ruleList,
         is_from_share: is_from_share,
+        wxapplist: appInfo.more_app_info.slice(0, 4)
       })
     })
   },
+  previewImg(e) {
+    wx.previewImage({
+      urls: [e.currentTarget.dataset.img],
+    })
+  },
+  natiageToPath(e) {
+    let url = e.currentTarget.dataset.url
+    wx.navigateTo({
+      url: url,
+    })
+  },
+  natiageToMiniProgram(e) {
+    console.log(e.currentTarget.dataset.appid)
+    wx.navigateToMiniProgram({
+      appId: e.currentTarget.dataset.appid,
+    })
+  },
+  
   submit(e) {
     app.formId = e.detail.formId
     wx.setStorageSync("formId", app.formId)
@@ -146,18 +181,21 @@ Page({
         wx.stopPullDownRefresh()
         userInfo = userInfo.data.data
         helpInfo = helpInfo.data.data
-        console.log("userInfo" + userInfo)
+        thiz.helpInfo = helpInfo
+        let bgWidth = helpInfo.list.length * 0.2
         let count = thiz.data.invate_count - helpInfo.list.length
         for (let i = helpInfo.list.length; i < thiz.data.invate_count; i++) {
           helpInfo.list.push({})
         }
-        userInfo.share_money = helpInfo.share_money
+
+        console.log(bgWidth)
         thiz.setData({
           isLogin: true,
-          userInfo: userInfo,
           isShowContent: true,
           helpInfo: helpInfo,
-          count: count > 0 ? count : 0
+          bgWidth: bgWidth * 270,
+          count: count > 0 ? count : 0,
+          time: thiz.getLastTime()
         })
         console.log("msg" + helpInfo.msg)
 
@@ -222,10 +260,6 @@ Page({
       let res = yield kkservice.userGetMoney()
       wx.hideLoading()
       if (res && res.data && res.data.code == 1) {
-        thiz.data.userInfo.share_money = "0.00"
-        thiz.setData({
-          userInfo: thiz.data.userInfo
-        })
         wx.showModal({
           title: '',
           content: (res.data.msg && res.data.msg.length > 0) ? res.data.msg : "提现成功，请注意查收微信入账通知消息",
@@ -238,6 +272,45 @@ Page({
         })
       }
     })
+  },
+
+  getLastTime() {
+    let allow_time = this.helpInfo.allow_time
+    let hours = parseInt(allow_time / 3600)
+    if (hours < 10) {
+      hours = "0" + hours
+    }
+    allow_time -=  3600 * hours
+    let minutes = parseInt((allow_time) / 60)
+    allow_time -= 60 * minutes
+    if (minutes == 0) {
+      minutes = 59
+      if(hours > 0){
+        hours -= 1
+      }
+    }
+    else if (minutes < 10) {
+      minutes = "0" + minutes
+    }
+    
+    let seconds = parseInt((allow_time))
+
+    if (seconds == 0) {
+      seconds = 59
+      if (minutes > 0){
+         minutes -= 1
+      }
+    }
+    else if (seconds < 10) {
+      seconds = "0" + seconds
+    }
+
+
+    return {
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds
+    }
   },
   playMusic(src) {
     const innerAudioContext = wx.createInnerAudioContext()
@@ -268,7 +341,7 @@ Page({
           return
         }
         thiz.moneyMusicPlay()
-        
+
         thiz.data.userInfo.share_money = res.data.data.share_money
         thiz.setData({
           userInfo: thiz.data.userInfo
@@ -280,6 +353,24 @@ Page({
         })
       }
     })
+  },
+  onHide() {
+    if (this.timer) {
+      clearInterval(this.timer)
+    }
+  },
+  countDown() {
+    let thiz = this
+    thiz.timer = setInterval(() => {
+      thiz.helpInfo.allow_time -= 1
+      if (thiz.helpInfo.allow_time < 0) {
+        clearInterval(thiz.timer)
+        return
+      }
+      thiz.setData({
+        time: thiz.getLastTime()
+      })
+    }, 1000)
   },
   loginToGetMoney(res) {
     let thiz = this
@@ -354,23 +445,16 @@ Page({
     if (!app.formId || app.formId.length == 0) {
       app.formId = wx.getStorageInfoSync("formId")
     }
-    let url = "/pages/zlhb/zlhb?id=" + this.data.userInfo.user_id + "&fid=" + app.formId + "&index=1"
-    console.log(url)
+    let url = "/pages/zlhb/zlhb?id=" + app.userInfo.user_id + "&fid=" + app.formId + "&index=1"
     return {
-      title: app.appInfo.share_title[4],
-      imageUrl: app.appInfo.ico[4],
+      title: app.appInfo.share_title[2],
+      imageUrl: app.appInfo.ico[2],
       path: url
     }
   },
   onShow(e) {
-    wx.onUserCaptureScreen(function (res) {
-      app.screenShot()
-    })
-    let thiz = this
-    setTimeout(function(){
-      thiz.setData({
-        isShowAd: true
-       })
-    }, 2500)
+    if (!this.timer && this.countDowning){
+        this.countDown()
+    }
   }
 })

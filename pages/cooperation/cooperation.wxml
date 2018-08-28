@@ -1,4 +1,66 @@
 <!--pages/cooperation/cooperation.wxml-->
 <view class="container">
-<nav></nav>
+  <view class="loading" hidden='{{isShowContent}}'>
+    <image src="../../assets/images/loading.png"></image>
+  </view>
+  <scroll-view scroll-y class="cooperation-content" hidden='{{!isShowContent}}'>
+    <nav></nav>
+    <view class="desp">
+      <view>如果您需要合作推广，推荐您的小程序或小游戏，</view>
+      <view>可根据下表提交小程序/小游戏信息，我们会在2个工作日内联系您。</view>
+      <rich-text>合作联系微信：
+        <strong style="color:#ffb700;font-weight:bold">dididi2018666</strong>
+      </rich-text>
+    </view>
+
+    <view class="item">
+      <input bindinput='inputName' placeholder='游戏名称'></input>
+      <view>*</view>
+    </view>
+
+    <view class="item">
+      <input bindinput='inputIntroduction' placeholder='游戏简介'></input>
+      <view>*</view>
+    </view>
+
+    <view class="item">
+      <input bindinput='inputWxapp' placeholder='联系微信号'></input>
+      <view>*</view>
+    </view>
+
+    <view class="item">
+      <input bindinput='inputAppid' placeholder='小程序appid'></input>
+    </view>
+
+    <view class="item">
+      <input bindinput='inputPath' placeholder='跳转小程页面和参数'></input>
+    </view>
+
+    <view class="upload-info">
+      <view class="upload" bindtap='upLogo' data-index="1">
+        <image src="../../assets/images/cooperation_pic_add.png"></image>
+        <view>上传Logo</view>
+        <image class="pic" src="{{logoImg}}"></image>
+      </view>
+      <view class="desc">
+        (尺寸350X350px,支持jpg、png、jpeg格式）
+      </view>
+    </view>
+
+    <view class="upload-info">
+      <view class="upload" bindtap='upLogo' data-index="2">
+        <image src="../../assets/images/cooperation_pic_add.png"></image>
+        <view>上传识别码</view>
+        <image class="pic" src="{{maImg}}"></image>
+      </view>
+      <view class="desc" bindtap='upQrCode'>
+        (尺寸750X1134px,支持jpg、png、jpeg格式）
+      </view>
+    </view>
+
+    <view class="btn" bindtap='submitInfo'>
+      <image src="../../assets/images/cooperation-submit.png"></image>
+      <view>提交</view>
+    </view>
+  </scroll-view>
 </view>

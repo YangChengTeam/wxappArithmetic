@@ -4,7 +4,7 @@
 <view class="bar" style='background:{{background}}; height: {{totalTopHeight}}px;'>
   <view class="statusBar" style='height: {{statusBarHeight}}px; width:750rpx;'>
   </view>
-  <view class="titleBar" style='background:{{background}};line-height: {{titleBarHeight}}px;height: {{titleBarHeight}}px; width:750rpx;'>
+  <view class="titleBar" style='{{back==1 ? "color:#fff;" : "color:#000;"}}background:{{background}};line-height: {{titleBarHeight}}px;height: {{titleBarHeight}}px; width:750rpx;'>
     <view class="back" wx:if="{{back!=0}}">   
       <view class="back-wrapper" bindtap='navigateBack'>
           <image src="../../assets/images/back{{back}}.png"></image>

@@ -45,6 +45,14 @@ const authorize = function (options) {
   return wrap(wx.authorize, options)
 }
 
+const uploadFile = function (options) {
+  return wrap(wx.uploadFile, options)
+}
+
+const chooseImage = function (options) {
+  return wrap(wx.chooseImage, options)
+}
+
 const setData = function (thiz, data) {
   var promise = new Promise((resolve, reject) => {
     thiz.setData({
@@ -75,4 +83,7 @@ module.exports = {
   setData: setData,
   sleep: sleep,
   checkSession: checkSession,
+  chooseImage: chooseImage,
+  uploadFile: uploadFile
+
 }
