@@ -13,7 +13,7 @@
             <b style='font-size:40rpx;'>{{item.money}}</b>元</rich-text>
           <view class="time">{{item.add_time}}</view>
         </view>
-        <view wx:if="{{item.status == 9}}" class="get">已提现</view>
+        <view class="get">已提现</view>
       </view>
       <view class="record-footer"></view>
     </view>

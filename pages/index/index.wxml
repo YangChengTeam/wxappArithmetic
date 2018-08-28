@@ -112,7 +112,7 @@
       <view class="menu">
         <view class="menu-item">
           <image class="icon" src="../../assets/images/cash-ico.png"></image>
-          <view>提现记录</view>
+          <view>红包提现</view>
           <image class="arrow" src="../../assets/images/arrow-right.png"></image>
           <button open-type='getUserInfo' bindgetuserinfo="loginToCashRecord"></button>
         </view>

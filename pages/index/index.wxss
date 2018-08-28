@@ -1,9 +1,11 @@
 /**index.wxss**/
+
 .container {
-   position:  absolute;
-   left: 0;
-   top: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
+
 .share {
   position: absolute;
   right: 0;
@@ -57,6 +59,7 @@ swiper-item {
 .swiper-item-img, .swiper-item-btn, .swiper-item-nav {
   width: 710rpx;
   height: 280rpx;
+  background-color: rgba(165, 165, 165, .8);
 }
 
 .swiper-item-btn {
@@ -84,18 +87,24 @@ swiper-item image {
   justify-content: center;
   align-items: center;
   margin-top: 20rpx;
+  
+
 }
 
 .top-item image {
   width: 345rpx;
   height: 150rpx;
   position: relative;
+  overflow: hidden;
 }
 
 .top-item-wrapper {
   width: 345rpx;
   height: 150rpx;
   position: relative;
+  overflow: hidden;
+  background-color: rgba(165, 165, 165, .8);
+  border-radius: 10rpx;
 }
 
 .top-item-wrapper image, .top-item-wrapper button {
@@ -136,7 +145,7 @@ swiper-item image {
   width: 100rpx;
   height: 100rpx;
   border-radius: 50%;
-  background-color: #f9adc8;
+  background-color: rgba(165, 165, 165, .8);
 }
 
 .wxapp-info {
@@ -193,9 +202,7 @@ swiper-item image {
   opacity: 0;
 }
 
-
-
- /* user_center */
+/* user_center */
 
 .user-related {
   display: flex;
@@ -286,9 +293,8 @@ swiper-item image {
   margin-left: 20rpx;
 }
 
-
-
 /* tab */
+
 .tab {
   width: 100%;
   height: 150rpx;
@@ -391,13 +397,14 @@ swiper-item image {
 }
 
 .tab-zlhb image {
-   left: -3rpx;
-   top: 10rpx;
+  left: -4rpx;
+  top: 10rpx;
 }
 
 .tab-zlhb button {
-   opacity: 0;
+  opacity: 0;
 }
 
-
-
+.navigator-hover {
+  background: none;
+}

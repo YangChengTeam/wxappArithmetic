@@ -82,7 +82,7 @@ Page({
     
     if (!this.name || this.name.length < 2) {
       wx.showToast({
-        title: '游戏名称不能为空',
+        title: '游戏名称少于2个字',
         icon: 'none'
       })
       return
@@ -120,8 +120,9 @@ Page({
       })
       wx.hideLoading()
       let msg = ""
+      console.log(res.data)
       if (res && res.data && res.data.code == 1) {
-        msg = res.data.msg
+        msg = res.data.data.msg
         wx.showModal({
           title: '',
           content: msg ? msg : '提交申请成功',
@@ -132,6 +133,7 @@ Page({
             })
           }
         })
+        return
       } else {
         msg = res.data.msg
       }

@@ -151,7 +151,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-top: 30rpx;
+  margin-top: 20rpx;
   height: 90rpx;
   width: 480rpx;
   background: #fff1e7;
@@ -283,6 +283,7 @@ view.money {
 
 .more-list-item-info {
   position: relative;
+  overflow: hidden;
 }
 
 .more-list-item-img {
@@ -459,6 +460,7 @@ view.money {
   font-size: 20rpx;
   line-height: 30rpx;
   color: #000;
+  text-align: center;
 }
 
 .tip-triangle {

@@ -287,7 +287,7 @@ Page({
   loginToCashRecord(res) {
     if (app.isLogin) {
       wx.navigateTo({
-        url: '/pages/cash-record/cashRecord',
+        url: '/pages/cash/cash',
       })
       return
     }

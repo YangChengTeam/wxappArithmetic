@@ -22,13 +22,17 @@ Page({
    */
   onLoad: function(options) {
     let thiz = this
-
-    app.setNavInfo("", "rgba(0,0,0,0)", 2, "/pages/index/index")
+    this.index = options && options.index ? options.index : ""
+    if(this.index){
+      app.setNavInfo("", "rgba(0,0,0,0)", 2, "/pages/index/index")
+    }else{
+      app.setNavInfo("", "rgba(0,0,0,0)", 2)
+    }
     co(function*() {
       let [status, res] = yield [kkservice.authPermission("scope.userInfo"), yield kkservice.getAppInfo()]
       let appInfo = res.data.data
       app.appInfo = appInfo
-      if (status == kkconfig.status.authStatus.authOK) {
+      if (!app.isLogin && status == kkconfig.status.authStatus.authOK) {
         thiz.login()
       }
 
@@ -49,7 +53,7 @@ Page({
   },
   loginToCash(res) {
     let thiz = this
-    if (!thiz.money_code || thiz.money_code.substr(0, 1) != "T" || thiz.money_code.length < 17) {
+    if (!thiz.data.money_code || thiz.data.money_code.substr(0, 1) != "T" || thiz.data.money_code.length < 17) {
       wx.showModal({
         title: '',
         content: '提现码不正确',
@@ -93,12 +97,7 @@ Page({
     })
   },
   submitCash(e) {
-    wx.showModal({
-      title: '',
-      content: '是否提现',
-      cancelText: "取消",
-      
-    })
+    
 
     if (this.isCashing) {
       return
@@ -112,13 +111,13 @@ Page({
         title: '提现中...',
         mask: true
       })
-      var res = yield kkservice.changeMoney(thiz.money_code)
+      var res = yield kkservice.changeMoney(thiz.data.money_code)
       thiz.isCashing = false
       wx.hideLoading()
       let msg = ''
       if (res && res.data && res.data.code == 1) {
         msg = res.data.msg
-        this.setData({
+        thiz.setData({
           money_code: ""
         })
         wx.showModal({

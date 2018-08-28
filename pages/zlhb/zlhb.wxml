@@ -1,5 +1,4 @@
 <view class="container">
-
   <view class="loading" hidden='{{isShowContent}}'>
     <image src="../../assets/images/loading.png"></image>
   </view>
@@ -20,12 +19,15 @@
         <rich-text class="zlhb-cash-money">
           <strong style="color:#b40f0f; font-size: 60rpx; font-weight: bold;">{{helpInfo.share_money}}</strong>元</rich-text>
         <rich-text class="zlhb-cash-time">
+         <block wx:if="{{ helpInfo.status != 1 }}">
           <strong style="color:#e84343;">{{time.hours}}</strong> 时
           <strong style="color:#e84343;">{{time.minutes}}</strong> 分
-          <strong style="color:#e84343;">{{time.seconds}}</strong> 秒后过期</rich-text>
+          <strong style="color:#e84343;">{{time.seconds}}</strong> 秒后过期</block><block wx:else>恭喜您成功完成助力！</block>
+          </rich-text>
+          
         <view class="zlhb-process">
           <view class="tip">
-            <view class="tip-desc">{{helpInfo.allow_money != -1 ? "差"+helpInfo.allow_money+"元可提现" : "助力已完成"}}</view>
+            <view class="tip-desc">{{ helpInfo.status != 1 ? (helpInfo.allow_money== -1 ? "红包已满" : "差"+helpInfo.allow_money+"元可提现") : "助力已完成"}}</view>
             <view class="tip-triangle">
               <view class="tip-triangle2"></view>
               <view class="tip-triangle3"></view>
@@ -35,13 +37,13 @@
               <view class="process-wrapper">
                 <view style='width: {{bgWidth}}rpx' class="process-bg"></view>
               </view>
-              <view style='{{bgWidth==270 ? "background:#e84343;" : ""}}' class="cash-submit-btn" bindtap='caseMoney'>提现</view>
+              <view style='{{ bgWidth==270 ? "background:#e84343;" : ""}}' class="cash-submit-btn" bindtap='cashMoney'>提现</view>
             </view>
           </view>
         </view>
-        <view class="zlhb-shar" wx:if="{{count}}">
+        <view animation="{{animationData}}" class="zlhb-shar" wx:if="{{count}}">
           <image src='../../assets/images/zlhb-share.png'></image>
-          <view>邀请好友助力</view>
+          <view >邀请好友助力</view>
           <button open-type='share'></button>
         </view>
         <view class="users">
@@ -49,6 +51,8 @@
             <view>红包</view>
             <view>记录</view>
           </view>
+
+          
           <view wx:for="{{helpInfo.list}}" wx:for-index="index" wx:for-item="item" wx:key="id" class="users-wrapper">
             <image src='{{item.face ? item.face : "../../assets/images/zlhb-add.png"}}'></image>
             <view wx:if="{{item.money}}" class="money">{{item.money}}</view>
@@ -73,16 +77,16 @@
             <image src='../../assets/images/more-list-item-btn.png'></image>
 
             <block wx:if="{{item.type==3}}">
-              <view src='{{item.img}}' bindtap='previewImg' data-img="{{item.xcx_img}}">马上体验</view>
+              <view src='{{item.img}}' bindtap='previewImg' data-img="{{item.xcx_img}}">{{item.button_name}}</view>
             </block>
             <block wx:if="{{item.type==2}}">
               <view src='{{item.img}}' wx:if="{{mini==-1}}" bindtap='natiageToMiniProgram' data-appid="{{item.url}}">马上体验</view>
               <navigator wx:if="{{mini>-1}}" target="miniProgram" app-id='{{item.url}}' appId='{{item.url}}'>
-                <view>马上体验</view>
+                <view>{{item.button_name}}</view>
               </navigator>
             </block>
             <block wx:if="{{item.type==1}}">
-              <view src='{{item.img}}' data-url="{{item.url}}" bindtap='natiageToPath'>马上体验</view>
+              <view src='{{item.img}}' data-url="{{item.url}}" bindtap='natiageToPath'>{{item.button_name}}</view>
             </block>
 
           </view>
@@ -105,14 +109,13 @@
     </view>
     <image class="close" src='../../assets/images/close.png' bindtap='closeRule'></image>
   </view>
-
 </view>
 
 <view class="mask mask-hb" animation="{{animationDataMaskHb}}">
   <view class="mask-content" animation="{{animationDataHb}}">
     <view class="part1">
       <image class="zlhb-part1-bg" src='../../assets/images/hb-bg.png'></image>
-      <view class="money-type">送你一个现金红包可提现</view>
+      <view class="money-type">{{index == 1 ? "帮助好友拆红包" : "送你一个现金红包可提现"}}</view>
       <view class="max-money">最高领100元现金</view>
       <view class="zlhb-get-money">
         <image src='../../assets/images/hb-open.png'></image>
@@ -121,6 +124,6 @@
         </form>
       </view>
     </view>
-    <image wx:if="{{isLogin}}" class="close" src='../../assets/images/close.png' bindtap='closeHb'></image>
+    <!-- <image wx:if="{{helpInfo.is_get}}" class="close" src='../../assets/images/close.png' bindtap='closeHb'></image> -->
   </view>
 </view>

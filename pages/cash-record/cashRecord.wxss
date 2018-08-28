@@ -17,7 +17,7 @@
 .record-list-item {
   background: #fff;
   border-radius: 8rpx;
-  width: 660rpx;
+  width: 710rpx;
   height: 122rpx;
   margin-bottom: 20rpx;
   display: flex;

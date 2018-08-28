@@ -30,7 +30,8 @@ Page({
     bgWidth: 0,
     helpInfo: {},
     wxapplist: [],
-    mini: 0
+    mini: 0,
+    animationData: {}
   },
 
   /**
@@ -41,8 +42,26 @@ Page({
     this.setData({
       mini: mini,
       totalTopHeight: app.totalTopHeight
-    }) 
+    })
     this.loadData(options)
+    let scale = 1.04
+    this.scaleTimer  = setInterval((() => {
+      let animation = wx.createAnimation({
+        duration: 1000,
+        timingFunction: 'ease',
+      })
+      animation.scale(scale, scale).step()
+      this.setData({
+        animationData: animation.export()
+      })
+      if (scale > 1.0) {
+        scale = 1.0
+      } else {
+        scale = 1.04
+      }
+      
+    }).bind(this), 1000)
+
   },
   loadData(options) {
     this.index = options && options.index ? options.index : ""
@@ -52,16 +71,16 @@ Page({
     console.log("fid:" + app.fid)
     let is_from_share = this.index == 1 ? true : false
     let thiz = this
-    if (this.index){
+    if (this.index) {
       app.setNavInfo("助力红包", "#d40004", 1, "/pages/index/index")
     } else {
       app.setNavInfo("助力红包", "#d40004", 1)
     }
+
     co(function* () {
       let status, appInfo, userInfo, helpInfo
       if (is_from_share) {
         [status, appInfo] = yield [kkservice.authPermission("scope.userInfo"), yield kkservice.getAppInfo()]
-
         if (status == kkconfig.status.authStatus.authOK) {
           thiz.login()
         } else {
@@ -98,16 +117,20 @@ Page({
         })
         console.log("msg" + helpInfo.msg)
         if (helpInfo.is_get == 0) {
-          setTimeout(()=>{
+          setTimeout(() => {
             thiz.toogleHb(1)
-          }, 1000)   
+          }, 1000)
         } else {
+          thiz.countDowning = true
+          thiz.countDown()
           if (helpInfo.msg) {
-            wx.showModal({
-              title: '',
-              content: helpInfo.msg,
-              showCancel: false
-            })
+            setTimeout(() => {
+              wx.showModal({
+                title: '',
+                content: helpInfo.msg,
+                showCancel: false
+              })
+            }, 1000)
           }
         }
       }
@@ -117,12 +140,12 @@ Page({
         ruleList[k] = v.replace(`${k + 1}.`, '')
       })
       console.log("is_from_share" + is_from_share)
-      thiz.countDowning = true
-      thiz.countDown()
+      
       thiz.setData({
         ruleList: ruleList,
         is_from_share: is_from_share,
-        wxapplist: appInfo.more_app_info.slice(0, 4)
+        wxapplist: appInfo.more_app_info.slice(0, 4),
+        index: thiz.index
       })
     })
   },
@@ -143,13 +166,13 @@ Page({
       appId: e.currentTarget.dataset.appid,
     })
   },
-  
   submit(e) {
     app.formId = e.detail.formId
     wx.setStorageSync("formId", app.formId)
     console.log(app.formId)
   },
   onPullDownRefresh: function () {
+    console.log('onPullDownRefresh')
     let thiz = this
     thiz.isCashing = false
     thiz.refreshing = true
@@ -192,17 +215,20 @@ Page({
         thiz.setData({
           isLogin: true,
           isShowContent: true,
+          count: count > 0 ? count : 0,
           helpInfo: helpInfo,
           bgWidth: bgWidth * 270,
           count: count > 0 ? count : 0,
           time: thiz.getLastTime()
         })
         console.log("msg" + helpInfo.msg)
-
+       
         if (helpInfo.is_get == 0) {
           if (!thiz.isShowHb) {
             thiz.toogleHb(1)
           } else {
+            thiz.countDowning = true
+            thiz.countDown()
             if (helpInfo.msg) {
               wx.showModal({
                 title: '',
@@ -236,12 +262,12 @@ Page({
       }
     })
   },
-  // userGetMoney: userGetMoney
-  caseMoney() {
+  cashMoney(e){
     if (this.isCashing) {
       return
     }
     this.isCashing = true
+    let thiz = this
     if (this.data.helpInfo.status != 1) {
       wx.showModal({
         title: '提现失败',
@@ -251,6 +277,19 @@ Page({
       this.isCashing = false
       return
     }
+    wx.showModal({
+      title: '',
+      content: '是否提现',
+      cancelText: "取消",
+      success(res) {
+         thiz.isCashing = false
+          if(res.confirm){
+            thiz.caseMoney()
+          }
+      }
+    })
+  },
+  caseMoney(e) {
     let thiz = this
     co(function* () {
       wx.showLoading({
@@ -276,32 +315,43 @@ Page({
 
   getLastTime() {
     let allow_time = this.helpInfo.allow_time
+
     let hours = parseInt(allow_time / 3600)
     if (hours < 10) {
       hours = "0" + hours
     }
-    allow_time -=  3600 * hours
-    let minutes = parseInt((allow_time) / 60)
-    allow_time -= 60 * minutes
+    allow_time -= 3600 * hours
+
+    let minutes = parseInt(allow_time / 60)
+
     if (minutes == 0) {
-      minutes = 59
-      if(hours > 0){
+      if (hours > 0) {
         hours -= 1
+        minutes = 59
+        if (hours < 10) {
+          hours = "0" + hours
+        }
       }
     }
-    else if (minutes < 10) {
+    if (minutes < 10) {
       minutes = "0" + minutes
     }
-    
-    let seconds = parseInt((allow_time))
+
+    allow_time -= 60 * minutes
+
+    let seconds = allow_time
 
     if (seconds == 0) {
-      seconds = 59
-      if (minutes > 0){
-         minutes -= 1
+      this.helpInfo.allow_time -= 1
+      if (minutes > 0) {
+        minutes -= 1
+        seconds = 59
+        if (minutes < 10) {
+          minutes = "0" + minutes
+        }
       }
     }
-    else if (seconds < 10) {
+    if (seconds < 10) {
       seconds = "0" + seconds
     }
 
@@ -340,11 +390,18 @@ Page({
           })
           return
         }
+        thiz.countDowning = true
+        thiz.countDown()
         thiz.moneyMusicPlay()
-
-        thiz.data.userInfo.share_money = res.data.data.share_money
+        let helpInfo = yield kkservice.userHelp();
+        helpInfo = helpInfo.data.data
+        let count = thiz.data.invate_count - helpInfo.list.length
+        for (let i = helpInfo.list.length; i < thiz.data.invate_count; i++) {
+          helpInfo.list.push({})
+        }
         thiz.setData({
-          userInfo: thiz.data.userInfo
+          helpInfo: helpInfo,
+          count: count
         })
       } else {
         wx.showToast({
@@ -354,17 +411,56 @@ Page({
       }
     })
   },
-  onHide() {
+  clear(){
     if (this.timer) {
       clearInterval(this.timer)
+      this.timer = undefined
+    }
+    if (this.taskTimer) {
+      clearInterval(this.taskTimer)
+      this.taskTimer = undefined
+    }
+  },
+  onHide() {
+    this.clear()
+  },
+  onUnload(e){
+    this.clear()
+    if (this.scaleTimer ) {
+      clearInterval(this.scaleTimer )
+      this.scaleTimer  = undefined
     }
   },
   countDown() {
     let thiz = this
-    thiz.timer = setInterval(() => {
+    this.timer = setInterval(() => {
       thiz.helpInfo.allow_time -= 1
-      if (thiz.helpInfo.allow_time < 0) {
+      if (thiz.helpInfo.allow_time < -1) {
         clearInterval(thiz.timer)
+        wx.showModal({
+          title: '',
+          content: '助力任务超时，请重新开始！',
+          showCancel: false,
+          complete(){
+            co(function* () {
+              let helpInfo = yield kkservice.userHelp()
+              helpInfo = helpInfo.data.data
+              thiz.helpInfo = helpInfo
+              let bgWidth = helpInfo.list.length * 0.2
+              thiz.countDown()
+              let count = thiz.data.invate_count - helpInfo.list.length
+              for (let i = helpInfo.list.length; i < thiz.data.invate_count; i++) {
+                helpInfo.list.push({})
+              }
+              thiz.setData({
+                helpInfo: helpInfo,
+                time: thiz.getLastTime(),
+                count: count,
+                bgWidth: 270 * bgWidth
+              })
+            })
+          }
+        })
         return
       }
       thiz.setData({
@@ -453,8 +549,35 @@ Page({
     }
   },
   onShow(e) {
-    if (!this.timer && this.countDowning){
-        this.countDown()
+    if (!this.timer && this.countDowning) {
+      this.countDown()
     }
+    if (!this.taskTimer) {
+      this.task()
+    }
+
+    
+  },
+  task() {
+    let timer = 1000 * 20
+    let thiz = this
+    thiz.taskTimer = setInterval(() => {
+      timer = 1000 * 10
+      co(function* () {
+        let helpInfo = yield kkservice.userHelp()
+        helpInfo = helpInfo.data.data
+        if (helpInfo.list.length == 0) return
+        let count = thiz.data.invate_count - helpInfo.list.length
+        let bgWidth = helpInfo.list.length * 0.2
+        for (let i = helpInfo.list.length; i < thiz.data.invate_count; i++) {
+          helpInfo.list.push({})
+        }
+        thiz.setData({
+          helpInfo: helpInfo,
+          count: count,
+          bgWidth: 270*bgWidth
+        })
+      })
+    }, timer)
   }
 })
