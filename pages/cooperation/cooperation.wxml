@@ -38,9 +38,12 @@
 
     <view class="upload-info">
       <view class="upload" bindtap='upLogo' data-index="1">
-        <image src="../../assets/images/cooperation_pic_add.png"></image>
-        <view>上传Logo</view>
+        <view class="upload-wrapper">
+          <image src="../../assets/images/cooperation_pic_add.png"></image>
+          <view>上传Logo</view>
+        </view>
         <image class="pic" src="{{logoImg}}"></image>
+
       </view>
       <view class="desc">
         (尺寸350X350px,支持jpg、png、jpeg格式）
@@ -49,8 +52,11 @@
 
     <view class="upload-info">
       <view class="upload" bindtap='upLogo' data-index="2">
-        <image src="../../assets/images/cooperation_pic_add.png"></image>
-        <view>上传识别码</view>
+        <view class="upload-wrapper">
+          <image src="../../assets/images/cooperation_pic_add.png"></image>
+          <view>上传识别码</view>
+        </view>
+       
         <image class="pic" src="{{maImg}}"></image>
       </view>
       <view class="desc" bindtap='upQrCode'>

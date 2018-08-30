@@ -142,8 +142,14 @@ Page({
     })
   },
   redirectToIndex(e) {
-    wx.redirectTo({
-      url: '/pages/index/index',
-    })
+    if (this.index) {
+      wx.redirectTo({
+        url: '/pages/index/index',
+      })
+    } else {
+       wx.navigateBack({
+         
+       })
+    }
   }
 })

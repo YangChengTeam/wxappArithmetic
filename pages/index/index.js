@@ -274,7 +274,7 @@ Page({
   },
   onShareAppMessage(shareRes) {
     let thiz = this
-    let lp = thiz.sharing ? 0 : -1
+    let lp =  -1
     if (shareRes.from == "button") {
       lp = 0
     }

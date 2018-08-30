@@ -15,7 +15,6 @@ function encrypt(data) {
   return md5(sha256(result))
 }
 
-// 是今天存储的吗
 function isStorageInToday(key) {
   let flag = false
   try {
@@ -28,7 +27,6 @@ function isStorageInToday(key) {
   return flag
 }
 
-// 存储今天
 function storageToday(key, callback) {
   try {
     let date = new Date()

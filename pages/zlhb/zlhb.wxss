@@ -1,5 +1,7 @@
 /* pages/zlhb/zlhb.wxss */
-
+.container {
+  background: #fff;
+}
 .bg {
   width: 750rpx;
   height: 900rpx;
