@@ -145,7 +145,12 @@ Page({
   },
   loginToStart(res) {
     if (this.data.isLogin && this.data.userInfo.playable_num <= 0) {
-      this.openShare()
+      // this.openShare()
+      wx.showModal({
+        title: '',
+        content: '挑战次数不足',
+        showCancel:false
+      })
       return
     }
     if (this.isStart) return

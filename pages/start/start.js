@@ -108,7 +108,17 @@ Page({
   },
   noPlayableNum() {
     if (app.index.data.userInfo && app.index.data.userInfo.playable_num <= 0) {
-      this.openShare()
+      // this.openShare()
+      wx.showModal({
+        title: '',
+        content: '挑战次数不足',
+        showCancel: false,
+        complete(){
+           wx.navigateBack({
+              
+           })
+        }
+      })
       return true
     }
   },
